@@ -1,14 +1,19 @@
 package SSHTunnelingFYP;
 
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class SSHClientGui extends javax.swing.JFrame {
     private Session session;
+    private ChannelSftp sftpChannel;
     public static final int LEVEL_INFO = 0;
     public static final int LEVEL_ERROR = 1;
+    
    
     public SSHClientGui() {
         initComponents();
@@ -114,7 +119,7 @@ public class SSHClientGui extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
-        jLabel1.setText("include destinated server port if you want local port forwarding to.");
+        jLabel1.setText("include destinated server port you want local port forwarding to.");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel2.setText("default ssh server port listens on 22. you may change accordingly.");
@@ -244,18 +249,33 @@ public class SSHClientGui extends javax.swing.JFrame {
                                                     serverPort,
                                                     sshServerPort,
                                                     this);
-
-            // change conenct button to disconnect button
-            if(this.session == null){
-                String connectFailMsg = "Unable to connect to SSH Server. Please check input fields";
-                writeToGuiConsole(connectFailMsg, LEVEL_ERROR);
-            }else
+            
+            if(this.session != null) {
+                
+                // if session is successfully created, create sftp channel using the session
+                this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
+                
+                //if sftp is successfully created, pop out sftp gui
+                if(this.sftpChannel != null) {
+                    
+                    // display sftp gui
+                    SFTPGui.displaySFTPGui();
+                    
+                    
+                }else {
+                     writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
+                }
+                
+                // regardless sftp successfully created or not, we are still connected to SSH server. 
+                // if sftp fail, user can still local port forward but NOT file trasnfer
+                // provided that user fill in the server port field
                 connectButton.setText("Disconnect");
-
+                
+            }
         }
         else {
             // user click "disconnect"
-            SSHClient.endSSHSession(this.session, this);
+            SSHClient.endSSHSession(this.session,this.sftpChannel, this);
             
             // change conenct button to connect button
             connectButton.setText("Connect");
@@ -270,11 +290,10 @@ public class SSHClientGui extends javax.swing.JFrame {
         
         // user click exit while ssh still connected
         if(this.session != null && connectButton.getText().equalsIgnoreCase("Disconnect")){
-            SSHClient.endSSHSession(this.session, this);
+            SSHClient.endSSHSession(this.session,this.sftpChannel, this);
         } 
         
         //once reach here, ssh is disconnected. ready to exit program
-        
         //exit program
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
