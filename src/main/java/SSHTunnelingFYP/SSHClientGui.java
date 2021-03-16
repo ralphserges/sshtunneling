@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 
 public class SSHClientGui extends javax.swing.JFrame {
-    private Session session;
-    private ChannelSftp sftpChannel;
+    public static Session session;
+    public static ChannelSftp sftpChannel;
     public static final int LEVEL_INFO = 0;
     public static final int LEVEL_ERROR = 1;
     
@@ -292,6 +292,7 @@ public class SSHClientGui extends javax.swing.JFrame {
         if(this.session != null && connectButton.getText().equalsIgnoreCase("Disconnect")){
             SSHClient.endSSHSession(this.session,this.sftpChannel, this);
         } 
+        
         
         //once reach here, ssh is disconnected. ready to exit program
         //exit program

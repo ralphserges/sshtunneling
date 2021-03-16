@@ -1,11 +1,18 @@
 
 package SSHTunnelingFYP;
 
+import com.jcraft.jsch.SftpException;
 import java.io.File;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DropMode;
 import javax.swing.JFrame;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 
 public class SFTPGui extends javax.swing.JFrame {
@@ -17,6 +24,7 @@ public class SFTPGui extends javax.swing.JFrame {
     public SFTPGui() {
         initComponents();
         displayLocalFileStructure();
+        displayRemoteFileStruct();
     }
 
     /**
@@ -95,13 +103,78 @@ public class SFTPGui extends javax.swing.JFrame {
     public void displayLocalFileStructure() {
         
         DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel();
-        DefaultMutableTreeNode root = LocalFileNodeStructure.addNodes(null, new File(System.getProperty("user.home")+ "/Desktop"));
+        
+        // display all files at client desktop 
+        DefaultMutableTreeNode root = FileNodeStructure.addNodesLocal(null, new File(System.getProperty("user.home")+ "/Desktop"));
+        
         model.setRoot(root);
         model.reload();
         
         localJTree.setDragEnabled(true);
         localJTree.setDropMode(DropMode.ON_OR_INSERT);
+        
+        
+        localJTree.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                TreePath tp = localJTree.getSelectionPath();
+                if (tp != null) {
+                    Object [] filePathToAdd = tp.getPath();
+                    String fullPath = "";
+                    for(Object path : filePathToAdd) {
+                        fullPath = fullPath + "/" + String.valueOf(path);
+                    }
+                    fullPath = fullPath.substring(1, fullPath.length());
+                    
+                    
+                    //assuming that the client host runs on windows
+                    // have not tested on linux environment
+                    fullPath = System.getProperty("user.home") + "/" + fullPath;
+                    fullPath = fullPath.replaceAll("C:", "");
+                    fullPath = Paths.get(fullPath).toString();
+                    System.out.println(fullPath);
+                }
+            }
+        });
       
+    }
+    
+    public void displayRemoteFileStruct() {
+        String hostName = SSHClientGui.session.getUserName();
+        
+        //assuming that the remote host runs on unix or linux 
+        String mainPath = String.format("/home/%s/Desktop",hostName);
+        
+        DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
+        if(SSHClientGui.sftpChannel != null){
+            try {
+                
+                FileNodeStructure.addNodesRemote(mainPath,nroot,SSHClientGui.sftpChannel);
+                
+            } catch (SftpException ex) {
+                Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
+        model.setRoot(nroot);
+        model.reload();
+        
+        remoteJTree.setDragEnabled(true);
+        remoteJTree.setDropMode(DropMode.ON_OR_INSERT);
+        
+        remoteJTree.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                TreePath tp = remoteJTree.getSelectionPath();
+                if (tp != null) {
+                    Object [] filePathToAdd = tp.getPath();
+                    String fullPath = "";
+                    for(Object path : filePathToAdd) {
+                        fullPath = fullPath + "/" + String.valueOf(path);
+                    }
+                    System.out.println(fullPath.substring(1, fullPath.length()));
+                }
+            }
+        });
     }
     
     
