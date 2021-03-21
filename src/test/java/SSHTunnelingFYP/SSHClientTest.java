@@ -20,22 +20,22 @@ public class SSHClientTest {
     
     public SSHClientTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
+
+    @org.junit.BeforeClass
+    public static void setUpClass() throws Exception {
     }
-    
-    @AfterClass
-    public static void tearDownClass() {
+
+    @org.junit.AfterClass
+    public static void tearDownClass() throws Exception {
     }
 
     /**
-     * Test of getSSHSessionLPF method, of class SSHClient.
+     * Test of getSSHSessionLPF method, of class SSHClient. (NO PORTFORWARDING)
      * PASS: Session returned by the function is not null
      * FAIL: Session returned by the function is null
      */
     @Test
-    public void testGetSSHSessionLPF() {
+    public void testGetSSHSession() {
         System.out.println("Test: getSSHSessionLPF()");
         String username = "jet";
         String password = "password";
@@ -46,11 +46,29 @@ public class SSHClientTest {
         Session result = SSHClient.getSSHSessionLPF(username, password, ipAddress, serverPort, sshServerPort, gui);
         assertNotNull(result);
     }
-
+    
     /**
-     * Test of getSFTPChannel method, of class SSHClient.
+     * Test of getSSHSessionLPF method, of class SSHClient. (WITH PORTFORWARDING)
+     * PASS: Session returned by the function is not null
+     * FAIL: Session returned by the function is null
      */
-//    @Test
+    @Test
+    public void testGetSSHSessionLPF() {
+        System.out.println("Test: getSSHSessionLPF()");
+        String username = "jet";
+        String password = "password";
+        String ipAddress = "127.0.0.1";
+        int serverPort = 727;
+        int sshServerPort = 2200;
+        SSHClientGui gui = new SSHClientGui();
+        Session result = SSHClient.getSSHSessionLPF(username, password, ipAddress, serverPort, sshServerPort, gui);
+        assertNotNull(result);
+    }
+
+//    /**
+//     * Test of getSFTPChannel method, of class SSHClient.
+//     */
+//    @org.junit.Test
 //    public void testGetSFTPChannel() {
 //        System.out.println("getSFTPChannel");
 //        Session session = null;
@@ -61,11 +79,11 @@ public class SSHClientTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
-    /**
-     * Test of transferFile method, of class SSHClient.
-     */
-//    @Test
+//
+//    /**
+//     * Test of transferFile method, of class SSHClient.
+//     */
+//    @org.junit.Test
 //    public void testTransferFile() {
 //        System.out.println("transferFile");
 //        ChannelSftp sftp = null;
@@ -77,11 +95,11 @@ public class SSHClientTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
-    /**
-     * Test of retrieveFile method, of class SSHClient.
-     */
-//    @Test
+//
+//    /**
+//     * Test of retrieveFile method, of class SSHClient.
+//     */
+//    @org.junit.Test
 //    public void testRetrieveFile() {
 //        System.out.println("retrieveFile");
 //        ChannelSftp sftp = null;
@@ -93,11 +111,11 @@ public class SSHClientTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
-    /**
-     * Test of endSSHSession method, of class SSHClient.
-     */
-//    @Test
+//
+//    /**
+//     * Test of endSSHSession method, of class SSHClient.
+//     */
+//    @org.junit.Test
 //    public void testEndSSHSession() {
 //        System.out.println("endSSHSession");
 //        Session session = null;

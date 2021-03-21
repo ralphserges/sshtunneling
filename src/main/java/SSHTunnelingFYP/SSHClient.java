@@ -57,7 +57,7 @@ public class SSHClient {
         
         if(serverPort != 0) {
             //local port forwarding success
-            String lpfSuccessMsg = String.format("Local port forwarding set up successfully. SSHClient listening on port %d", SSH_CLIENT_PORT);
+            String lpfSuccessMsg = String.format("Local port forwarding set up successfully. SSHClient listening on port %d", serverPort);
             gui.writeToGuiConsole(lpfSuccessMsg, SSHClientGui.LEVEL_INFO);
         }else {
             
