@@ -13,6 +13,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 
 public class SFTPGui extends javax.swing.JFrame {
@@ -109,11 +110,17 @@ public class SFTPGui extends javax.swing.JFrame {
         
         model.setRoot(root);
         model.reload();
-        
+             
+        //set drag and drop 
         localJTree.setDragEnabled(true);
         localJTree.setDropMode(DropMode.ON_OR_INSERT);
+        //transfer data from JTree
+        JTreeTransfer transfer = new JTreeTransfer();
+        localJTree.setTransferHandler(transfer);
+        localJTree.getSelectionModel().setSelectionMode(
+               TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
         
-        
+        //when node is selected from local JTree
         localJTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath tp = localJTree.getSelectionPath();
@@ -132,6 +139,11 @@ public class SFTPGui extends javax.swing.JFrame {
                     fullPath = fullPath.replaceAll("C:", "");
                     fullPath = Paths.get(fullPath).toString();
                     System.out.println(fullPath);
+                    
+                    //test
+                    //get destination treepath when node is dropped to remoteTree
+                    //String destPath = transfer.getDestPath();
+                    //System.out.println("Destination path from Remote(sftp gui): " + destPath);
                 }
             }
         });
@@ -159,8 +171,14 @@ public class SFTPGui extends javax.swing.JFrame {
         model.setRoot(nroot);
         model.reload();
         
+        //set drag and drop 
         remoteJTree.setDragEnabled(true);
         remoteJTree.setDropMode(DropMode.ON_OR_INSERT);
+        //transfer data from JTree
+        JTreeTransfer transfer = new JTreeTransfer();
+        remoteJTree.setTransferHandler(transfer);
+        remoteJTree.getSelectionModel().setSelectionMode(
+                TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
         
         remoteJTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
@@ -172,6 +190,11 @@ public class SFTPGui extends javax.swing.JFrame {
                         fullPath = fullPath + "/" + String.valueOf(path);
                     }
                     System.out.println(fullPath.substring(1, fullPath.length()));
+                
+                    //test
+                    //get destination treepath when node is dropped to localTree
+                    //String destPath = transfer.getDestPath();
+                    //System.out.println("Destination path from Local(sftp gui): " + destPath);
                 }
             }
         });
