@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SSHClientGui extends javax.swing.JFrame {
     public static Session session;
@@ -14,6 +16,9 @@ public class SSHClientGui extends javax.swing.JFrame {
     public static final int LEVEL_INFO = 0;
     public static final int LEVEL_ERROR = 1;
     
+    LogController logWriter = new LogController();
+    
+    public ArrayList<String> logMessage = new ArrayList<String>();
    
     public SSHClientGui() {
         initComponents();
@@ -292,8 +297,14 @@ public class SSHClientGui extends javax.swing.JFrame {
         if(this.session != null && connectButton.getText().equalsIgnoreCase("Disconnect")){
             SSHClient.endSSHSession(this.session,this.sftpChannel, this);
         } 
+        //write to file here
+         
+        String[] logMessageArr = logMessage.stream()
+                                        .map(String::new)
+                                        .toArray(String[]::new);
         
-        
+        //return true when file is written sucessfully , otherwise false
+        boolean logWriteStatus = logWriter.logWriterFunc(logMessageArr);
         //once reach here, ssh is disconnected. ready to exit program
         //exit program
         System.exit(0);
@@ -324,7 +335,8 @@ public class SSHClientGui extends javax.swing.JFrame {
         
         // get textarea
         sshClientConsole.append(message.toString() + "\n");
-        
+        // insert the message into the array
+        logMessage.add(message.toString() + "\n");
     }
     /**
      * @param args the command line arguments
