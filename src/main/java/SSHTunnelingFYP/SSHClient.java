@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public class SSHClient {
     public static final int SSH_CLIENT_PORT = 1111; // ssh client listens on port 1111 as default
     
+    
     public SSHClient(){
     
     }
@@ -30,7 +31,7 @@ public class SSHClient {
             session.setConfig("StrictHostKeyChecking", "no");
            
             gui.writeToGuiConsole("Connecting to SSH Server on port " + sshServerPort, SSHClientGui.LEVEL_INFO);
-            session.connect(); // connect to ssh server, 10 sec timeout
+            session.connect(10000); // connect to ssh server, 10 sec timeout
             
             
             String successConnectMsg = String.format("SSH session is successfully created and connected to SSH server of remote host name %s", session.getHost());
@@ -42,9 +43,20 @@ public class SSHClient {
             
             
             if(serverPort != 0) {
+         
                 session.setPortForwardingL(SSH_CLIENT_PORT, ipAddress, serverPort); // set ssh local port forwording
                 String connectingMsg = String.format("Creating local port forwarding tunneling to server running on port %d...",serverPort);
                 gui.writeToGuiConsole(connectingMsg, SSHClientGui.LEVEL_INFO);
+
+                String lpfSuccessMsg = String.format("Local port forwarding set up successfully. SSHClient listening on port %d", SSH_CLIENT_PORT);
+                gui.writeToGuiConsole(lpfSuccessMsg, SSHClientGui.LEVEL_INFO);
+                
+                
+            }else {
+            
+                // no local port forwarding feature
+                String noLPFMsg = "No local port forwarding tunneling initiated";
+                gui.writeToGuiConsole(noLPFMsg, SSHClientGui.LEVEL_INFO);
             }
             
         } catch (JSchException ex) { 
@@ -52,18 +64,6 @@ public class SSHClient {
            // session creation fail print error to console write error cause to gui
            gui.writeToGuiConsole("Unable to connect to SSH server. Please Check input fields.", SSHClientGui.LEVEL_ERROR);
            return null;
-        }
-        
-        
-        if(serverPort != 0) {
-            //local port forwarding success
-            String lpfSuccessMsg = String.format("Local port forwarding set up successfully. SSHClient listening on port %d", SSH_CLIENT_PORT);
-            gui.writeToGuiConsole(lpfSuccessMsg, SSHClientGui.LEVEL_INFO);
-        }else {
-            
-            // no local port forwarding feature
-            String noLPFMsg = "No local port forwarding tunneling initiated";
-            gui.writeToGuiConsole(noLPFMsg, SSHClientGui.LEVEL_INFO);
         }
         
         

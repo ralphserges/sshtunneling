@@ -13,6 +13,7 @@ public class SSHClientGui extends javax.swing.JFrame {
     public static ChannelSftp sftpChannel;
     public static final int LEVEL_INFO = 0;
     public static final int LEVEL_ERROR = 1;
+    public static final int MAXIMUM_PORT_VALUE = 65535; //max port a packet can handle
     
    
     public SSHClientGui() {
@@ -229,18 +230,24 @@ public class SSHClientGui extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         
-        if(connectButton.getText().equalsIgnoreCase("connect")){
+        try{
+            if(connectButton.getText().equalsIgnoreCase("connect")){
             
             // get user inputs
             String username = hostUserNameTF.getText();
             String password = String.valueOf(hostPasswordTF.getPassword());
-            String ipaddress = hostIpAddressTF.getText();
+            String ipaddress = hostIpAddressTF.getText(); //invalid ipadd is caught by SSHClient class
             
             int serverPort = 0;
             if(!serverPortTF.getText().isEmpty())
                 serverPort = Integer.parseInt(serverPortTF.getText());
             
             int sshServerPort = Integer.parseInt(sshServerPortTF.getText());
+            
+            //if either port is invalid, throw exception
+            if(!isPortValid(serverPort) || !isPortValid(sshServerPort)){
+                throw new Exception("port_error");
+            }
 
             //connect ssh client with ssh server
             this.session = SSHClient.getSSHSessionLPF(username,
@@ -273,13 +280,23 @@ public class SSHClientGui extends javax.swing.JFrame {
                 
             }
         }
-        else {
-            // user click "disconnect"
-            SSHClient.endSSHSession(this.session,this.sftpChannel, this);
+            else {
+                // user click "disconnect"
+                SSHClient.endSSHSession(this.session,this.sftpChannel, this);
+
+                // change conenct button to connect button
+                connectButton.setText("Connect");
+            }
             
-            // change conenct button to connect button
-            connectButton.setText("Connect");
+        }catch(Exception e) {
+           // session creation fail print error to console write error cause to gui
+           if(e.getMessage().equalsIgnoreCase("port_error")){
+               writeToGuiConsole("Invalid Port number. Please Check port input fields.", SSHClientGui.LEVEL_ERROR);
+           }else
+               writeToGuiConsole("Invalid input type. Please Check input fields.", SSHClientGui.LEVEL_ERROR);
+           
         }
+        
     }//GEN-LAST:event_connectButtonActionPerformed
 
     private void sshServerPortTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sshServerPortTFActionPerformed
@@ -299,6 +316,15 @@ public class SSHClientGui extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
     
+    //this method checks for invalid port such that 
+    // it is less than 0 or greater than MAXIMUM_PORT_VALUE
+    public boolean isPortValid (int port) {
+        if(port >= 0 && port <= MAXIMUM_PORT_VALUE){
+            return true;
+        }else {
+            return false;
+        }
+    }
     
     public void writeToGuiConsole(String log, int logLevel) {
   
