@@ -184,52 +184,6 @@ public class JTreeTransfer extends TransferHandler{
             model.insertNodeInto(nodes[i], parent, index++);
         }
         
-        // get parent file path of node dropped
-        String tempdpath = dest.toString().replaceAll("\\]| |\\[|", ""); 
-        //System.out.println("dest: " + dest);
-        
-        //linux environment
-        if (tempdpath.charAt(0) == '/') {
-            tempdpath = tempdpath.substring(1); //remove first '/'
-            tempdpath = tempdpath.replaceAll(" ", "");
-            tempdpath = tempdpath.replaceAll("/", ",");
-            //System.out.println("temppath: " + tempdpath);
-            
-            StringBuilder sb = new StringBuilder();
-            String[] tempNodes = tempdpath.split(",");
-
-            for(int i=0; i<tempNodes.length;  i++) {
-                sb.append("/").append(tempNodes[i]);
-
-                //last item
-                if(i == tempNodes.length-1) {
-                    //get dropped node name and append to string builder
-                    sb.append("/").append(nodes[nodes.length-1]);
-                }
-            } 
-            destPath = sb.toString();
-            System.out.println("dpath: " + destPath);
-        }
-        
-        //windows environment
-        else {
-            //System.out.println("temppath: " + tempdpath);
-            StringBuilder sb = new StringBuilder();
-            String[] tempNodes = tempdpath.split(",");
-                
-            for(int i=0; i<tempNodes.length;  i++) {
-                sb.append(File.separatorChar).append(tempNodes[i]);
-
-                //last item
-                if(i == tempNodes.length-1) {
-                    //get dropped node name and append to string builder
-                    sb.append(File.separatorChar).append(nodes[nodes.length-1]);
-                }
-            } 
-            destPath = sb.toString();
-            System.out.println("dpath: " + destPath);
-        }
-        
         return true;
     }
     

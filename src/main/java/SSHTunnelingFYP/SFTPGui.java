@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DropMode;
 import javax.swing.JFrame;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -18,7 +20,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 public class SFTPGui extends javax.swing.JFrame {
     
-    
+    String destDir, localDir, remoteDir, localFileName, remoteFileName;
     /**
      * Creates new form SFTPGui
      */
@@ -139,15 +141,63 @@ public class SFTPGui extends javax.swing.JFrame {
                     fullPath = fullPath.replaceAll("C:", "");
                     fullPath = Paths.get(fullPath).toString();
                     System.out.println(fullPath);
+                    localDir = fullPath;
+                        
+                    //get name of selected file 
+                    if(fullPath != null && !fullPath.isEmpty()) {
+                        String[] directories = fullPath.split("\\\\");
+                        localFileName = directories[directories.length-1];
+                        System.out.println("file name (L): " + localFileName);
+                    }
                     
-                    //test
-                    //get destination treepath when node is dropped to remoteTree
-                    //String destPath = transfer.getDestPath();
-                    //System.out.println("Destination path from Remote(sftp gui): " + destPath);
                 }
             }
         });
       
+        //get destination path when file is drop 
+        localJTree.getModel().addTreeModelListener(new TreeModelListener() {
+            @Override 
+            public void treeNodesChanged(TreeModelEvent e) {}
+            @Override
+            public void treeNodesInserted(TreeModelEvent e) {
+                TreePath dest = e.getTreePath();
+                //get parent node of the treenode that inserted
+                DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
+                DefaultMutableTreeNode insertedNode = null;
+                
+                //get children nodes from the parent node
+                for (int i=0; i<parent.getChildCount(); i++) {
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) parent.getChildAt(i);
+                    //get inserted node 
+                    if (child.toString().equals(remoteFileName)) {
+                        insertedNode = child;
+                    }                
+                }
+                
+                // get parent file path of node dropped
+                String tempdpath = dest.toString().replaceAll("\\]| |\\[|", "");
+                StringBuilder sb = new StringBuilder();
+                String[] tempNodes = tempdpath.split(",");
+
+                for(int i=0; i<tempNodes.length;  i++) {
+                    sb.append(File.separatorChar).append(tempNodes[i]);
+
+                    //get fullpath after node is inserted
+                    if(i == tempNodes.length-1 && insertedNode != null) {
+                        //get dropped node name and append to string builder
+                        sb.append(File.separatorChar).append(insertedNode.toString());
+                    }
+                } 
+
+                destDir = sb.toString();
+                System.out.println("Destination path of file retrieve from Remote: " + destDir);
+            }
+            @Override
+            public void treeNodesRemoved(TreeModelEvent e) {}
+            @Override
+            public void treeStructureChanged(TreeModelEvent e) {}
+        });
+
     }
     
     public void displayRemoteFileStruct() {
@@ -190,13 +240,69 @@ public class SFTPGui extends javax.swing.JFrame {
                         fullPath = fullPath + "/" + String.valueOf(path);
                     }
                     System.out.println(fullPath.substring(1, fullPath.length()));
-                
-                    //test
-                    //get destination treepath when node is dropped to localTree
-                    //String destPath = transfer.getDestPath();
-                    //System.out.println("Destination path from Local(sftp gui): " + destPath);
+                    remoteDir = fullPath.substring(1, fullPath.length());
+                    
+                     //get name of selected file 
+                    if(fullPath != null && !fullPath.isEmpty()) {
+                        String[] directories = fullPath.split("/");
+                        remoteFileName = directories[directories.length-1];
+                        System.out.println("file name (R): " + remoteFileName);
+                    }
+                   
                 }
             }
+        });
+        
+        //get destination path when file is drop 
+        remoteJTree.getModel().addTreeModelListener(new TreeModelListener() {
+            @Override 
+            public void treeNodesChanged(TreeModelEvent e) {}
+            @Override
+            public void treeNodesInserted(TreeModelEvent e) {
+                TreePath dest = e.getTreePath();
+                //get parent node of the treenode that inserted
+                DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
+                DefaultMutableTreeNode insertedNode = null;
+                
+                //get children nodes from the parent node
+                for (int i=0; i<parent.getChildCount(); i++) {
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) parent.getChildAt(i);
+                    //get inserted node 
+                    if (child.toString().equals(localFileName)) {
+                        insertedNode = child;
+                    }                
+                }
+                
+                //get parent file path of node dropped
+                String tempdpath = dest.toString().replaceAll("\\]| |\\[|", "");
+                StringBuilder sb = new StringBuilder();
+                
+                //linux environment
+                if (tempdpath.charAt(0) == '/') {
+                    tempdpath = tempdpath.substring(1); //remove first '/'
+                    tempdpath = tempdpath.replaceAll(" ", "");
+                    tempdpath = tempdpath.replaceAll("/", ",");
+                    String[] tempNodes = tempdpath.split(",");
+
+                    for(int i=0; i<tempNodes.length;  i++) {
+                        sb.append("/").append(tempNodes[i]);
+
+                        //get fullpath after node is inserted
+                        if(i == tempNodes.length-1 && insertedNode != null) {
+                            //get dropped node name and append to string builder
+                            sb.append("/").append(insertedNode.toString());
+                        }
+                    } 
+                }
+                
+                destDir = sb.toString();
+                System.out.println("Destination path of file transfer from local: " + destDir);
+            }
+            @Override
+            public void treeNodesRemoved(TreeModelEvent e) {}
+            @Override
+            public void treeStructureChanged(TreeModelEvent e) {}
+            
         });
     }
     
