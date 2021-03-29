@@ -20,7 +20,10 @@ import javax.swing.tree.TreeSelectionModel;
 
 public class SFTPGui extends javax.swing.JFrame {
     
-    String destDir, localDir, remoteDir, localFileName, remoteFileName;
+    private String destDir, localDir, remoteDir, localFileName, remoteFileName;
+    private static SSHClientGui sshClientG = new SSHClientGui();
+    
+    
     /**
      * Creates new form SFTPGui
      */
@@ -138,9 +141,7 @@ public class SFTPGui extends javax.swing.JFrame {
                     //assuming that the client host runs on windows
                     // have not tested on linux environment
                     fullPath = System.getProperty("user.home") + "/" + fullPath;
-                    fullPath = fullPath.replaceAll("C:", "");
                     fullPath = Paths.get(fullPath).toString();
-                    System.out.println(fullPath);
                     localDir = fullPath;
                         
                     //get name of selected file 
@@ -188,9 +189,14 @@ public class SFTPGui extends javax.swing.JFrame {
                         sb.append(File.separatorChar).append(insertedNode.toString());
                     }
                 } 
-
-                destDir = sb.toString();
-                System.out.println("Destination path of file retrieve from Remote: " + destDir);
+                
+                //set destination path for file download (remote to local)
+                destDir = System.getProperty("user.home") + "/" + sb.toString();
+                
+                //sftp retrieve file 
+               if (SSHClientGui.sftpChannel != null){
+                   SSHClient.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
+               }
             }
             @Override
             public void treeNodesRemoved(TreeModelEvent e) {}
@@ -239,7 +245,6 @@ public class SFTPGui extends javax.swing.JFrame {
                     for(Object path : filePathToAdd) {
                         fullPath = fullPath + "/" + String.valueOf(path);
                     }
-                    System.out.println(fullPath.substring(1, fullPath.length()));
                     remoteDir = fullPath.substring(1, fullPath.length());
                     
                      //get name of selected file 
@@ -295,8 +300,14 @@ public class SFTPGui extends javax.swing.JFrame {
                     } 
                 }
                 
+                //set destination path for file upload (local to remote)
                 destDir = sb.toString();
-                System.out.println("Destination path of file transfer from local: " + destDir);
+                
+                //sftp transfer file 
+                if (SSHClientGui.sftpChannel != null){
+                    SSHClient.transferFile(SSHClientGui.sftpChannel, localFileName, localDir, destDir, sshClientG);
+                }
+                
             }
             @Override
             public void treeNodesRemoved(TreeModelEvent e) {}
@@ -310,7 +321,7 @@ public class SFTPGui extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void displaySFTPGui() {
+    public static void displaySFTPGui(SSHClientGui sshClient) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -337,6 +348,8 @@ public class SFTPGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                sshClientG = sshClient;
+                
                 SFTPGui sftpGui = new SFTPGui();
                 sftpGui.setVisible(true);
                 sftpGui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

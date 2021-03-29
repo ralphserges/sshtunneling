@@ -271,9 +271,9 @@ public class SSHClientGui extends javax.swing.JFrame {
                 if(this.sftpChannel != null) {
                     
                     // display sftp gui
-                    SFTPGui.displaySFTPGui();
-                    
-                    
+                    SFTPGui.displaySFTPGui(this);
+
+                                        
                 }else {
                      writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
                 }

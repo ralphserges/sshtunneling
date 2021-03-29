@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -54,7 +53,7 @@ public class JTreeTransfer extends TransferHandler{
                 return false;
             }
         }
-        // Do not allow MOVE-action drops if a non-leaf node is
+        // Do not allow COPY-action drops if a non-leaf node is
         // selected unless all of its children are also selected
         int action = support.getDropAction();
         if(action == COPY) {

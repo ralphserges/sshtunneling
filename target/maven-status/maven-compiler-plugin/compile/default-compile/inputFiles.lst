@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\FileNodeStructure.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClient.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClientGui.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SFTPGui.java
-=======
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClient.java
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\Logger.java
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\SFTPGui.java
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\FileNodeStructure.java
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\LogController.java
-C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClientGui.java
->>>>>>> e774a93758d7ee6a1782acdcba22b5395de85def
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClientGui.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\SFTPGui.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\LogController.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClient.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\FileNodeStructure.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\JTreeTransfer.java
+C:\Users\xuchi_000\Desktop\sshtunneling\src\main\java\SSHTunnelingFYP\Logger.java
