@@ -318,9 +318,6 @@ public class SFTPGui extends javax.swing.JFrame {
     }
     
     
-    /**
-     * @param args the command line arguments
-     */
     public static void displaySFTPGui(SSHClientGui sshClient) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
