@@ -34,6 +34,7 @@ public class SSHClientGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        list1 = new java.awt.List();
         usernameLabel = new javax.swing.JLabel();
         hostUserNameTF = new javax.swing.JTextField();
         pwLabel = new javax.swing.JLabel();
@@ -51,6 +52,9 @@ public class SSHClientGui extends javax.swing.JFrame {
         sshServerPortTF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,64 +134,78 @@ public class SSHClientGui extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel2.setText("default ssh server port listens on 22. you may change accordingly.");
 
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SFTP", "SCP" }));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Protocol:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(connectButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(pwLabel)
+                                .addComponent(hosIPLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(hostPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(usernameLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(hostUserNameTF))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(hosIPLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(hostIpAddressTF, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(sshServerPortLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(sshServerPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(serverPortLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(serverPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(programTitle)
-                .addGap(257, 257, 257))
+                                .addComponent(hostIpAddressTF, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(serverPortLabel)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(serverPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(sshServerPortLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(sshServerPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(241, 241, 241)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(pwLabel)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(hostPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(usernameLabel)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(hostUserNameTF)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(343, 343, 343)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(programTitle)
-                .addGap(38, 38, 38)
+                .addGap(6, 6, 6)
+                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hostUserNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,7 +217,7 @@ public class SSHClientGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hosIPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hostIpAddressTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serverPortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(serverPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,13 +227,22 @@ public class SSHClientGui extends javax.swing.JFrame {
                     .addComponent(sshServerPortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sshServerPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectButton)
                     .addComponent(exitButton))
-                .addGap(54, 54, 54))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,53 +265,53 @@ public class SSHClientGui extends javax.swing.JFrame {
         try{
             if(connectButton.getText().equalsIgnoreCase("connect")){
             
-            // get user inputs
-            String username = hostUserNameTF.getText();
-            String password = String.valueOf(hostPasswordTF.getPassword());
-            String ipaddress = hostIpAddressTF.getText(); //invalid ipadd is caught by SSHClient class
-            
-            int serverPort = 0;
-            if(!serverPortTF.getText().isEmpty())
-                serverPort = Integer.parseInt(serverPortTF.getText());
-            
-            int sshServerPort = Integer.parseInt(sshServerPortTF.getText());
-            
-            //if either port is invalid, throw exception
-            if(!isPortValid(serverPort) || !isPortValid(sshServerPort)){
-                throw new Exception("port_error");
-            }
+                // get user inputs
+                String username = hostUserNameTF.getText();
+                String password = String.valueOf(hostPasswordTF.getPassword());
+                String ipaddress = hostIpAddressTF.getText(); //invalid ipadd is caught by SSHClient class
 
-            //connect ssh client with ssh server
-            this.session = SSHClient.getSSHSessionLPF(username,
-                                                    password,
-                                                    ipaddress,
-                                                    serverPort,
-                                                    sshServerPort,
-                                                    this);
-            
-            if(this.session != null) {
-                
-                // if session is successfully created, create sftp channel using the session
-                this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
-                
-                //if sftp is successfully created, pop out sftp gui
-                if(this.sftpChannel != null) {
-                    
-                    // display sftp gui
-                    SFTPGui.displaySFTPGui();
-                    
-                    
-                }else {
-                     writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
+                int serverPort = 0;
+                if(!serverPortTF.getText().isEmpty())
+                    serverPort = Integer.parseInt(serverPortTF.getText());
+
+                int sshServerPort = Integer.parseInt(sshServerPortTF.getText());
+
+                //if either port is invalid, throw exception
+                if(!isPortValid(serverPort) || !isPortValid(sshServerPort)){
+                    throw new Exception("port_error");
                 }
-                
-                // regardless sftp successfully created or not, we are still connected to SSH server. 
-                // if sftp fail, user can still local port forward but NOT file trasnfer
-                // provided that user fill in the server port field
-                connectButton.setText("Disconnect");
-                
+
+                //connect ssh client with ssh server
+                this.session = SSHClient.getSSHSessionLPF(username,
+                                                        password,
+                                                        ipaddress,
+                                                        serverPort,
+                                                        sshServerPort,
+                                                        this);
+
+                if(this.session != null) {
+
+                    // if session is successfully created, create sftp channel using the session
+                    this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
+
+                    //if sftp is successfully created, pop out sftp gui
+                    if(this.sftpChannel != null) {
+
+                        // display sftp gui
+                        SFTPGui.displaySFTPGui();
+
+
+                    }else {
+                         writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
+                    }
+
+                    // regardless sftp successfully created or not, we are still connected to SSH server. 
+                    // if sftp fail, user can still local port forward but NOT file trasnfer
+                    // provided that user fill in the server port field
+                    connectButton.setText("Disconnect");
+
+                }
             }
-        }
             else {
                 // user click "disconnect"
                 SSHClient.endSSHSession(this.session,this.sftpChannel, this);
@@ -403,9 +430,13 @@ public class SSHClientGui extends javax.swing.JFrame {
     private javax.swing.JTextField hostIpAddressTF;
     private javax.swing.JPasswordField hostPasswordTF;
     private javax.swing.JTextField hostUserNameTF;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.List list1;
     private javax.swing.JLabel programTitle;
     private javax.swing.JLabel pwLabel;
     private javax.swing.JLabel serverPortLabel;

@@ -67,21 +67,6 @@ public class SSHClient {
         }
         
         
-<<<<<<< HEAD
-=======
-        if(serverPort != 0) {
-            //local port forwarding success
-            String lpfSuccessMsg = String.format("Local port forwarding set up successfully. SSHClient listening on port %d", serverPort);
-            gui.writeToGuiConsole(lpfSuccessMsg, SSHClientGui.LEVEL_INFO);
-        }else {
-            
-            // no local port forwarding feature
-            String noLPFMsg = "No local port forwarding tunneling initiated";
-            gui.writeToGuiConsole(noLPFMsg, SSHClientGui.LEVEL_INFO);
-        }
-        
-        
->>>>>>> e774a93758d7ee6a1782acdcba22b5395de85def
         //change connect button to disconnect button
         return session;
     }

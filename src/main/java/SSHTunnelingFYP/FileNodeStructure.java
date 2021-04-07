@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class FileNodeStructure {
     
+    //review this code. 
     public static DefaultMutableTreeNode addNodesLocal(DefaultMutableTreeNode currentNode, File dir) {
         String currentPath = dir.getPath(); 
         
@@ -75,7 +76,6 @@ public class FileNodeStructure {
         }
         return currentDir;
     }
-    
     
     public static void addNodesRemote(String remotePath, DefaultMutableTreeNode parent, ChannelSftp sftpChannel) throws SftpException{
         Vector<LsEntry> list = sftpChannel.ls(remotePath); // List source directory structure.

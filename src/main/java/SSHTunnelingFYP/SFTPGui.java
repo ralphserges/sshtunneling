@@ -106,6 +106,7 @@ public class SFTPGui extends javax.swing.JFrame {
         DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel();
         
         // display all files at client desktop 
+        // can change path here to dispaly more options
         DefaultMutableTreeNode root = FileNodeStructure.addNodesLocal(null, new File(System.getProperty("user.home")+ "/Desktop"));
         
         model.setRoot(root);
@@ -142,8 +143,8 @@ public class SFTPGui extends javax.swing.JFrame {
                     
                     //test
                     //get destination treepath when node is dropped to remoteTree
-                    //String destPath = transfer.getDestPath();
-                    //System.out.println("Destination path from Remote(sftp gui): " + destPath);
+                    String destPath = transfer.getDestPath();
+                    System.out.println("Destination path from Remote(sftp gui): " + destPath);
                 }
             }
         });
@@ -193,8 +194,8 @@ public class SFTPGui extends javax.swing.JFrame {
                 
                     //test
                     //get destination treepath when node is dropped to localTree
-                    //String destPath = transfer.getDestPath();
-                    //System.out.println("Destination path from Local(sftp gui): " + destPath);
+                    String destPath = transfer.getDestPath();
+                    System.out.println("Destination path from Local(sftp gui): " + destPath);
                 }
             }
         });
