@@ -262,9 +262,9 @@ public class SSHClientGui extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         
-        try{
+        try
+        {
             if(connectButton.getText().equalsIgnoreCase("connect")){
-            
                 // get user inputs
                 String username = hostUserNameTF.getText();
                 String password = String.valueOf(hostPasswordTF.getPassword());
@@ -298,7 +298,7 @@ public class SSHClientGui extends javax.swing.JFrame {
                     if(this.sftpChannel != null) {
 
                         // display sftp gui
-                        SFTPGui.displaySFTPGui();
+                        SFTPGui.displaySFTPGui(this);
 
 
                     }else {
@@ -310,6 +310,30 @@ public class SSHClientGui extends javax.swing.JFrame {
                     // provided that user fill in the server port field
                     connectButton.setText("Disconnect");
 
+                }
+                //connect ssh client with ssh server
+                this.session = SSHClient.getSSHSessionLPF(username,
+                                                        password,
+                                                        ipaddress,
+                                                        serverPort,
+                                                        sshServerPort,
+                                                        this);
+
+                if(this.session != null) {
+
+                    // if session is successfully created, create sftp channel using the session
+                    this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
+
+                    //if sftp is successfully created, pop out sftp gui
+                    if(this.sftpChannel != null) {
+                        
+                        // display sftp gui
+                        SFTPGui.displaySFTPGui(this);
+                        
+                    }else {
+                         writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
+
+                    }
                 }
             }
             else {
@@ -326,7 +350,6 @@ public class SSHClientGui extends javax.swing.JFrame {
                writeToGuiConsole("Invalid Port number. Please Check port input fields.", SSHClientGui.LEVEL_ERROR);
            }else
                writeToGuiConsole("Invalid input type. Please Check input fields.", SSHClientGui.LEVEL_ERROR);
-           
         }
         
     }//GEN-LAST:event_connectButtonActionPerformed

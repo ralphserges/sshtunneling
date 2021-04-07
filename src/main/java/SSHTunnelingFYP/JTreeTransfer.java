@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -18,7 +17,6 @@ import static javax.swing.TransferHandler.COPY;
 public class JTreeTransfer extends TransferHandler{
     DataFlavor nodeFlavor;
     DataFlavor[] flavors = new DataFlavor[1];
-    String destPath;
     
     public JTreeTransfer() {
         try {
@@ -29,18 +27,18 @@ public class JTreeTransfer extends TransferHandler{
             //System.out.print("Mimetype: " + mimeType);
             nodeFlavor = new DataFlavor(mimeType);
             flavors[0] = nodeFlavor;
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFound: " + e.getMessage());
         }
     }
   
     @Override
     public boolean canImport(TransferHandler.TransferSupport support) {
-        if(!support.isDrop()) {
+        if (!support.isDrop()) {
             return false;
         }
         support.setShowDropLocation(true);
-        if(!support.isDataFlavorSupported(nodeFlavor)) {
+        if (!support.isDataFlavorSupported(nodeFlavor)) {
             return false;
         }
         // Do not allow a drop on the drag source selections.
@@ -49,15 +47,15 @@ public class JTreeTransfer extends TransferHandler{
         JTree tree = (JTree)support.getComponent();
         int dropRow = tree.getRowForPath(dl.getPath());
         int[] selRows = tree.getSelectionRows();
-        for(int i = 0; i < selRows.length; i++) {
-            if(selRows[i] == dropRow) {
+        for (int i = 0; i < selRows.length; i++) {
+            if (selRows[i] == dropRow) {
                 return false;
             }
         }
-        // Do not allow MOVE-action drops if a non-leaf node is
+        // Do not allow COPY-action drops if a non-leaf node is
         // selected unless all of its children are also selected
         int action = support.getDropAction();
-        if(action == COPY) {
+        if (action == COPY) {
             return haveCompleteNode(tree);
         }
         // Do not allow a non-leaf node to be copied to a level
@@ -66,7 +64,7 @@ public class JTreeTransfer extends TransferHandler{
         DefaultMutableTreeNode target = (DefaultMutableTreeNode)dest.getLastPathComponent();
         TreePath path = tree.getPathForRow(selRows[0]);
         DefaultMutableTreeNode firstNode = (DefaultMutableTreeNode)path.getLastPathComponent();
-        if(firstNode.getChildCount() > 0 &&
+        if (firstNode.getChildCount() > 0 &&
                target.getLevel() < firstNode.getLevel()) {
             return false;
         }
@@ -87,16 +85,16 @@ public class JTreeTransfer extends TransferHandler{
             (DefaultMutableTreeNode)path.getLastPathComponent();
         int childCount = first.getChildCount();
         // first has children and no children are selected
-        if(childCount > 0 && selRows.length == 1)
+        if (childCount > 0 && selRows.length == 1)
             return false;
         // first may have children
-        for(int i = 1; i < selRows.length; i++) {
+        for (int i = 1; i < selRows.length; i++) {
             path = tree.getPathForRow(selRows[i]);
             DefaultMutableTreeNode next =
                 (DefaultMutableTreeNode)path.getLastPathComponent();
-            if(first.isNodeChild(next)) {
+            if (first.isNodeChild(next)) {
                 // Found a child of first
-                if(childCount > selRows.length-1) {
+                if (childCount > selRows.length-1) {
                     // Not all children of first are selected
                     return false;
                 }
@@ -109,22 +107,22 @@ public class JTreeTransfer extends TransferHandler{
     protected Transferable createTransferable(JComponent c) {
         JTree tree = (JTree)c;
         TreePath[] paths = tree.getSelectionPaths();
-        if(paths != null) {
+        if (paths != null) {
             // Make up a node array of copies for transfer and
             // another for/of the nodes incase they are needed to be removed
             // later on after a successful drop
-            List<DefaultMutableTreeNode> copies = new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> copies = new ArrayList<>();
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)paths[0].getLastPathComponent();
             DefaultMutableTreeNode copy = copy(node);
             copies.add(copy);
             
-            for(int i = 1; i < paths.length; i++) {
+            for (int i = 1; i < paths.length; i++) {
                 DefaultMutableTreeNode next =
                     (DefaultMutableTreeNode)paths[i].getLastPathComponent();
                 // Do not allow higher level nodes to be added to list.
                 if(next.getLevel() < node.getLevel()) {
                     break;
-                } else if(next.getLevel() > node.getLevel()) {  // child node
+                } else if (next.getLevel() > node.getLevel()) {  // child node
                     copy.add(copy(next));
                     // node already contains child/sibling
                 } else {                                        
@@ -152,7 +150,7 @@ public class JTreeTransfer extends TransferHandler{
   
     @Override
     public boolean importData(TransferHandler.TransferSupport support) {
-        if(!canImport(support)) {
+        if (!canImport(support)) {
             return false;
         }
         //Extract transfer data
@@ -160,9 +158,9 @@ public class JTreeTransfer extends TransferHandler{
         try {
             Transferable t = support.getTransferable();
             nodes = (DefaultMutableTreeNode[])t.getTransferData(nodeFlavor);
-        } catch(UnsupportedFlavorException ufe) {
+        } catch (UnsupportedFlavorException ufe) {
             System.out.println("Unsupported Flavor error: " + ufe.getMessage());
-        } catch(java.io.IOException ioe) {
+        } catch (java.io.IOException ioe) {
             System.out.println("I/O error: " + ioe.getMessage());
         }
         //Get drop location info
@@ -176,68 +174,51 @@ public class JTreeTransfer extends TransferHandler{
         DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
         // Configure drop mode
         int index = childIndex;    // DropMode INSERT
-        if(childIndex == -1) {     // DropMode ON
+        if (childIndex == -1) {     // DropMode ON
             index = parent.getChildCount();
         }
-        // Add data to model
-        for(int i = 0; i < nodes.length; i++) {
-            model.insertNodeInto(nodes[i], parent, index++);
+       
+        //list to store all child nodes of drop target location
+        List<DefaultMutableTreeNode> childNodes = new ArrayList<>();
+        boolean gotDuplicate = false;
+        
+        //add all existing child nodes to list 
+        for (int i=0; i<parent.getChildCount(); i++) {
+            childNodes.add((DefaultMutableTreeNode)parent.getChildAt(i));
+            //testNode = (DefaultMutableTreeNode) parent.getChildAt(i);                
+        } 
+        
+        //check for import data is null
+        if (nodes == null){
+            return false;
         }
         
-        // get parent file path of node dropped
-        String tempdpath = dest.toString().replaceAll("\\]| |\\[|", ""); 
-        //System.out.println("dest: " + dest);
-        
-        //linux environment
-        if (tempdpath.charAt(0) == '/') {
-            tempdpath = tempdpath.substring(1); //remove first '/'
-            tempdpath = tempdpath.replaceAll(" ", "");
-            tempdpath = tempdpath.replaceAll("/", ",");
-            //System.out.println("temppath: " + tempdpath);
-            
-            StringBuilder sb = new StringBuilder();
-            String[] tempNodes = tempdpath.split(",");
-
-            for(int i=0; i<tempNodes.length;  i++) {
-                sb.append("/").append(tempNodes[i]);
-
-                //last item
-                if(i == tempNodes.length-1) {
-                    //get dropped node name and append to string builder
-                    sb.append("/").append(nodes[nodes.length-1]);
-                }
-            } 
-            destPath = sb.toString();
-            System.out.println("dpath: " + destPath);
-        }
-        
-        //windows environment
-        else {
-            //System.out.println("temppath: " + tempdpath);
-            StringBuilder sb = new StringBuilder();
-            String[] tempNodes = tempdpath.split(",");
+        //check if drop nodes is of duplicate from the list
+        for (DefaultMutableTreeNode n : childNodes) {
+            if (n.toString().equalsIgnoreCase(nodes[nodes.length-1].toString())) {
+                gotDuplicate = true;
+                System.out.println("found duplicate node: " + gotDuplicate + ", " + nodes[nodes.length-1]);
                 
-            for(int i=0; i<tempNodes.length;  i++) {
-                sb.append(File.separatorChar).append(tempNodes[i]);
-
-                //last item
-                if(i == tempNodes.length-1) {
-                    //get dropped node name and append to string builder
-                    sb.append(File.separatorChar).append(nodes[nodes.length-1]);
-                }
-            } 
-            destPath = sb.toString();
-            System.out.println("dpath: " + destPath);
+                //remove existing node and replace with new imported node
+                model.removeNodeFromParent(n);
+                for (DefaultMutableTreeNode node : nodes)
+                    //add imported data to model
+                    model.insertNodeInto(node, parent, index++);
+                
+            }
+        }
+        
+        //no duplicate, insert nodes into jtree
+        if (gotDuplicate == false) {
+            for (DefaultMutableTreeNode node : nodes)
+                //add imported data to model
+                model.insertNodeInto(node, parent, index++);
+            
         }
         
         return true;
     }
     
-    //get parent file path of node dropped
-    public String getDestPath() {
-        return destPath;
-    }  
-  
     @Override
     public String toString() {
         return getClass().getName();
@@ -253,7 +234,7 @@ public class JTreeTransfer extends TransferHandler{
         @Override
         public Object getTransferData(DataFlavor flavor)
                                  throws UnsupportedFlavorException {
-            if(!isDataFlavorSupported(flavor))
+            if (!isDataFlavorSupported(flavor))
                 throw new UnsupportedFlavorException(flavor);
             return nodes;
         }

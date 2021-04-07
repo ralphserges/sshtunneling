@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DropMode;
 import javax.swing.JFrame;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -17,6 +19,9 @@ import javax.swing.tree.TreeSelectionModel;
 
 
 public class SFTPGui extends javax.swing.JFrame {
+    
+    private String destDir, localDir, remoteDir, localFileName, remoteFileName;
+    private static SSHClientGui sshClientG = new SSHClientGui();
     
     
     /**
@@ -137,18 +142,68 @@ public class SFTPGui extends javax.swing.JFrame {
                     //assuming that the client host runs on windows
                     // have not tested on linux environment
                     fullPath = System.getProperty("user.home") + "/" + fullPath;
-                    fullPath = fullPath.replaceAll("C:", "");
                     fullPath = Paths.get(fullPath).toString();
-                    System.out.println(fullPath);
-                    
-                    //test
-                    //get destination treepath when node is dropped to remoteTree
-                    String destPath = transfer.getDestPath();
-                    System.out.println("Destination path from Remote(sftp gui): " + destPath);
+                    localDir = fullPath;
+                        
+                    //get name of selected file 
+                    if(fullPath != null && !fullPath.isEmpty()) {
+                        String[] directories = fullPath.split("\\\\");
+                        localFileName = directories[directories.length-1];
+                        System.out.println("file name (L): " + localFileName);
+                    }
                 }
             }
         });
       
+        //get destination path when file is drop 
+        localJTree.getModel().addTreeModelListener(new TreeModelListener() {
+            @Override 
+            public void treeNodesChanged(TreeModelEvent e) {}
+            @Override
+            public void treeNodesInserted(TreeModelEvent e) {
+                TreePath dest = e.getTreePath();
+                //get parent node of the treenode that inserted
+                DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
+                DefaultMutableTreeNode insertedNode = null;
+                
+                //get children nodes from the parent node
+                for (int i=0; i<parent.getChildCount(); i++) {
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) parent.getChildAt(i);
+                    //get inserted node 
+                    if (child.toString().equals(remoteFileName)) {
+                        insertedNode = child;
+                    }                
+                }
+                
+                // get parent file path of node dropped
+                String tempdpath = dest.toString().replaceAll("\\]| |\\[|", "");
+                StringBuilder sb = new StringBuilder();
+                String[] tempNodes = tempdpath.split(",");
+
+                for(int i=0; i<tempNodes.length;  i++) {
+                    sb.append(File.separatorChar).append(tempNodes[i]);
+
+                    //get fullpath after node is inserted
+                    if(i == tempNodes.length-1 && insertedNode != null) {
+                        //get dropped node name and append to string builder
+                        sb.append(File.separatorChar).append(insertedNode.toString());
+                    }
+                } 
+                
+                //set destination path for file download (remote to local)
+                destDir = System.getProperty("user.home") + "/" + sb.toString();
+                
+                //sftp retrieve file 
+               if (SSHClientGui.sftpChannel != null){
+                   SSHClient.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
+               }
+            }
+            @Override
+            public void treeNodesRemoved(TreeModelEvent e) {}
+            @Override
+            public void treeStructureChanged(TreeModelEvent e) {}
+        });
+
     }
     
     public void displayRemoteFileStruct() {
@@ -190,22 +245,81 @@ public class SFTPGui extends javax.swing.JFrame {
                     for(Object path : filePathToAdd) {
                         fullPath = fullPath + "/" + String.valueOf(path);
                     }
-                    System.out.println(fullPath.substring(1, fullPath.length()));
-                
-                    //test
-                    //get destination treepath when node is dropped to localTree
-                    String destPath = transfer.getDestPath();
-                    System.out.println("Destination path from Local(sftp gui): " + destPath);
+                    remoteDir = fullPath.substring(1, fullPath.length());
+                    
+                     //get name of selected file 
+                    if(fullPath != null && !fullPath.isEmpty()) {
+                        String[] directories = fullPath.split("/");
+                        remoteFileName = directories[directories.length-1];
+                        System.out.println("file name (R): " + remoteFileName);
+                    }
+                   
                 }
             }
+        });
+        
+        //get destination path when file is drop 
+        remoteJTree.getModel().addTreeModelListener(new TreeModelListener() {
+            @Override 
+            public void treeNodesChanged(TreeModelEvent e) {}
+            @Override
+            public void treeNodesInserted(TreeModelEvent e) {
+                TreePath dest = e.getTreePath();
+                //get parent node of the treenode that inserted
+                DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
+                DefaultMutableTreeNode insertedNode = null;
+                
+                //get children nodes from the parent node
+                for (int i=0; i<parent.getChildCount(); i++) {
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) parent.getChildAt(i);
+                    //get inserted node 
+                    if (child.toString().equals(localFileName)) {
+                        insertedNode = child;
+                    }                
+                }
+                
+                //get parent file path of node dropped
+                String tempdpath = dest.toString().replaceAll("\\]| |\\[|", "");
+                StringBuilder sb = new StringBuilder();
+                
+
+                //linux environment
+                if (tempdpath.charAt(0) == '/') {
+                    tempdpath = tempdpath.substring(1); //remove first '/'
+                    tempdpath = tempdpath.replaceAll(" ", "");
+                    tempdpath = tempdpath.replaceAll("/", ",");
+                    String[] tempNodes = tempdpath.split(",");
+
+                    for(int i=0; i<tempNodes.length;  i++) {
+                        sb.append("/").append(tempNodes[i]);
+
+                        //get fullpath after node is inserted
+                        if(i == tempNodes.length-1 && insertedNode != null) {
+                            //get dropped node name and append to string builder
+                            sb.append("/").append(insertedNode.toString());
+                        }
+                    } 
+                }
+                
+                //set destination path for file upload (local to remote)
+                destDir = sb.toString();
+                
+                //sftp transfer file 
+                if (SSHClientGui.sftpChannel != null){
+                    SSHClient.transferFile(SSHClientGui.sftpChannel, localFileName, localDir, destDir, sshClientG);
+                }
+                
+            }
+            @Override
+            public void treeNodesRemoved(TreeModelEvent e) {}
+            @Override
+            public void treeStructureChanged(TreeModelEvent e) {}
+            
         });
     }
     
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void displaySFTPGui() {
+    public static void displaySFTPGui(SSHClientGui sshClient) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -232,6 +346,8 @@ public class SFTPGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                sshClientG = sshClient;
+                
                 SFTPGui sftpGui = new SFTPGui();
                 sftpGui.setVisible(true);
                 sftpGui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

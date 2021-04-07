@@ -117,7 +117,7 @@ public class SSHClient {
     //retrieve files from remote to local
     public static void retrieveFile(ChannelSftp sftp, String fileName,String localDir, String remoteDir,SSHClientGui gui) {
         try {
-            sftp.get(localDir, remoteDir);
+            sftp.get(remoteDir, localDir);
         } catch (SftpException ex) {
             gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
         }
