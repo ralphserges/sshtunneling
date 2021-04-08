@@ -5,76 +5,27 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.SftpException;
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class FileNodeStructure {
     
-    //review this code. 
-    public static DefaultMutableTreeNode addNodesLocal(DefaultMutableTreeNode currentNode, File dir) {
-        String currentPath = dir.getPath(); 
+    public static void addNodesLocalV2(File fileRoot, DefaultMutableTreeNode parent) {
+        File [] files = fileRoot.listFiles();
+        if(files == null)
+            return;
         
-        //create a node that contains the file name
-        DefaultMutableTreeNode currentDir = new DefaultMutableTreeNode(dir.getName());
-        
-        
-        if(currentNode != null) {
-
-            currentNode.add(currentDir);
-        }
-        
-        Vector ol = new Vector();
-        
-        //store the list of file and dir names in the current path
-        String [] tmp = dir.list();
-        
-        //add all files and dir names to Vector
-        for(int i = 0; i < tmp.length; i++) {
-            ol.addElement(tmp[i]);
-        }
-        
-        // sort file and dir names 
-        Collections.sort(ol, String.CASE_INSENSITIVE_ORDER);
-        
-        
-        File f; 
-        Vector files = new Vector();
-        for(int i = 0; i< ol.size(); i++){
-            String thisObject = (String) ol.elementAt(i);
-            String newPath;
+        for(File file : files) {
+            DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(file.getName());
             
-            // thisObject is at Desktop
-            if(currentPath.equals(System.getProperty("user.home") + "/Desktop")) {
-                newPath = thisObject;
+            //ignore all files that starts with '.'
+            if(!file.getName().startsWith(".")) {
+                parent.add(childNode);
+                if(file.isDirectory()) {
+                    addNodesLocalV2(file, childNode);
+                }
             }
-            
-            // thisObject is not at Desktop
-            else {
-                newPath = currentPath + File.separator + thisObject;
-            }
-            
-            
-            // if thisobject is a directory
-            if((f = new File(newPath)).isDirectory()) {
-                
-                addNodesLocal(currentDir,f); //explore the directory, add directory to parent node
-            }
-            else {
-                //add thisobject to files
-                files.addElement(thisObject);
-            }
-            
         }
-       
-        //under a parent node, add all child node of file type to it 
-        for(int i = 0; i < files.size(); i++) {
-            currentDir.add(new DefaultMutableTreeNode(files.elementAt(i)));
-        }
-        return currentDir;
     }
     
     public static void addNodesRemote(String remotePath, DefaultMutableTreeNode parent, ChannelSftp sftpChannel) throws SftpException{

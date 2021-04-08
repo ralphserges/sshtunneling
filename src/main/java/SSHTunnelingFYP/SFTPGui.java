@@ -109,12 +109,21 @@ public class SFTPGui extends javax.swing.JFrame {
     public void displayLocalFileStructure() {
         
         DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel();
+        String startingPath = System.getProperty("user.home");
+        File rootFile = new File(startingPath);
         
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(startingPath);
+        FileNodeStructure.addNodesLocalV2(rootFile,rootNode);
+        
+        
+        
+        /*
         // display all files at client desktop 
         // can change path here to dispaly more options
-        DefaultMutableTreeNode root = FileNodeStructure.addNodesLocal(null, new File(System.getProperty("user.home")+ "/Desktop"));
+        DefaultMutableTreeNode rootNode = FileNodeStructure.addNodesLocal(null, new File(System.getProperty("user.home")+ "/Desktop"));
+        */
         
-        model.setRoot(root);
+        model.setRoot(rootNode);
         model.reload();
              
         //set drag and drop 
@@ -141,7 +150,7 @@ public class SFTPGui extends javax.swing.JFrame {
                     
                     //assuming that the client host runs on windows
                     // have not tested on linux environment
-                    fullPath = System.getProperty("user.home") + "/" + fullPath;
+                    
                     fullPath = Paths.get(fullPath).toString();
                     localDir = fullPath;
                         
@@ -176,13 +185,20 @@ public class SFTPGui extends javax.swing.JFrame {
                 }
                 
                 // get parent file path of node dropped
-                String tempdpath = dest.toString().replaceAll("\\]| |\\[|", "");
+                String tempdpath = dest.toString();
+                tempdpath = tempdpath.substring(1,tempdpath.length()-1);
+                
                 StringBuilder sb = new StringBuilder();
-                String[] tempNodes = tempdpath.split(",");
+                String[] tempNodes = tempdpath.split(", "); // split by , and a space
 
                 for(int i=0; i<tempNodes.length;  i++) {
-                    sb.append(File.separatorChar).append(tempNodes[i]);
-
+                    //this if-else is done to prevent adding '\' to the front of the path
+                    if(i == 0){
+                        sb.append(tempNodes[i]);
+                    }else{
+                        sb.append(File.separatorChar).append(tempNodes[i]);
+                    }
+                    
                     //get fullpath after node is inserted
                     if(i == tempNodes.length-1 && insertedNode != null) {
                         //get dropped node name and append to string builder
@@ -191,8 +207,9 @@ public class SFTPGui extends javax.swing.JFrame {
                 } 
                 
                 //set destination path for file download (remote to local)
-                destDir = System.getProperty("user.home") + "/" + sb.toString();
-                
+                //destDir = System.getProperty("user.home") + "/" + sb.toString();
+                destDir = sb.toString();
+                System.out.println(destDir);
                 //sftp retrieve file 
                if (SSHClientGui.sftpChannel != null){
                    SSHClient.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
@@ -203,7 +220,6 @@ public class SFTPGui extends javax.swing.JFrame {
             @Override
             public void treeStructureChanged(TreeModelEvent e) {}
         });
-
     }
     
     public void displayRemoteFileStruct() {

@@ -1,5 +1,6 @@
 package SSHTunnelingFYP;
 
+import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -100,7 +101,6 @@ public class SSHClient {
         return sftpChannel;
     }
     
-    
     //transfer files from local to remote 
     public static void transferFile(ChannelSftp sftp, String fileName ,String localDir, String remoteDir,SSHClientGui gui) {
         try {
@@ -126,6 +126,7 @@ public class SSHClient {
         gui.writeToGuiConsole(successRetrieval, SSHClientGui.LEVEL_INFO);
     }
     
+    
     // pass in textarea object for printing messages
     // when user select disconnect or exit button
     public static void endSSHSession(Session session,ChannelSftp sftp,SSHClientGui gui) {
@@ -133,13 +134,21 @@ public class SSHClient {
         String endTunnelMsg = String.format("Local port forwarding tunnel is closed. SSH client no longer listens on %d",SSH_CLIENT_PORT);
         gui.writeToGuiConsole(endTunnelMsg, SSHClientGui.LEVEL_INFO);
         
-        sftp.exit();
-        String endSFTP = "SFTP channel is closed.";
-        gui.writeToGuiConsole(endSFTP, SSHClientGui.LEVEL_INFO);
+        endSFTPChannel(sftp,gui); // in case if user just click disconnect while sftp gui still running
+        
         
         String endSessionMsg = "SSH client is disconnected from SSH server";
         gui.writeToGuiConsole(endSessionMsg, SSHClientGui.LEVEL_INFO);
         
         session.disconnect();
+    }
+    
+    public static void endSFTPChannel(ChannelSftp sftp,SSHClientGui gui){
+        //if sftp channel is created
+        if(sftp != null) {
+            sftp.exit();
+            String endSFTP = "SFTP channel is closed.";
+            gui.writeToGuiConsole(endSFTP, SSHClientGui.LEVEL_INFO);
+        }
     }
 }
