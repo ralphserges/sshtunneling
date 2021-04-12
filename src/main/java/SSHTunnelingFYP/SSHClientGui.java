@@ -3,6 +3,8 @@ package SSHTunnelingFYP;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -10,11 +12,11 @@ import java.util.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JFrame;
 
 public class SSHClientGui extends javax.swing.JFrame {
     public static Session session;
     public static ChannelSftp sftpChannel;
-    public static Channel scpChannel;
     
     public static final int LEVEL_INFO = 0;
     public static final int LEVEL_ERROR = 1;
@@ -56,6 +58,8 @@ public class SSHClientGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        protocolComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,21 +139,30 @@ public class SSHClientGui extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel2.setText("default ssh server port listens on 22. you may change accordingly.");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("SSH Protocol:");
+
+        protocolComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        protocolComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SCP", "SFTP" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(connectButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(connectButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,17 +197,18 @@ public class SSHClientGui extends javax.swing.JFrame {
                                     .addComponent(usernameLabel)
                                     .addGap(18, 18, 18)
                                     .addComponent(hostUserNameTF)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(343, 343, 343)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(protocolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addContainerGap()
                 .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hostUserNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,7 +220,7 @@ public class SSHClientGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hosIPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hostIpAddressTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serverPortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(serverPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +230,11 @@ public class SSHClientGui extends javax.swing.JFrame {
                     .addComponent(sshServerPortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sshServerPortTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(protocolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +242,7 @@ public class SSHClientGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectButton)
                     .addComponent(exitButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,29 +289,14 @@ public class SSHClientGui extends javax.swing.JFrame {
                                                         sshServerPort,
                                                         this);
 
-                if(this.session != null) {
+                if(this.session.isConnected()) {
                     
-                    // if session is successfully created, create sftp channel using the session
-                    this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
-
-                    //if sftp is successfully created, pop out sftp gui
-                    if(this.sftpChannel != null) {
-
-                        // display sftp gui
-                        SFTPGui.displaySFTPGui(this);
-                    }else {
-                         writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
-                    }
-                    
-                    //scp here
-                    
-                    
+                    runChannel();
 
                     // regardless sftp successfully created or not, we are still connected to SSH server. 
                     // if sftp fail, user can still local port forward but NOT file trasnfer
                     // provided that user fill in the server port field
                     connectButton.setText("Disconnect");
-
                 }
             }
             else {
@@ -313,6 +316,28 @@ public class SSHClientGui extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_connectButtonActionPerformed
 
+    private void runChannel(){
+        String selectedProtocol = String.valueOf(protocolComboBox.getSelectedItem());
+
+        if(selectedProtocol.equals("SFTP")) {
+            // if session is successfully created, create sftp channel using the session
+            this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
+
+            //if sftp is successfully created and connected, pop out sftp gui
+            if(this.sftpChannel.isConnected()) {
+
+                // display sftp gui
+                SFTPGui.displaySFTPGui(this);
+            }else {
+                 writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
+            }
+        }else{
+            SCPCommandLine.displaySCPCommandLine();
+            writeToGuiConsole("SCP channel is created.", LEVEL_INFO);
+        }
+    }
+    
+    
     private void sshServerPortTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sshServerPortTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sshServerPortTFActionPerformed
@@ -320,8 +345,11 @@ public class SSHClientGui extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         
         // user click exit while ssh still connected
-        if(this.session != null && connectButton.getText().equalsIgnoreCase("Disconnect")){
+        if(this.session.isConnected() && connectButton.getText().equalsIgnoreCase("Disconnect")){
+            
             SSHClient.endSSHSession(this.session,this.sftpChannel, this);
+            
+            
         } 
         //write to file here
          
@@ -399,8 +427,17 @@ public class SSHClientGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                new SSHClientGui().setVisible(true);
+                SSHClientGui client = new SSHClientGui();
+                client.setVisible(true);
+                client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                client.addWindowListener(new WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e){
+                        if(SSHClientGui.session.isConnected()){
+                            SSHClient.endSSHSession(SSHClientGui.session,SSHClientGui.sftpChannel, client);
+                        }
+                    }
+                });
             }
         });
     }
@@ -414,10 +451,12 @@ public class SSHClientGui extends javax.swing.JFrame {
     private javax.swing.JTextField hostUserNameTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.List list1;
     private javax.swing.JLabel programTitle;
+    private javax.swing.JComboBox<String> protocolComboBox;
     private javax.swing.JLabel pwLabel;
     private javax.swing.JLabel serverPortLabel;
     private javax.swing.JTextField serverPortTF;

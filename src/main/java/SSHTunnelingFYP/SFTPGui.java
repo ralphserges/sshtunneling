@@ -2,6 +2,8 @@
 package SSHTunnelingFYP;
 
 import com.jcraft.jsch.SftpException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.logging.Level;
@@ -367,6 +369,17 @@ public class SFTPGui extends javax.swing.JFrame {
                 SFTPGui sftpGui = new SFTPGui();
                 sftpGui.setVisible(true);
                 sftpGui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+                //after user click close button on the top right, sftp will be disconnected.
+                sftpGui.addWindowListener(new WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e){
+                        if(SSHClientGui.sftpChannel.isConnected()){
+                            SSHClient.endSFTPChannel(SSHClientGui.sftpChannel, sshClientG);
+                            System.out.println("SFTP Closed");
+                        }
+                    }
+                });
             }
         });
     }

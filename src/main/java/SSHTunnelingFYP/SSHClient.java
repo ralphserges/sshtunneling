@@ -63,7 +63,7 @@ public class SSHClient {
         } catch (JSchException ex) { 
 
            // session creation fail print error to console write error cause to gui
-           gui.writeToGuiConsole("Unable to connect to SSH server. Please Check input fields.", SSHClientGui.LEVEL_ERROR);
+           gui.writeToGuiConsole("Unable to connect to SSH server. Please Check input fields or remote server connectivity.", SSHClientGui.LEVEL_ERROR);
            return null;
         }
         
@@ -145,10 +145,13 @@ public class SSHClient {
     
     public static void endSFTPChannel(ChannelSftp sftp,SSHClientGui gui){
         //if sftp channel is created
-        if(sftp != null) {
-            sftp.exit();
-            String endSFTP = "SFTP channel is closed.";
-            gui.writeToGuiConsole(endSFTP, SSHClientGui.LEVEL_INFO);
+        if(sftp != null){
+            if(sftp.isConnected()) {
+                sftp.exit();
+                String endSFTP = "SFTP channel is closed.";
+                gui.writeToGuiConsole(endSFTP, SSHClientGui.LEVEL_INFO);
+            }
         }
+        
     }
 }
