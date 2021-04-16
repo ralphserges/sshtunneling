@@ -152,6 +152,5 @@ public class SSHClient {
                 gui.writeToGuiConsole(endSFTP, SSHClientGui.LEVEL_INFO);
             }
         }
-        
     }
 }
