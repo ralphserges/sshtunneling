@@ -7,8 +7,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
@@ -16,6 +14,7 @@ import javax.swing.text.DefaultCaret;
 public class SCPCommandLine extends javax.swing.JFrame {
     private static final String SCP_PROMPT = "scp>> ";
     private static final String [] avaliableCommands = {"sendfile", "retrievefile", "remotelist"};
+    private static SSHClientGui sshClientGui;
     
     /**
      * Creates new form SCPCommandLine
@@ -26,10 +25,8 @@ public class SCPCommandLine extends javax.swing.JFrame {
         terminal.setWrapStyleWord(true);
         DefaultCaret caret = (DefaultCaret)terminal.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        
-        
+
         displayWelcomeBanner();
-        
     }
     
     public JTextArea getTerminal() {
@@ -38,6 +35,10 @@ public class SCPCommandLine extends javax.swing.JFrame {
     
     public String getPrompt() {
         return SCP_PROMPT;
+    }
+    
+    public SSHClientGui getSSHClientGui() {
+        return sshClientGui;
     }
     
     
@@ -165,39 +166,25 @@ public class SCPCommandLine extends javax.swing.JFrame {
                 //where it will execute whatever command user enter
                 SCPModerator scp = new SCPModerator(SSHClientGui.session);
                 try {
-                    scp.executeCommand(commandEntered);
-                    
-                    if(commandEntered.equalsIgnoreCase("sendfile")){
-                        
-                    }else { // if user command for remotelist or retrievefile, scpmoderator will display list of files in remote desktop
-                       
-                        if(!scp.getExistingFiles().isEmpty()){
-                            for(String file : scp.getExistingFiles()){
-                                terminal.append(file);
-                                terminal.append("\n");
-                            }
-                        }
-                    }
-                } catch (JSchException ex) {
-                    Logger.getLogger(SCPCommandLine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(SCPCommandLine.class.getName()).log(Level.SEVERE, null, ex);
+                    scp.executeCommand(commandEntered,this);
+
+                } catch (JSchException | IOException | InterruptedException ex) {
+                    terminal.append("[SCP_ERROR] " + ex.getMessage() + "\n");
+                    this.sshClientGui.writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
                 }
-               
-                terminal.append(SCP_PROMPT);
             }
             else {
-                terminal.append("[ERROR] " + commandEntered + " is not a valid command. See right for avaliable commands\n");
-                terminal.append(SCP_PROMPT);
+                terminal.append("[SCP_ERROR] " + commandEntered + " is not a valid command. See right for avaliable commands\n");
+                this.sshClientGui.writeToGuiConsole("[SCP_ERROR] " + commandEntered + " is not a valid command. See right for avaliable commands", SSHClientGui.LEVEL_ERROR);
             }
+            terminal.append(SCP_PROMPT);
             enterCommandTextArea.setText("");
         }
     }//GEN-LAST:event_enterCommandTextAreaKeyPressed
 
     private void exitSCPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitSCPButtonActionPerformed
         setVisible(false);
-        SSHClientGui gui = new SSHClientGui();
-        gui.writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
+        this.sshClientGui.writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
         dispose();
     }//GEN-LAST:event_exitSCPButtonActionPerformed
     
@@ -209,7 +196,7 @@ public class SCPCommandLine extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void displaySCPCommandLine() {
+    public static void displaySCPCommandLine(SSHClientGui gui) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -236,14 +223,16 @@ public class SCPCommandLine extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                SCPCommandLine.sshClientGui = gui;
+                
                 SCPCommandLine scp = new SCPCommandLine();
                 scp.setVisible(true);
                 scp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 scp.addWindowListener(new WindowAdapter(){
                     @Override
                     public void windowClosing(WindowEvent e){
-                        SSHClientGui gui = new SSHClientGui();
-                        gui.writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
+                        
+                        SCPCommandLine.sshClientGui.writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
                     }
                 });
             }

@@ -1,17 +1,12 @@
 package SSHTunnelingFYP;
 
-import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JFrame;
 
 public class SSHClientGui extends javax.swing.JFrame {
@@ -29,6 +24,8 @@ public class SSHClientGui extends javax.swing.JFrame {
     public SSHClientGui() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -292,15 +289,11 @@ public class SSHClientGui extends javax.swing.JFrame {
                 if(this.session.isConnected()) {
                     
                     runChannel();
-
-                    // regardless sftp successfully created or not, we are still connected to SSH server. 
-                    // if sftp fail, user can still local port forward but NOT file trasnfer
-                    // provided that user fill in the server port field
                     connectButton.setText("Disconnect");
+                    
                 }
             }
             else {
-                // user click "disconnect"
                 SSHClient.endSSHSession(this.session,this.sftpChannel, this);
                 
                 // change conenct button to connect button
@@ -328,12 +321,15 @@ public class SSHClientGui extends javax.swing.JFrame {
 
                 // display sftp gui
                 SFTPGui.displaySFTPGui(this);
+                
+                
             }else {
                  writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
             }
         }else{
-            SCPCommandLine.displaySCPCommandLine();
+            SCPCommandLine.displaySCPCommandLine(this);
             writeToGuiConsole("SCP channel is created.", LEVEL_INFO);
+            
         }
     }
     
@@ -345,20 +341,19 @@ public class SSHClientGui extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         
         // user click exit while ssh still connected
-        if(this.session.isConnected() && connectButton.getText().equalsIgnoreCase("Disconnect")){
-            
-            SSHClient.endSSHSession(this.session,this.sftpChannel, this);
-            
-            
-        } 
-        //write to file here
-         
-        String[] logMessageArr = logMessage.stream()
-                                        .map(String::new)
-                                        .toArray(String[]::new);
+        if(this.session != null) {
+            if(this.session.isConnected() && connectButton.getText().equalsIgnoreCase("Disconnect")){         
+                SSHClient.endSSHSession(this.session,this.sftpChannel, this);
+            } 
+            //write to file here
+            String[] logMessageArr = logMessage.stream()
+                                            .map(String::new)
+                                            .toArray(String[]::new);
+
+            //return true when file is written sucessfully , otherwise false
+            boolean logWriteStatus = logWriter.logWriterFunc(logMessageArr);
+        }
         
-        //return true when file is written sucessfully , otherwise false
-        boolean logWriteStatus = logWriter.logWriterFunc(logMessageArr);
         //once reach here, ssh is disconnected. ready to exit program
         //exit program
         System.exit(0);
@@ -433,8 +428,10 @@ public class SSHClientGui extends javax.swing.JFrame {
                 client.addWindowListener(new WindowAdapter(){
                     @Override
                     public void windowClosing(WindowEvent e){
-                        if(SSHClientGui.session.isConnected()){
-                            SSHClient.endSSHSession(SSHClientGui.session,SSHClientGui.sftpChannel, client);
+                        if(SSHClientGui.session != null) {
+                            if(SSHClientGui.session.isConnected()){
+                                SSHClient.endSSHSession(SSHClientGui.session,SSHClientGui.sftpChannel, client);
+                            }
                         }
                     }
                 });

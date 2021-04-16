@@ -1,4 +1,5 @@
 SSHTunnelingFYP\SSHClientGui$2.class
+SSHTunnelingFYP\SCPRemoteFilePrompt$3.class
 SSHTunnelingFYP\SSHClientGui$7.class
 SSHTunnelingFYP\LogController.class
 SSHTunnelingFYP\SCPCommandLine.class
@@ -16,13 +17,19 @@ SSHTunnelingFYP\SSHClientGui.class
 SSHTunnelingFYP\SFTPGui$1.class
 SSHTunnelingFYP\JTreeTransfer.class
 SSHTunnelingFYP\SCPModerator.class
+SSHTunnelingFYP\SCPRemoteFilePrompt$2.class
 SSHTunnelingFYP\SCPCommandLine$1.class
 SSHTunnelingFYP\SSHClientGui$3.class
 SSHTunnelingFYP\SSHClientGui$7$1.class
 SSHTunnelingFYP\SCPCommandLine$3.class
 SSHTunnelingFYP\SCPCommandLine$3$1.class
+SSHTunnelingFYP\SCPRemoteFilePrompt$1.class
 SSHTunnelingFYP\SSHClientGui$4.class
+SSHTunnelingFYP\SCPUtil.class
+SSHTunnelingFYP\SCPRemoteFilePrompt$4$1.class
+SSHTunnelingFYP\SCPRemoteFilePrompt.class
 SSHTunnelingFYP\FileNodeStructure.class
 SSHTunnelingFYP\SSHClientGui$6.class
 SSHTunnelingFYP\SFTPGui$4.class
 SSHTunnelingFYP\SSHClientGui$1.class
+SSHTunnelingFYP\SCPRemoteFilePrompt$4.class
