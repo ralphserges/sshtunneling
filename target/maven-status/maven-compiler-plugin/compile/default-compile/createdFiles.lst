@@ -7,13 +7,14 @@ SSHTunnelingFYP\SFTPGui$2.class
 SSHTunnelingFYP\Logger.class
 SSHTunnelingFYP\SSHClientGui$5.class
 SSHTunnelingFYP\SFTPGui$3.class
-SSHTunnelingFYP\SFTPGui$5$1.class
 SSHTunnelingFYP\SFTPGui$5.class
 SSHTunnelingFYP\SFTPGui.class
 SSHTunnelingFYP\SCPCommandLine$2.class
+SSHTunnelingFYP\SFTPGui$6$1.class
 SSHTunnelingFYP\JTreeTransfer$NodesTransferable.class
 SSHTunnelingFYP\SSHClient.class
 SSHTunnelingFYP\SSHClientGui.class
+SSHTunnelingFYP\SFTPGui$6.class
 SSHTunnelingFYP\SFTPGui$1.class
 SSHTunnelingFYP\JTreeTransfer.class
 SSHTunnelingFYP\SCPModerator.class
