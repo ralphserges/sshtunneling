@@ -131,109 +131,71 @@ public class SSHClient {
                 sftp.put(localDir, remoteDir,ChannelSftp.OVERWRITE); 
             }
         } catch (SftpException ex) {
-                gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
+                gui.writeToGuiConsole("[SFTP_ERROR] " + ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
 
         }
 
-        String successTransfer = String.format("%s is transferred from %s to %s ", fileName,localDir,remoteDir);
+        String successTransfer = String.format("[SFTP_INFO] %s is transferred from %s to %s ", fileName,localDir,remoteDir);
         gui.writeToGuiConsole(successTransfer, SSHClientGui.LEVEL_INFO);
     }
-    
-    //transfer files from local to remote 
-/*    public static void transferFile(ChannelSftp sftp, String fileName ,String localDir, String remoteDir,SSHClientGui gui) {
-        try {
-            sftp.put(localDir, remoteDir);
-        } catch (SftpException ex) {
-            gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
-        }
         
-        String successTransfer = String.format("%s is transferred from %s to %s ", fileName,localDir,remoteDir);
-        gui.writeToGuiConsole(successTransfer, SSHClientGui.LEVEL_INFO);
-    } */   
-    
-    //retrieve files from remote to local (Work in progress...)
+    //retrieve files from remote to local
     public static void retrieveFile(ChannelSftp sftp, String fileName,String localDir, String remoteDir,SSHClientGui gui) {
         try {
-            File fileInput = new File(remoteDir);
-            Vector<ChannelSftp.LsEntry> fInEntry = sftp.ls(remoteDir);
-            int size = fInEntry.size();
+            Vector<ChannelSftp.LsEntry> entryVector = sftp.ls(remoteDir);
+            File fileInput = new File(localDir);
             
-            if (size == 1) {
-                //retrieve a file
+            int size = entryVector.size();
+            
+            if (size == 1) { //retrieve a file
                 System.out.println("test file: " + remoteDir);
                 sftp.get(remoteDir, localDir);
             } 
             
-            else {         
+            else if(size == 2) { //retrieve empty folder
                 //create new directory
-                sftp.cd(localDir.substring(0, remoteDir.lastIndexOf('/')));
-                sftp.mkdir(fileName);
+                System.out.println("test empty folder: " + remoteDir);
+                fileInput.mkdir();
+            }
+           
+            else {         
+               
+                System.out.println("test folder: " + remoteDir);
+                //System.out.println("test dest folder: " + localDir.substring(0, localDir.lastIndexOf('\\')));
+                sftp.lcd(fileInput.getParent()); //cd to local host directory
+                //create new directory
+                fileInput.mkdir();
                 
                 String fName;
-                //recursively retrieve all files in folder
-                for (ChannelSftp.LsEntry entry : fInEntry) {
+                //recursively retrieve all files in selected folder
+                for (ChannelSftp.LsEntry entry : entryVector) {
                     fName = entry.getFilename();
                     if (!".".equals(fName) && !"..".equals(fName)) {
-                        retrieveFile(sftp, fName,localDir + File.separatorChar + fName,remoteDir + "/" + fName, gui);
+                        retrieveFile(sftp, fName,localDir + File.separatorChar + fName,remoteDir 
+                                + "/" + fName, gui);
                     }
                 }
                 
-                sftp.cd(localDir.substring(0, remoteDir.lastIndexOf('/')));
+                sftp.lcd(fileInput.getParent());
             }
             
-            
-            ////////////
-            //transfer a folder
-//            if (fInEntry..isDirectory()) {
-//                System.out.println("test folder:" + remoteDir);
-//               
-//                //folder does not exist, creating folder at destination (remote directories)
-//                sftp.cd(localDir.substring(0, remoteDir.lastIndexOf('/')));
-//                sftp.mkdir(fileName);
-//                
-//		String newFileName;
-//                //recursively retrieve all files in folder
-//                for(File file: fileInput.listFiles()){
-//                    newFileName = file.getName();
-//                    retrieveFile(sftp, newFileName,localDir + File.separatorChar + newFileName,remoteDir + "/" + newFileName, gui);
-//                }
-//                sftp.cd(localDir.substring(0, remoteDir.lastIndexOf('/')));
-//            }
-//            
-//            //transfer a file
-//            else {
-//                System.out.println("test file: " + remoteDir);
-//                sftp.get(remoteDir, localDir);
-//            }
         } catch (SftpException ex) {
-            gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
+            gui.writeToGuiConsole("[SFTP_ERROR] " + ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
         }
         
-        String successRetrieval = String.format("%s is retrieved from %s to %s ", fileName,remoteDir, localDir);
+        String successRetrieval = String.format("[SFTP_INFO] %s is retrieved from %s to %s ", fileName,remoteDir, localDir);
         gui.writeToGuiConsole(successRetrieval, SSHClientGui.LEVEL_INFO);
     }
-    
-    //retrieve files from remote to local
-/*    public static void retrieveFile(ChannelSftp sftp, String fileName,String localDir, String remoteDir,SSHClientGui gui) {
-        try {
-            sftp.get(remoteDir, localDir);
-        } catch (SftpException ex) {
-            gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
-        }
-        
-        String successRetrieval = String.format("%s is retrieved from %s to %s ", fileName,remoteDir, localDir);
-        gui.writeToGuiConsole(successRetrieval, SSHClientGui.LEVEL_INFO);
-    }*/ 
-   
+     
      //remove files from remote
     public static void removeFile(ChannelSftp sftp, String fileName,String remoteDir,SSHClientGui gui) {
         try {
-            Vector<ChannelSftp.LsEntry> vector = sftp.ls(remoteDir);
+            Vector<ChannelSftp.LsEntry> entryVector = sftp.ls(remoteDir);
             
-            if (null == vector) {
+            if (null == entryVector) {
                 return;
             }
-            int size = vector.size();
+            int size = entryVector.size();
             
             if (size == 1) {
                 // delete a file
@@ -245,7 +207,7 @@ public class SSHClient {
                 // delete folder and its file
                 String fName;
                 //recursively delete all files in folder
-                for (ChannelSftp.LsEntry entry : vector) {
+                for (ChannelSftp.LsEntry entry : entryVector) {
                     fName = entry.getFilename();
                     if (!".".equals(fName) && !"..".equals(fName)) {
                         removeFile(sftp, fName, remoteDir + "/" + fName, gui);
@@ -255,11 +217,11 @@ public class SSHClient {
             }
         
         } catch (SftpException ex) {
-            gui.writeToGuiConsole(ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
+            gui.writeToGuiConsole("[SFTP_ERROR] " + ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
         }
         
-        String successRetrieval = String.format("%s is removed from %s", fileName,remoteDir );
-        gui.writeToGuiConsole(successRetrieval, SSHClientGui.LEVEL_INFO);
+        String successRemoval = String.format("[SFTP_INFO] %s is removed from %s", fileName,remoteDir );
+        gui.writeToGuiConsole(successRemoval, SSHClientGui.LEVEL_INFO);
     }
      
     // pass in textarea object for printing messages
