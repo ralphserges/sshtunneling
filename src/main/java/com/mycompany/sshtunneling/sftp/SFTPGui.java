@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DropMode;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -57,6 +58,7 @@ public class SFTPGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,11 +75,22 @@ public class SFTPGui extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("SFTP File Transfer (Drag and Drop)");
 
+        deleteButton.setText("Delete (Remote)");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -86,15 +99,13 @@ public class SFTPGui extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)))
+                    .addComponent(deleteButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(50, 50, 50))))
                 .addGap(14, 14, 14))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(184, 184, 184)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,11 +119,66 @@ public class SFTPGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        String selectedFile = remoteFileName;
+        
+        if (selectedFile != null ) {
+             //sftp delete files in remote 
+            if (SSHClientGui.sftpChannel != null){
+                int option = JOptionPane.showConfirmDialog(
+                        this,
+                        "Are you sure you want to permanently delete " + selectedFile + " ?",
+                        "Delete File/Folder",
+                        JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                
+                //user confirm selection YES option
+                if (option == JOptionPane.YES_OPTION) {
+                    SSHClient.removeFile(SSHClientGui.sftpChannel, remoteFileName, remoteDir, sshClientG);
+                
+                    String hostName = SSHClientGui.session.getUserName();
+
+                    //get remote root path 
+                    String mainPath = String.format("/home/%s/Desktop",hostName);
+
+                    DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
+                    if (SSHClientGui.sftpChannel != null){
+                        try {
+                            JTreeLoader remoteTreeLoader = new JTreeLoader();
+                            remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
+                            //FileNodeStructure.addNodesRemote(mainPath,nroot,SSHClientGui.sftpChannel);
+
+                        } catch (SftpException ex) {
+                            Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                    //reload the jtree everytime a node is deleted
+                    DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
+                    model.setRoot(nroot);
+                    model.reload();
+                
+                //user confirm selection NO option
+                } else {
+                        System.out.println("File/Folder: " + selectedFile + " not deleted.");
+                }
+            }
+        } else { //validation for when file is deleted and delete button is pressed again
+            JOptionPane.showMessageDialog(this, 
+                    "Please select a file/folder from the remote file structure to delete",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        //reset to null for validation
+        remoteFileName = null;
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     public void displayLocalFileStructure() {
         
@@ -406,6 +472,7 @@ public class SFTPGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
