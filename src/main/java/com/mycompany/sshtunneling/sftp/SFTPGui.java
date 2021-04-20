@@ -10,7 +10,6 @@ import com.mycompany.sshtunneling.jtreedisplay.MyTreeModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DropMode;
@@ -195,24 +194,6 @@ public class SFTPGui extends javax.swing.JFrame {
         localJTree.addTreeWillExpandListener(loader);
         localJTree.setCellRenderer(new FileTreeCellRenderer());
       
-        /*
-        
-        DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel();
-        String startingPath = System.getProperty("user.home");
-        File rootFile = new File(startingPath);
-        
-        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(startingPath);
-        FileNodeStructure.addNodesLocalV2(rootFile,rootNode);
- 
-        
-        // display all files at client desktop 
-        // can change path here to dispaly more options
-        DefaultMutableTreeNode rootNode = FileNodeStructure.addNodesLocal(null, new File(System.getProperty("user.home")+ "/Desktop"));
-        
-        
-        model.setRoot(rootNode);
-        model.reload();
-        */
         
         //set drag and drop 
         localJTree.setDragEnabled(true);
@@ -225,8 +206,24 @@ public class SFTPGui extends javax.swing.JFrame {
         
         //when node is selected from local JTree
         localJTree.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath tp = localJTree.getSelectionPath();
+
+                if (tp != null){
+                    JTreeLoader localTreeLoader = new JTreeLoader();               
+                    localDir = localTreeLoader.convertTreePathToFilePath(tp); // get then set selected node absolute filepath to localDir
+                    System.out.println("test-localDir(selected-node): " + localDir);
+                    
+                    DefaultMutableTreeNode selectedNode = ((DefaultMutableTreeNode)tp.getLastPathComponent());
+                    File selectedFile = (File)selectedNode.getUserObject();
+                    
+                    localFileName = selectedFile.getName(); // get then set selected node filename to localFileName
+                    System.out.println("test-localFileName(selected-node): " + localFileName);
+                }
+                
+                
+                /*
                 if (tp != null) {
                     Object [] filePathToAdd = tp.getPath();
                     String fullPath = "";
@@ -249,6 +246,8 @@ public class SFTPGui extends javax.swing.JFrame {
                         System.out.println("file name (L): " + localFileName);
                     }
                 }
+                */
+                
             }
         });
       
