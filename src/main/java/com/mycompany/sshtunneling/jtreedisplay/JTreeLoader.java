@@ -46,16 +46,18 @@ public class JTreeLoader implements TreeWillExpandListener {
             for(File file : subFilesList) {
                 if(!file.getName().startsWith(".")){
                     DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
+                    //DefaultMutableTreeNode child = new DefaultMutableTreeNode(file.getName());
                     root.add(child);                
                 }
             }
         }
     }
     
-    public TreeNode createNodes(String rootFileName) {
+    public DefaultMutableTreeNode createNodes(String rootFileName) {
         File rootFile = new File(rootFileName);
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootFile) ; 
-        
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootFile) ;
+        //DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootFile.getName()) ;
+          
         if(rootFile.isDirectory()) {
             File [] subFilesList = rootFile.listFiles();
             Arrays.sort(subFilesList,comparator);
@@ -64,6 +66,7 @@ public class JTreeLoader implements TreeWillExpandListener {
                 if(!file.getName().startsWith(".")){
                     
                     DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
+                    //DefaultMutableTreeNode child = new DefaultMutableTreeNode(file.getName());
                     root.add(child);
                 }
             }
@@ -74,8 +77,9 @@ public class JTreeLoader implements TreeWillExpandListener {
     @Override
     public void treeWillExpand(TreeExpansionEvent path) throws ExpandVetoException {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)path.getPath().getLastPathComponent();
-        
+        //System.out.println("SelectedNode treewillexpand: " + selectedNode.toString());
         File selectedFile = new File(convertTreePathToFilePath(path.getPath()));
+        //System.out.println("SelectedFile treewillexpand: " + selectedFile);
         
         loadJTree(selectedFile, selectedNode);
     }

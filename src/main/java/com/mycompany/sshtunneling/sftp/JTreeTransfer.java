@@ -3,6 +3,7 @@ package com.mycompany.sshtunneling.sftp;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -35,10 +36,12 @@ public class JTreeTransfer extends TransferHandler{
     @Override
     public boolean canImport(TransferHandler.TransferSupport support) {
         if (!support.isDrop()) {
+            //System.out.println("Support isDrop: False"); //
             return false;
         }
         support.setShowDropLocation(true);
         if (!support.isDataFlavorSupported(nodeFlavor)) {
+            //System.out.println("Support isDataFlavorSupported: False"); //
             return false;
         }
         // Do not allow a drop on the drag source selections.
@@ -52,7 +55,7 @@ public class JTreeTransfer extends TransferHandler{
                 return false;
             }
         }
-
+        //System.out.println("Support canImport: true"); //
         return true;
     }
   
@@ -78,6 +81,7 @@ public class JTreeTransfer extends TransferHandler{
                 }
             }
         }
+        System.out.println("Support haveCompletedNode: true"); //
         return true;
     }
   
@@ -85,6 +89,8 @@ public class JTreeTransfer extends TransferHandler{
     protected Transferable createTransferable(JComponent c) {
         JTree tree = (JTree)c;
         TreePath[] paths = tree.getSelectionPaths();
+        System.out.println("createTransferable length: " + paths.length); //
+        System.out.println("createTransferable: " + paths[0].getLastPathComponent()); //
         if (paths != null) {
             // Make up a node array of copies for transfer and
             // another for/of the nodes incase they are needed to be removed
@@ -129,6 +135,7 @@ public class JTreeTransfer extends TransferHandler{
     @Override
     public boolean importData(TransferHandler.TransferSupport support) {
         if (!canImport(support)) {
+            //System.out.println("Support canImport data: False"); //
             return false;
         }
         //Extract transfer data
@@ -155,7 +162,7 @@ public class JTreeTransfer extends TransferHandler{
         if (childIndex == -1) {     // DropMode ON
             index = parent.getChildCount();
         }
-       
+     
         //list to store all child nodes of drop target location
         List<DefaultMutableTreeNode> childNodes = new ArrayList<>();
         boolean gotDuplicate = false;
@@ -168,11 +175,47 @@ public class JTreeTransfer extends TransferHandler{
         
         //check for import data is null
         if (nodes == null){
+            //System.out.println("Import data is null: true"); //
             return false;
         }
         
+        //if-else to convert imported data from File type to String and display inserted node
+        //as only the file name (Linux env)
+        //String to File type (Windows env) 
+        String localRoot = System.getProperty("user.home");
+        if (model.getRoot().toString().equals(localRoot)) { // local-windows env
+            System.out.println("transfer mode is: Retrieval-Remote-to-Local");
+            //convert into File type node
+            for (int i=0; i<nodes.length; i++) {
+                File testLocalTransfer = new File(dest.getLastPathComponent().toString() + "\\" + nodes[i].toString());
+                nodes[i].setUserObject(testLocalTransfer);
+            }
+            
+        }
+        else {  //remote-linux env 
+            System.out.println("transfer mode is: Transfer-Local-to-Remote");
+            for (int i=0; i<nodes.length; i++) {
+                String test = nodes[i].toString().substring(nodes[i].toString().lastIndexOf('\\'));
+                test = test.substring(1);  //remove first \ char
+                System.out.println("this is a test: " + test);
+                nodes[i].setUserObject(test); //change the name
+                System.out.println("transfer child count: "+ nodes[i].getChildCount());
+                //transfer node contains child 
+                if (nodes[i].getChildCount() >= 1) {
+                    for(int j=0; j<nodes[i].getChildCount(); j++) {   //rename each child to get only the filename
+                        DefaultMutableTreeNode temp = (DefaultMutableTreeNode) model.getChild(nodes[i], j);
+                        String test2 = temp.toString().substring(temp.toString().lastIndexOf('\\'));
+                        test2 = test2.substring(1);  //remove first \ char
+                        System.out.println("this is a test child: " + test2);
+                        temp.setUserObject(test2); //change the name
+                    }
+                }
+            
+            }
+        }
+           
         //check if drop nodes is of duplicate from the list
-        for (DefaultMutableTreeNode n : childNodes) {
+        for (DefaultMutableTreeNode n : childNodes) {          
             if (n.toString().equalsIgnoreCase(nodes[nodes.length-1].toString())) {
                 gotDuplicate = true;
                 System.out.println("found duplicate node: " + gotDuplicate + ", " + nodes[nodes.length-1]);
@@ -193,6 +236,8 @@ public class JTreeTransfer extends TransferHandler{
                 model.insertNodeInto(node, parent, index++);
             
         }
+        
+        //System.out.println("Support canImportData: true"); //
         
         return true;
     }

@@ -185,12 +185,15 @@ public class SFTPGui extends javax.swing.JFrame {
         String root = System.getProperty("user.home");
 
         JTreeLoader loader = new JTreeLoader();
-        TreeNode rootNode = loader.createNodes(root);
+        DefaultMutableTreeNode rootNode = loader.createNodes(root);
 
-        DefaultTreeModel model = new DefaultTreeModel(rootNode, true);
-        MyTreeModel myTreeModel = new MyTreeModel(model);
+        //DefaultTreeModel model = new DefaultTreeModel(rootNode, true);
+        DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel(); //
+        model.setRoot(rootNode); //
+        model.setAsksAllowsChildren(true);//
+        //MyTreeModel myTreeModel = new MyTreeModel(model); //*
         
-        localJTree.setModel(myTreeModel);
+        //localJTree.setModel(myTreeModel); //*
         localJTree.addTreeWillExpandListener(loader);
         localJTree.setCellRenderer(new FileTreeCellRenderer());
       
@@ -245,9 +248,8 @@ public class SFTPGui extends javax.swing.JFrame {
                         localFileName = directories[directories.length-1];
                         System.out.println("file name (L): " + localFileName);
                     }
-                }
-                */
-                
+                } */
+                           
             }
         });
       
@@ -257,9 +259,11 @@ public class SFTPGui extends javax.swing.JFrame {
             public void treeNodesChanged(TreeModelEvent e) {}
             @Override
             public void treeNodesInserted(TreeModelEvent e) {
+                System.out.println("A node is inserted");
                 TreePath dest = e.getTreePath();
                 //get parent node of the treenode that inserted
                 DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
+                System.out.println("dest parent (L): " + parent);
                 DefaultMutableTreeNode insertedNode = null;
                 
                 //get children nodes from the parent node
@@ -283,7 +287,11 @@ public class SFTPGui extends javax.swing.JFrame {
                     if(i == 0){
                         sb.append(tempNodes[i]);
                     }else{
-                        sb.append(File.separatorChar).append(tempNodes[i]);
+                        //exclude repeated root to be appended again
+                        String tempStr = tempNodes[i].substring(tempNodes[i].lastIndexOf('\\'));
+                        System.out.println("index after first test: " + tempStr);
+                        tempStr = tempStr.substring(1); //remove '\'
+                        sb.append(File.separatorChar).append(tempStr);
                     }
                     
                     //get fullpath after node is inserted
@@ -295,8 +303,8 @@ public class SFTPGui extends javax.swing.JFrame {
                 
                 //set destination path for file download (remote to local)
                 //destDir = System.getProperty("user.home") + "/" + sb.toString();
-                destDir = sb.toString();
-                System.out.println(destDir);
+                destDir = sb.toString() + File.separatorChar + remoteFileName;
+                System.out.println("destDIR (L):" + destDir);
                 //sftp retrieve file 
                if (SSHClientGui.sftpChannel != null){
                    SSHClient.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
@@ -305,7 +313,8 @@ public class SFTPGui extends javax.swing.JFrame {
             @Override
             public void treeNodesRemoved(TreeModelEvent e) {}
             @Override
-            public void treeStructureChanged(TreeModelEvent e) {}
+            public void treeStructureChanged(TreeModelEvent e) {
+            }
         });
     }
     
@@ -355,6 +364,7 @@ public class SFTPGui extends javax.swing.JFrame {
                     if(fullPath != null && !fullPath.isEmpty()) {
                         String[] directories = fullPath.split("/");
                         remoteFileName = directories[directories.length-1];
+                        System.out.println("file dir (R): " + remoteDir);
                         System.out.println("file name (R): " + remoteFileName);
                     }
                    
