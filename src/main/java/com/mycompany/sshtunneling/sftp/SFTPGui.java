@@ -2,7 +2,6 @@
 package com.mycompany.sshtunneling.sftp;
 
 import com.jcraft.jsch.SftpException;
-import com.mycompany.sshtunneling.SSHClient;
 import com.mycompany.sshtunneling.SSHClientGui;
 import com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer;
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
@@ -21,7 +20,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -141,7 +139,9 @@ public class SFTPGui extends javax.swing.JFrame {
                 
                 //user confirm selection YES option
                 if (option == JOptionPane.YES_OPTION) {
-                    SSHClient.removeFile(SSHClientGui.sftpChannel, remoteFileName, remoteDir, sshClientG);
+                    SFTPUtil sftpUtil = new SFTPUtil();
+                    
+                    sftpUtil.removeFile(SSHClientGui.sftpChannel, remoteFileName, remoteDir, sshClientG);
                 
                     String hostName = SSHClientGui.session.getUserName();
 
@@ -153,7 +153,7 @@ public class SFTPGui extends javax.swing.JFrame {
                         try {
                             JTreeLoader remoteTreeLoader = new JTreeLoader();
                             remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-                            //FileNodeStructure.addNodesRemote(mainPath,nroot,SSHClientGui.sftpChannel);
+                            
 
                         } catch (SftpException ex) {
                             Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -226,33 +226,7 @@ public class SFTPGui extends javax.swing.JFrame {
                     
                     localFileName = selectedFile.getName(); // get then set selected node filename to localFileName
                     System.out.println("test-localFileName(selected-node): " + localFileName);
-                }
-                
-                
-                /*
-                if (tp != null) {
-                    Object [] filePathToAdd = tp.getPath();
-                    String fullPath = "";
-                    for(Object path : filePathToAdd) {
-                        fullPath = fullPath + "/" + String.valueOf(path);
-                    }
-                    fullPath = fullPath.substring(1, fullPath.length());
-                    
-                    
-                    //assuming that the client host runs on windows
-                    // have not tested on linux environment
-                    
-                    fullPath = Paths.get(fullPath).toString();
-                    localDir = fullPath;
-                        
-                    //get name of selected file 
-                    if(fullPath != null && !fullPath.isEmpty()) {
-                        String[] directories = fullPath.split("\\\\");
-                        localFileName = directories[directories.length-1];
-                        System.out.println("file name (L): " + localFileName);
-                    }
-                } */
-                           
+                }          
             }
         });
       
@@ -310,7 +284,8 @@ public class SFTPGui extends javax.swing.JFrame {
                 System.out.println("destDIR (L):" + destDir);
                 //sftp retrieve file 
                if (SSHClientGui.sftpChannel != null){
-                   SSHClient.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
+                   SFTPUtil sftpUtil = new SFTPUtil();
+                   sftpUtil.retrieveFile(SSHClientGui.sftpChannel, remoteFileName, destDir, remoteDir, sshClientG);
                }
             }
             @Override
@@ -332,7 +307,7 @@ public class SFTPGui extends javax.swing.JFrame {
             try {
                 JTreeLoader remoteTreeLoader = new JTreeLoader();
                 remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-                //FileNodeStructure.addNodesRemote(mainPath,nroot,SSHClientGui.sftpChannel);
+                
                 
             } catch (SftpException ex) {
                 Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
@@ -423,7 +398,8 @@ public class SFTPGui extends javax.swing.JFrame {
                 
                 //sftp transfer file 
                 if (SSHClientGui.sftpChannel != null){
-                    SSHClient.transferFile(SSHClientGui.sftpChannel, localFileName, localDir, destDir, sshClientG);
+                    SFTPUtil sftpUtil = new SFTPUtil();
+                    sftpUtil.transferFile(SSHClientGui.sftpChannel, localFileName, localDir, destDir, sshClientG);
                 }
                 
             }
@@ -474,7 +450,8 @@ public class SFTPGui extends javax.swing.JFrame {
                     @Override
                     public void windowClosing(WindowEvent e){
                         if(SSHClientGui.sftpChannel.isConnected()){
-                            SSHClient.endSFTPChannel(SSHClientGui.sftpChannel, sshClientG);
+                            SFTPUtil sftpUtil = new SFTPUtil();
+                            sftpUtil.endSFTPChannel(SSHClientGui.sftpChannel, sshClientG);
                             System.out.println("SFTP Closed");
                         }
                     }

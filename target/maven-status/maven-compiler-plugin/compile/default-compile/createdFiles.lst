@@ -17,10 +17,10 @@ com\mycompany\sshtunneling\scp\SCPCommandLine.class
 com\mycompany\sshtunneling\sftp\JTreeTransfer.class
 com\mycompany\sshtunneling\scp\SCPModerator.class
 com\mycompany\sshtunneling\sftp\SFTPGui$3.class
+com\mycompany\sshtunneling\sftp\SFTPUtil.class
 com\mycompany\sshtunneling\jtreedisplay\FileTreeCellRenderer.class
 com\mycompany\sshtunneling\jtreedisplay\MyTreeModel.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$3.class
-com\mycompany\sshtunneling\FileNodeStructure.class
 com\mycompany\sshtunneling\SSHClientGui.class
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt$4.class
 com\mycompany\sshtunneling\scp\SCPUtil.class

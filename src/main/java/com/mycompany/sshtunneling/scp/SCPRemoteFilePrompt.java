@@ -23,6 +23,7 @@ import javax.swing.tree.TreeSelectionModel;
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.SSHClientGui;
 
+
 public class SCPRemoteFilePrompt extends javax.swing.JFrame {
     
     private Session session;
@@ -45,7 +46,8 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             @Override
             public void valueChanged(TreeSelectionEvent arg0) {
                 DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-                if(selectedNode.isLeaf())
+
+                if(selectedNode.isLeaf()) // i want to check if selectedNode is a empty folder
                     isFile = true;
                 else
                     isFile = false;
@@ -56,10 +58,12 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
                 if (tp != null) {
                     Object [] filePathToAdd = tp.getPath();
                     String fullPath = "";
-                    for(Object path : filePathToAdd) {
-                        fullPath = fullPath + "/" + String.valueOf(path);
+                    
+                    for(int i = 0; i < filePathToAdd.length; i++) {
+                        fullPath = fullPath + "/" + String.valueOf(filePathToAdd[i]);             
                     }
                     selectedNodePath = fullPath.substring(1, fullPath.length());
+                    
                 }
             }
         });
@@ -80,7 +84,7 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             if(sftpChannel.isConnected()){
                 JTreeLoader remoteTreeLoader = new JTreeLoader();
                 remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, sftpChannel);
-                //FileNodeStructure.addNodesRemote(mainPath,nroot,sftpChannel);
+                
             }
             
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();

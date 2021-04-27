@@ -5,6 +5,7 @@ import com.mycompany.sshtunneling.logging.LogController;
 import com.mycompany.sshtunneling.scp.SCPCommandLine;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
+import com.mycompany.sshtunneling.sftp.SFTPUtil;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
@@ -317,7 +318,8 @@ public class SSHClientGui extends javax.swing.JFrame {
 
         if(selectedProtocol.equals("SFTP")) {
             // if session is successfully created, create sftp channel using the session
-            this.sftpChannel = SSHClient.getSFTPChannel(this.session, this);
+            SFTPUtil sftpUtil = new SFTPUtil();
+            this.sftpChannel = sftpUtil.getSFTPChannel(this.session, this);
 
             //if sftp is successfully created and connected, pop out sftp gui
             if(this.sftpChannel.isConnected()) {
