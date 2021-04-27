@@ -56,6 +56,7 @@ public class SFTPGui extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
+        createButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +80,13 @@ public class SFTPGui extends javax.swing.JFrame {
             }
         });
 
+        createButton.setText("Create Folder (Remote)");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,12 +104,15 @@ public class SFTPGui extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(50, 50, 50))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(createButton)
+                        .addGap(54, 54, 54)
+                        .addComponent(deleteButton)
+                        .addGap(21, 21, 21)))
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -117,7 +128,9 @@ public class SFTPGui extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -149,17 +162,15 @@ public class SFTPGui extends javax.swing.JFrame {
                     String mainPath = String.format("/home/%s/Desktop",hostName);
 
                     DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
-                    if (SSHClientGui.sftpChannel != null){
-                        try {
-                            JTreeLoader remoteTreeLoader = new JTreeLoader();
-                            remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-                            
+                    try {
+                        JTreeLoader remoteTreeLoader = new JTreeLoader();
+                        remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
 
-                        } catch (SftpException ex) {
-                            Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+
+                    } catch (SftpException ex) {
+                        Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                 
                     //reload the jtree everytime a node is deleted
                     DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
                     model.setRoot(nroot);
@@ -178,6 +189,51 @@ public class SFTPGui extends javax.swing.JFrame {
         //reset to null for validation
         remoteFileName = null;
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+        // TODO add your handling code here:
+        String selectedFile = remoteFileName;
+        
+        if (selectedFile != null ) {
+             //sftp delete files in remote 
+            if (SSHClientGui.sftpChannel != null){
+                String folderNameIn = JOptionPane.showInputDialog(null, "Please input folder name", "Create new folder", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Your new folder name is: " + folderNameIn);
+                
+                SFTPUtil sftpUtil = new SFTPUtil();
+                //create new folder
+                sftpUtil.createFolder(SSHClientGui.sftpChannel, folderNameIn, remoteDir, sshClientG);
+
+                String hostName = SSHClientGui.session.getUserName();
+
+                //get remote root path 
+                String mainPath = String.format("/home/%s/Desktop",hostName);
+
+                DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
+                try {
+                    JTreeLoader remoteTreeLoader = new JTreeLoader();
+                    remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
+
+
+                } catch (SftpException ex) {
+                    Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //reload the jtree everytime a new folder is created
+                DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
+                model.setRoot(nroot);
+                model.reload();
+                
+            }
+        } else { //validation for when folder is not created and delete button is pressed again
+            JOptionPane.showMessageDialog(this, 
+                    "Please select where will the folder be created from the remote file structure",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        //reset to null for validation
+        remoteFileName = null;
+        
+    }//GEN-LAST:event_createButtonActionPerformed
 
     public void displayLocalFileStructure() {
         
@@ -461,6 +517,7 @@ public class SFTPGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
