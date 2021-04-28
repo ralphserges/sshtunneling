@@ -5,6 +5,8 @@
  */
 package SSHTunnelingFYP;
 
+import com.mycompany.sshtunneling.SSHClient;
+import com.mycompany.sshtunneling.SSHClientGui;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import org.junit.AfterClass;
