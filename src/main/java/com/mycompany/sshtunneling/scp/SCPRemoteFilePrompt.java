@@ -22,6 +22,9 @@ import javax.swing.tree.TreeSelectionModel;
 
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.SSHClientGui;
+import com.mycompany.sshtunneling.sftp.SFTPUtil;
+import java.util.Arrays;
+
 
 
 public class SCPRemoteFilePrompt extends javax.swing.JFrame {
@@ -47,11 +50,6 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             public void valueChanged(TreeSelectionEvent arg0) {
                 DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
 
-                if(selectedNode.isLeaf()) // i want to check if selectedNode is a empty folder
-                    isFile = true;
-                else
-                    isFile = false;
-                
                 selectedNodeName = selectedNode.toString();
                 
                 TreePath tp = jTree1.getSelectionPath();
@@ -64,9 +62,43 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
                     }
                     selectedNodePath = fullPath.substring(1, fullPath.length());
                     
+                    // if node is leaf AND isDirectory return false, selected node is a file 
+                    if(selectedNode.isLeaf() && !isDirectory(filePathToAdd, selectedNodeName)) 
+                        isFile = true;
+                    else
+                        isFile = false;
                 }
             }
         });
+    }
+    
+    private boolean isDirectory(Object [] filePathToAdd, String fileName){
+        Object [] fileItems = Arrays.copyOf(filePathToAdd, filePathToAdd.length-1);
+        String fullPath = "";
+        for(int i = 0; i < fileItems.length; i++) {
+            fullPath = fullPath + "/" + String.valueOf(fileItems[i]);             
+        }
+        
+        ChannelSftp sftpChannel = null;
+        try {
+            sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
+            sftpChannel.connect(5000); // connect sftp to ssh server. time out 5 sec
+            
+            if(sftpChannel.isConnected()){
+                SFTPUtil sftpUtil = new SFTPUtil();
+                return sftpUtil.isDirSFTP(sftpChannel, fullPath, fileName);
+            }
+        } catch (JSchException | SftpException ex) {
+            terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
+            terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
+        }finally{
+            if(sftpChannel != null){
+                sftpChannel.disconnect();
+                System.out.println("sftp disconnected in scpremotefileprompt class");
+            }
+        }
+       
+        return false;
     }
     
     private void displayRemoteFileStruct(){
@@ -83,8 +115,7 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
             if(sftpChannel.isConnected()){
                 JTreeLoader remoteTreeLoader = new JTreeLoader();
-                remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, sftpChannel);
-                
+                remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, sftpChannel);  
             }
             
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();

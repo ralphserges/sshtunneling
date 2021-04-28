@@ -6,6 +6,8 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 import com.mycompany.sshtunneling.SSHClientGui;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -246,17 +248,22 @@ public class SFTPUtil {
         gui.writeToGuiConsole(successCreate, SSHClientGui.LEVEL_INFO);
     }
     
-    // got bug
+  
     public boolean isDirSFTP(ChannelSftp sftp, String path, String fileName) throws SftpException {
-        Vector<ChannelSftp.LsEntry> list = sftp.ls(path);
-        int selectedFileIndex = list.indexOf(fileName);
+        Vector<ChannelSftp.LsEntry> vector = sftp.ls(path);
+        List<String> fileList = new ArrayList<String>(); 
         
-        // means there exist such file
+        for (ChannelSftp.LsEntry entry : vector) {
+            fileList.add(entry.getFilename());
+        }
+        
+        int selectedFileIndex = fileList.indexOf(fileName);
         if(selectedFileIndex != -1) {
-            ChannelSftp.LsEntry selectedFile = list.get(selectedFileIndex);
+            ChannelSftp.LsEntry selectedFile = vector.get(selectedFileIndex);
             return selectedFile.getAttrs().isDir();
         }
         return false; 
+        
     }
 
     
