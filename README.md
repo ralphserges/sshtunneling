@@ -1,11 +1,8 @@
 # sshtunneling
 
-changes made by zi an on 12/4/2021
-- added SCPCommandLine and SCPModerator to display customized terminal and perform 
-scp
-
-- added close window listener to SFTPGui, SSHClientGui and SCPCommandLine
-to ensure proper disconnection of session and channels when exit. 
-
-- added combobox to SSHClientGui for user to select protocol
+Merged with improve_sftp branch
+- added scp gui and features (remotelist, sendfile, retrievefile).
+- fixed scp bug on empty folder retrieve from remote to local.
+- improved sftp rendering speed for local file tree display.
+- added create and delete folder function for remote server(sftp).
 
