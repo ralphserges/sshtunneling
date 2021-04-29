@@ -6498,3 +6498,687 @@
 2021-04-28 14:17:06 [INFO] SSH client is disconnected from SSH server
 
 ------END OF LOG------
+------START OF LOG------
+2021-04-28 18:02:15 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:02:16 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:02:16 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:02:16 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:16 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:16 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:02:16 [INFO] SFTP channel is created.
+
+2021-04-28 18:02:22 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:02:22 [INFO] SFTP channel is closed.
+
+2021-04-28 18:02:22 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:02:31 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:02:31 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:02:31 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:02:31 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:31 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:31 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:02:31 [INFO] SFTP channel is created.
+
+2021-04-28 18:02:38 [INFO] SFTP channel is closed.
+
+2021-04-28 18:02:41 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:02:41 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:02:53 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:02:53 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:02:53 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:02:53 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:53 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:02:53 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:02:53 [INFO] SCP channel is created.
+
+2021-04-28 18:02:57 [INFO] SCP channel is closed
+
+2021-04-28 18:02:59 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:02:59 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:27:19 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:27:20 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:27:20 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:27:20 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:27:20 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:27:20 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:27:20 [INFO] SCP channel is created.
+
+2021-04-28 18:27:23 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:27:23 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:30:29 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:30:34 [ERROR] Unable to connect to SSH server. Please Check input fields or remote server connectivity.
+
+2021-04-28 18:30:44 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:30:46 [ERROR] Unable to connect to SSH server. Please Check input fields or remote server connectivity.
+
+2021-04-28 18:31:01 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:31:01 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:31:01 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:31:01 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:31:01 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:31:01 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:31:01 [INFO] SCP channel is created.
+
+2021-04-28 18:31:05 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:31:05 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:31:05 [INFO] SCP channel is closed
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:33:44 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:33:45 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:33:45 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:33:45 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:33:45 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:33:45 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:33:45 [INFO] SCP channel is created.
+
+2021-04-28 18:33:49 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:33:49 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:33:49 [INFO] SCP channel is closed
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:36:37 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:36:37 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:36:37 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:36:37 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:36:37 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:36:37 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:36:37 [INFO] SCP channel is created.
+
+2021-04-28 18:36:39 [INFO] SCP channel is closed
+
+2021-04-28 18:36:39 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:36:39 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:36:58 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:36:58 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:36:58 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:36:58 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:36:58 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:36:58 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:36:58 [INFO] SFTP channel is created.
+
+2021-04-28 18:37:01 [INFO] SCP channel is closed
+
+2021-04-28 18:37:01 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:37:01 [INFO] SFTP channel is closed.
+
+2021-04-28 18:37:01 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:37:26 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:37:26 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:37:26 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:37:26 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:37:26 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:37:26 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:37:27 [INFO] SFTP channel is created.
+
+2021-04-28 18:37:29 [INFO] SCP channel is closed
+
+2021-04-28 18:37:29 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:37:29 [INFO] SFTP channel is closed.
+
+2021-04-28 18:37:29 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:55:15 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:55:16 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:55:16 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:55:16 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:55:16 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:55:16 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:55:16 [INFO] SCP channel is created.
+
+2021-04-28 18:55:18 [INFO] SCP channel is closed
+
+2021-04-28 18:55:18 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:55:18 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:55:32 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:55:32 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:55:32 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:55:32 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:55:32 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:55:32 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:55:32 [INFO] SCP channel is created.
+
+2021-04-28 18:55:43 [INFO] SCP channel is closed
+
+2021-04-28 18:55:43 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:55:43 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 18:57:15 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:57:15 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:57:15 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:57:15 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:57:15 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:57:15 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:57:16 [INFO] SFTP channel is created.
+
+2021-04-28 18:57:18 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:57:18 [INFO] SFTP channel is closed.
+
+2021-04-28 18:57:18 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 18:57:36 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 18:57:36 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 18:57:36 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 18:57:36 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:57:36 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 18:57:36 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 18:57:36 [INFO] SCP channel is created.
+
+2021-04-28 18:57:38 [INFO] SCP channel is closed
+
+2021-04-28 18:57:38 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 18:57:38 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 19:03:06 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 19:03:06 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 19:03:06 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 19:03:06 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 19:03:06 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 19:03:06 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 19:03:06 [INFO] SCP channel is created.
+
+2021-04-28 19:03:19 [INFO] SCP channel is closed
+
+2021-04-28 19:03:21 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 19:03:21 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 21:44:54 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 21:44:55 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 21:44:55 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 21:44:55 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:44:55 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:44:55 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 21:44:55 [INFO] SCP channel is created.
+
+2021-04-28 21:45:18 [INFO] SCP channel is closed
+
+2021-04-28 21:45:23 [INFO] [SCP_INFO] Remote Server Desktop display closed.
+
+2021-04-28 21:52:23 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 21:52:23 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-28 21:53:28 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 21:53:29 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 21:53:29 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 21:53:29 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:53:29 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:53:29 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 21:53:29 [INFO] SCP channel is created.
+
+2021-04-28 21:53:37 [INFO] SCP channel is closed
+
+2021-04-28 21:53:45 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 21:53:45 [INFO] SSH client is disconnected from SSH server
+
+2021-04-28 21:53:46 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-28 21:53:47 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-28 21:53:47 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-28 21:53:47 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:53:47 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-28 21:53:47 [INFO] No local port forwarding tunneling initiated
+
+2021-04-28 21:53:47 [INFO] SCP channel is created.
+
+2021-04-28 21:53:55 [INFO] SCP channel is closed
+
+2021-04-28 21:53:55 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-28 21:53:55 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 10:34:36 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 10:34:37 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 10:34:37 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 10:34:37 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 10:34:37 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 10:34:37 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 10:34:39 [INFO] SFTP channel is created.
+
+2021-04-29 10:35:26 [INFO] SFTP channel is closed.
+
+2021-04-29 10:35:33 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 10:35:33 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 15:36:26 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 15:36:27 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 15:36:27 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 15:36:27 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:36:27 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:36:27 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 15:36:29 [INFO] SFTP channel is created.
+
+2021-04-29 15:42:51 [INFO] SFTP channel is closed.
+
+2021-04-29 15:42:53 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 15:42:53 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 15:43:52 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 15:43:53 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 15:43:53 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 15:43:53 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:43:53 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:43:53 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 15:43:53 [INFO] SCP channel is created.
+
+2021-04-29 15:56:26 [INFO] [SCP_INFO] Remote Server Desktop display closed.
+
+2021-04-29 15:56:30 [INFO] SCP channel is closed
+
+2021-04-29 15:56:32 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 15:56:32 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 15:59:21 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 15:59:22 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 15:59:22 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 15:59:22 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:59:22 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 15:59:22 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 15:59:22 [INFO] SFTP channel is created.
+
+2021-04-29 16:00:16 [INFO] SFTP channel is closed.
+
+2021-04-29 16:00:18 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:00:18 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:02:29 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:02:29 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:02:29 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:02:29 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:02:29 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:02:29 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:02:30 [INFO] SFTP channel is created.
+
+2021-04-29 16:02:45 [INFO] [SFTP_INFO] 1-introduction.txt is transferred from C:\Users\LIU ZI AN\Desktop\data-mining\1-introduction.txt to /home/liuzian/Desktop/1-introduction.txt 
+
+2021-04-29 16:07:00 [INFO] SFTP channel is closed.
+
+2021-04-29 16:07:02 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:07:02 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:07:24 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:07:24 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:07:24 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:07:24 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:07:24 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:07:24 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:07:24 [INFO] SFTP channel is created.
+
+2021-04-29 16:08:12 [INFO] SFTP channel is closed.
+
+2021-04-29 16:08:14 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:08:14 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:08:54 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:08:55 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:08:55 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:08:55 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:08:55 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:08:55 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:08:55 [INFO] SFTP channel is created.
+
+2021-04-29 16:13:22 [INFO] SFTP channel is closed.
+
+2021-04-29 16:13:24 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:13:24 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:13:47 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:13:47 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:13:47 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:13:47 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:13:47 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:13:47 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:13:48 [INFO] SFTP channel is created.
+
+2021-04-29 16:16:47 [INFO] SFTP channel is closed.
+
+2021-04-29 16:16:49 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:16:49 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:18:50 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:18:50 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:18:50 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:18:50 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:18:50 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:18:50 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:18:50 [INFO] SFTP channel is created.
+
+2021-04-29 16:18:57 [INFO] SFTP channel is closed.
+
+2021-04-29 16:18:58 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:18:58 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 16:27:33 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:27:34 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:27:34 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:27:34 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:27:34 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:27:34 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:27:34 [INFO] SFTP channel is created.
+
+2021-04-29 16:27:47 [INFO] [SFTP_INFO] ServerSide.java is retrieved from /home/liuzian/Desktop/ServerSide.java to C:\Users\LIU ZI AN\Desktop\ServerSide.java 
+
+2021-04-29 16:50:24 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:50:24 [INFO] SFTP channel is closed.
+
+2021-04-29 16:50:24 [INFO] SSH client is disconnected from SSH server
+
+2021-04-29 16:50:37 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:50:37 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:50:37 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:50:37 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:50:37 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:50:37 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:50:37 [INFO] SCP channel is created.
+
+2021-04-29 16:50:50 [INFO] SCP channel is closed
+
+2021-04-29 16:50:55 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:50:55 [INFO] SSH client is disconnected from SSH server
+
+2021-04-29 16:50:56 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:50:56 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:50:56 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:50:56 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:50:56 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:50:56 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:50:56 [INFO] SCP channel is created.
+
+2021-04-29 16:51:03 [INFO] SCP channel is closed
+
+2021-04-29 16:51:03 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:51:03 [INFO] SSH client is disconnected from SSH server
+
+2021-04-29 16:51:23 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 16:51:23 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 16:51:23 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 16:51:23 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:51:23 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 16:51:23 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 16:51:23 [INFO] SCP channel is created.
+
+2021-04-29 16:51:27 [INFO] SCP channel is closed
+
+2021-04-29 16:52:08 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 16:52:08 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
+------START OF LOG------
+2021-04-29 17:03:27 [INFO] Connecting to SSH Server on port 2200
+
+2021-04-29 17:03:28 [INFO] SSH session is successfully created and connected to SSH server of remote host name 127.0.0.1
+
+2021-04-29 17:03:28 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-04-29 17:03:28 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 17:03:28 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-04-29 17:03:28 [INFO] No local port forwarding tunneling initiated
+
+2021-04-29 17:03:28 [INFO] SFTP channel is created.
+
+2021-04-29 17:03:38 [INFO] [SFTP_INFO] ServerSide.java is retrieved from /home/liuzian/Desktop/ServerSide.java to C:\Users\LIU ZI AN\Desktop\ServerSide.java 
+
+2021-04-29 17:03:45 [INFO] [SFTP_INFO] 2-preprocessing-phase.txt is transferred from C:\Users\LIU ZI AN\Desktop\data-mining\2-preprocessing-phase.txt to /home/liuzian/Desktop/2-preprocessing-phase.txt 
+
+2021-04-29 17:04:07 [INFO] SFTP channel is closed.
+
+2021-04-29 17:04:13 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-04-29 17:04:13 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------

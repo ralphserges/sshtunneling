@@ -122,6 +122,9 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             model.setRoot(nroot);
             model.reload();
             
+            
+            //set treecellrenderer here
+            
         } catch (JSchException | SftpException ex) {
             terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
             terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
@@ -268,6 +271,11 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 SCPRemoteFilePrompt filePrompt = new SCPRemoteFilePrompt(session,terminal,scpUtil);
+                
+                terminal.setScpRemoteFileDisplay(filePrompt);
+                terminal.setIsSCPRemoteFileON(true);
+                
+                
                 filePrompt.setVisible(true);
                 filePrompt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 filePrompt.addWindowListener(new WindowAdapter(){
@@ -277,6 +285,13 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
                         terminal.getTerminal().append("[SCP_INFO] " + "Remote Server Desktop display closed." + "\n");
                         terminal.getTerminal().append(terminal.getPrompt());
                         terminal.getSSHClientGui().writeToGuiConsole("[SCP_INFO] " + "Remote Server Desktop display closed.", SSHClientGui.LEVEL_INFO);
+                        terminal.setIsSCPRemoteFileON(false);
+                    }
+                    
+                    @Override
+                    public void windowClosed(WindowEvent e){
+                       
+                        terminal.setIsSCPRemoteFileON(false);
                     }
                 });
             }

@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class SSHClientGui extends javax.swing.JFrame {
+    private SFTPGui sftpGui;
+    private SCPCommandLine scpTerminal;
+    private boolean isSFTPGuiOn;
+    private boolean isSCPTerminalOn;
+    
     public static Session session;
     public static ChannelSftp sftpChannel;
     
@@ -30,6 +35,21 @@ public class SSHClientGui extends javax.swing.JFrame {
         initComponents();
     }
     
+    public void setSFTPGui(SFTPGui sftpGui){
+        this.sftpGui = sftpGui;
+    }
+    
+    public void setSCPTerminal(SCPCommandLine scpTerminal){
+        this.scpTerminal = scpTerminal;
+    }
+    
+    public void setIsSFTPOn(boolean isSFTPGuiOn){
+        this.isSFTPGuiOn = isSFTPGuiOn;
+    }
+    
+    public void setIsSCPTerminalOn(boolean isSCPTerminalOn){
+        this.isSCPTerminalOn = isSCPTerminalOn;
+    }
     
 
     /**
@@ -299,7 +319,9 @@ public class SSHClientGui extends javax.swing.JFrame {
                 }
             }
             else {
+                safeExit();
                 SSHClient.endSSHSession(this.session,this.sftpChannel, this);
+                
                 
                 // change conenct button to connect button
                 connectButton.setText("Connect");
@@ -328,7 +350,6 @@ public class SSHClientGui extends javax.swing.JFrame {
                 // display sftp gui
                 SFTPGui.displaySFTPGui(this);
                 
-                
             }else {
                  writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
             }
@@ -348,7 +369,8 @@ public class SSHClientGui extends javax.swing.JFrame {
         
         // user click exit while ssh still connected
         if(this.session != null) {
-            if(this.session.isConnected() && connectButton.getText().equalsIgnoreCase("Disconnect")){         
+            if(this.session.isConnected()){
+                safeExit();
                 SSHClient.endSSHSession(this.session,this.sftpChannel, this);
             } 
             //write to file here
@@ -364,6 +386,15 @@ public class SSHClientGui extends javax.swing.JFrame {
         //exit program
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+    
+    private void safeExit() {
+        if(isSFTPGuiOn)
+            sftpGui.dispose();
+        if(isSCPTerminalOn){
+            scpTerminal.dispose();
+            writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
+        }
+    }
     
     //this method checks for invalid port such that 
     // it is less than 0 or greater than MAXIMUM_PORT_VALUE

@@ -255,6 +255,7 @@ public class SFTPUtil {
         
         for (ChannelSftp.LsEntry entry : vector) {
             fileList.add(entry.getFilename());
+            //System.out.println("testing123 " + entry);
         }
         
         int selectedFileIndex = fileList.indexOf(fileName);

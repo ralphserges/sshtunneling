@@ -1,11 +1,13 @@
 
 package com.mycompany.sshtunneling.sftp;
 
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 import com.mycompany.sshtunneling.SSHClientGui;
 import com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer;
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.jtreedisplay.MyTreeModel;
+import com.mycompany.sshtunneling.jtreedisplay.RemoteFileTreeCellRenderer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -365,6 +367,10 @@ public class SFTPGui extends javax.swing.JFrame {
                 remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
                 
                 
+                //remoteTreeLoader.addNodesRemoteV3(mainPath, nroot, SSHClientGui.sftpChannel); <-- fix here
+                
+                
+                
             } catch (SftpException ex) {
                 Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -377,6 +383,8 @@ public class SFTPGui extends javax.swing.JFrame {
         //set drag and drop 
         remoteJTree.setDragEnabled(true);
         remoteJTree.setDropMode(DropMode.ON_OR_INSERT);
+        //remoteJTree.setCellRenderer(new RemoteFileTreeCellRenderer()); <-- fix here
+        
         //transfer data from JTree
         JTreeTransfer transfer = new JTreeTransfer();
         remoteJTree.setTransferHandler(transfer);
@@ -386,18 +394,33 @@ public class SFTPGui extends javax.swing.JFrame {
         remoteJTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath tp = remoteJTree.getSelectionPath();
+                System.out.println("from displayremote tp: " + tp);
                 if (tp != null) {
                     Object [] filePathToAdd = tp.getPath();
                     String fullPath = "";
                     for(Object path : filePathToAdd) {
+                        
+                        /*
+                        <-- fix here-->
+                        if (path instanceof DefaultMutableTreeNode) {
+                            path = ((DefaultMutableTreeNode)path).getUserObject();
+                            if (path instanceof ChannelSftp.LsEntry) {
+                                path = ((ChannelSftp.LsEntry) path).getFilename();
+                            }
+                        }
+                        */
+                        
                         fullPath = fullPath + "/" + String.valueOf(path);
+                        
                     }
                     remoteDir = fullPath.substring(1, fullPath.length());
                     
                      //get name of selected file 
                     if(fullPath != null && !fullPath.isEmpty()) {
+                        
                         String[] directories = fullPath.split("/");
                         remoteFileName = directories[directories.length-1];
+
                         System.out.println("file dir (R): " + remoteDir);
                         System.out.println("file name (R): " + remoteFileName);
                     }
@@ -498,6 +521,9 @@ public class SFTPGui extends javax.swing.JFrame {
                 sshClientG = sshClient;
                 
                 SFTPGui sftpGui = new SFTPGui();
+                sshClient.setSFTPGui(sftpGui);
+                sshClient.setIsSFTPOn(true);
+                
                 sftpGui.setVisible(true);
                 sftpGui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 
@@ -508,7 +534,18 @@ public class SFTPGui extends javax.swing.JFrame {
                         if(SSHClientGui.sftpChannel.isConnected()){
                             SFTPUtil sftpUtil = new SFTPUtil();
                             sftpUtil.endSFTPChannel(SSHClientGui.sftpChannel, sshClientG);
+                            sshClient.setIsSFTPOn(false);
                             System.out.println("SFTP Closed");
+                        }
+                    }
+                    
+                    @Override
+                    public void windowClosed(WindowEvent e){
+                        if(SSHClientGui.sftpChannel.isConnected()){
+                            SFTPUtil sftpUtil = new SFTPUtil();
+                            sftpUtil.endSFTPChannel(SSHClientGui.sftpChannel, sshClientG);
+                            sshClient.setIsSFTPOn(false);
+                            
                         }
                     }
                 });
