@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SCPModerator.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\FileNodeStructure.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClient.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SCPCommandLine.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\LogController.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SSHClientGui.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\Logger.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\JTreeTransfer.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SCPRemoteFilePrompt.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SCPUtil.java
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\SSHTunnelingFYP\SFTPGui.java
-=======
-C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\FileNodeStructure.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\MyTreeModel.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\FileTreeCellRenderer.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\logging\Logger.java
@@ -22,7 +8,7 @@ C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\myc
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\JTreeLoader.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\sftp\SFTPGui.java
+C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\sftp\SFTPUtil.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\sftp\JTreeTransfer.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\SSHClient.java
 C:\Users\LIU ZI AN\Documents\NetBeansProjects\sshtunneling\src\main\java\com\mycompany\sshtunneling\scp\SCPCommandLine.java
->>>>>>> improve_sftp

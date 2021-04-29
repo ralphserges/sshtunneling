@@ -17,6 +17,9 @@ public class SCPCommandLine extends javax.swing.JFrame {
     private static final String [] avaliableCommands = {"sendfile", "retrievefile", "remotelist"};
     private static SSHClientGui sshClientGui;
     
+    private SCPRemoteFilePrompt scpRemoteFileDisplay; 
+    private boolean isSCPRemoteFileON;
+    
     /**
      * Creates new form SCPCommandLine
      */
@@ -40,6 +43,14 @@ public class SCPCommandLine extends javax.swing.JFrame {
     
     public SSHClientGui getSSHClientGui() {
         return sshClientGui;
+    }
+    
+    public void setScpRemoteFileDisplay(SCPRemoteFilePrompt scpRemoteFileDisplay){
+        this.scpRemoteFileDisplay = scpRemoteFileDisplay;
+    }
+    
+    public void setIsSCPRemoteFileON(boolean isSCPRemoteFileON){
+        this.isSCPRemoteFileON = isSCPRemoteFileON;
     }
     
     
@@ -194,6 +205,11 @@ public class SCPCommandLine extends javax.swing.JFrame {
         return Arrays.asList(avaliableCommands).contains(command);
     }
     
+    private void safeExit(){
+        if(isSCPRemoteFileON)
+            scpRemoteFileDisplay.dispose(); 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -227,6 +243,10 @@ public class SCPCommandLine extends javax.swing.JFrame {
                 SCPCommandLine.sshClientGui = gui;
                 
                 SCPCommandLine scp = new SCPCommandLine();
+                gui.setSCPTerminal(scp);
+                gui.setIsSCPTerminalOn(true);
+                
+                
                 scp.setVisible(true);
                 scp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 scp.addWindowListener(new WindowAdapter(){
@@ -234,6 +254,15 @@ public class SCPCommandLine extends javax.swing.JFrame {
                     public void windowClosing(WindowEvent e){
                         
                         SCPCommandLine.sshClientGui.writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
+                        SCPCommandLine.sshClientGui.setIsSCPTerminalOn(false);
+                        scp.safeExit();
+                    }
+                    
+                    @Override
+                    public void windowClosed(WindowEvent e){
+                        SCPCommandLine.sshClientGui.setIsSCPTerminalOn(false);
+                        scp.safeExit();
+                        
                     }
                 });
             }
