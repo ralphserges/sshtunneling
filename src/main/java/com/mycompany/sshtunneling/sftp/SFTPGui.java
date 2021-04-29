@@ -1,13 +1,12 @@
 
 package com.mycompany.sshtunneling.sftp;
 
-import com.jcraft.jsch.ChannelSftp;
+
 import com.jcraft.jsch.SftpException;
 import com.mycompany.sshtunneling.SSHClientGui;
 import com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer;
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.jtreedisplay.MyTreeModel;
-import com.mycompany.sshtunneling.jtreedisplay.RemoteFileTreeCellRenderer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -365,12 +364,7 @@ public class SFTPGui extends javax.swing.JFrame {
             try {
                 JTreeLoader remoteTreeLoader = new JTreeLoader();
                 remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-                
-                
-                //remoteTreeLoader.addNodesRemoteV3(mainPath, nroot, SSHClientGui.sftpChannel); <-- fix here
-                
-                
-                
+
             } catch (SftpException ex) {
                 Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -378,13 +372,13 @@ public class SFTPGui extends javax.swing.JFrame {
         
         DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
         model.setRoot(nroot);
+        model.setAsksAllowsChildren(true);
         model.reload();
         
         //set drag and drop 
         remoteJTree.setDragEnabled(true);
         remoteJTree.setDropMode(DropMode.ON_OR_INSERT);
-        //remoteJTree.setCellRenderer(new RemoteFileTreeCellRenderer()); <-- fix here
-        
+
         //transfer data from JTree
         JTreeTransfer transfer = new JTreeTransfer();
         remoteJTree.setTransferHandler(transfer);
@@ -399,16 +393,6 @@ public class SFTPGui extends javax.swing.JFrame {
                     Object [] filePathToAdd = tp.getPath();
                     String fullPath = "";
                     for(Object path : filePathToAdd) {
-                        
-                        /*
-                        <-- fix here-->
-                        if (path instanceof DefaultMutableTreeNode) {
-                            path = ((DefaultMutableTreeNode)path).getUserObject();
-                            if (path instanceof ChannelSftp.LsEntry) {
-                                path = ((ChannelSftp.LsEntry) path).getFilename();
-                            }
-                        }
-                        */
                         
                         fullPath = fullPath + "/" + String.valueOf(path);
                         

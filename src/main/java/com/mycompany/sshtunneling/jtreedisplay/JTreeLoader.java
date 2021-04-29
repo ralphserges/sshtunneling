@@ -104,8 +104,9 @@ public class JTreeLoader implements TreeWillExpandListener {
     public void addNodesRemoteV2(String remotePath, DefaultMutableTreeNode parent, ChannelSftp sftpChannel) throws SftpException{
         Vector<ChannelSftp.LsEntry> list = sftpChannel.ls(remotePath); // List source directory structure.
         for (ChannelSftp.LsEntry oListItem : list) { // Iterate objects in the list to get file/folder names.       
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(oListItem.getFilename());
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode(oListItem.getFilename(), true);
             if (!oListItem.getAttrs().isDir()) { // If it is a file (not a directory).
+                node.setAllowsChildren(false);
                 parent.add(node); // add as a child node
             } else{
                 if (!".".equals(oListItem.getFilename()) && !"..".equals(oListItem.getFilename())) {
@@ -115,6 +116,7 @@ public class JTreeLoader implements TreeWillExpandListener {
             }
         }
     }
+   
     
     //<-- fix here-->
     public void addNodesRemoteV3(String remotePath, DefaultMutableTreeNode parent, ChannelSftp sftpChannel) throws SftpException{
