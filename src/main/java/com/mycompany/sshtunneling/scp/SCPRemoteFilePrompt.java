@@ -119,6 +119,7 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             }
             
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
+            model.setAsksAllowsChildren(true);
             model.setRoot(nroot);
             model.reload();
             
