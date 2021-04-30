@@ -195,19 +195,31 @@ public class JTreeTransfer extends TransferHandler{
         else {  //remote-linux env 
             System.out.println("transfer mode is: Transfer-Local-to-Remote");
             for (int i=0; i<nodes.length; i++) {
-                String test = nodes[i].toString().substring(nodes[i].toString().lastIndexOf('\\'));
-                test = test.substring(1);  //remove first \ char
-                System.out.println("this is a test: " + test);
-                nodes[i].setUserObject(test); //change the name
-                System.out.println("transfer child count: "+ nodes[i].getChildCount());
+                
+                //check if node object transfer from local side is not folder 
+                File nodesFile = new File(nodes[i].toString());
+                if (!nodesFile.isDirectory()) 
+                    nodes[i].setAllowsChildren(false);
+                
+                //change from fullpath to lastpath filename
+                String lastPathName = nodes[i].toString().substring(nodes[i].toString().lastIndexOf('\\'));
+                lastPathName = lastPathName.substring(1);  //remove first \ char
+                nodes[i].setUserObject(lastPathName); //set lastpath name to node
+                
+                //System.out.println("transfer child count: "+ nodes[i].getChildCount());
                 //transfer node contains child 
                 if (nodes[i].getChildCount() >= 1) {
-                    for(int j=0; j<nodes[i].getChildCount(); j++) {   //rename each child to get only the filename
+                    for(int j=0; j<nodes[i].getChildCount(); j++) {   //rename each child to get only the lastpath filename
+                        //get child node
                         DefaultMutableTreeNode temp = (DefaultMutableTreeNode) model.getChild(nodes[i], j);
-                        String test2 = temp.toString().substring(temp.toString().lastIndexOf('\\'));
-                        test2 = test2.substring(1);  //remove first \ char
-                        System.out.println("this is a test child: " + test2);
-                        temp.setUserObject(test2); //change the name
+                         //check if node object transfer from local side is not folder 
+                        File childNodesFile = new File(temp.toString());
+                        if (!childNodesFile.isDirectory()) 
+                            temp.setAllowsChildren(false);
+                        
+                        String ChildLPathName = temp.toString().substring(temp.toString().lastIndexOf('\\'));
+                        ChildLPathName = ChildLPathName.substring(1);  //remove first \ char
+                        temp.setUserObject(ChildLPathName); //change the name
                     }
                 }
             
