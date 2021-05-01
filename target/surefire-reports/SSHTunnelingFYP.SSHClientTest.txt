@@ -1,13 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: SSHTunnelingFYP.SSHClientTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 8.581 sec <<< FAILURE!
-testGetSSHSessionLPF(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 4.64 sec  <<< FAILURE!
-=======
-Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 8.629 sec <<< FAILURE!
-testGetSSHSessionLPF(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 4.691 sec  <<< FAILURE!
->>>>>>> improve_sftp
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 5.393 sec <<< FAILURE!
+testGetSSHSessionLPF(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 3.241 sec  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)
@@ -46,11 +41,7 @@ java.lang.AssertionError
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-<<<<<<< HEAD
-testGetSSHSession(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 3.894 sec  <<< FAILURE!
-=======
-testGetSSHSession(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 3.885 sec  <<< FAILURE!
->>>>>>> improve_sftp
+testGetSSHSession(SSHTunnelingFYP.SSHClientTest)  Time elapsed: 2.077 sec  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)

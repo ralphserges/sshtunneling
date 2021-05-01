@@ -157,25 +157,8 @@ public class SFTPGui extends javax.swing.JFrame {
                     
                     sftpUtil.removeFile(SSHClientGui.sftpChannel, remoteFileName, remoteDir, sshClientG);
                 
-                    String hostName = SSHClientGui.session.getUserName();
-
-                    //get remote root path 
-                    String mainPath = String.format("/home/%s/Desktop",hostName);
-
-                    DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
-                    try {
-                        JTreeLoader remoteTreeLoader = new JTreeLoader();
-                        remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-
-
-                    } catch (SftpException ex) {
-                        Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                 
                     //reload the jtree everytime a node is deleted
-                    DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
-                    model.setRoot(nroot);
-                    model.reload();
+                    remoteTreeSetup();
                 
                 //user confirm selection NO option
                 } else {
@@ -196,37 +179,22 @@ public class SFTPGui extends javax.swing.JFrame {
         String selectedFile = remoteFileName;
         
         if (selectedFile != null ) {
-             //sftp delete files in remote 
+             //sftp create folder in remote 
             if (SSHClientGui.sftpChannel != null){
                 String folderNameIn = JOptionPane.showInputDialog(null, "Please input folder name", "Create new folder", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Your new folder name is: " + folderNameIn);
                 
-                SFTPUtil sftpUtil = new SFTPUtil();
-                //create new folder
-                sftpUtil.createFolder(SSHClientGui.sftpChannel, folderNameIn, remoteDir, sshClientG);
-
-                String hostName = SSHClientGui.session.getUserName();
-
-                //get remote root path 
-                String mainPath = String.format("/home/%s/Desktop",hostName);
-
-                DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
-                try {
-                    JTreeLoader remoteTreeLoader = new JTreeLoader();
-                    remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-
-
-                } catch (SftpException ex) {
-                    Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                //reload the jtree everytime a new folder is created
-                DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
-                model.setRoot(nroot);
-                model.reload();
+                if (folderNameIn != null) {
+                    SFTPUtil sftpUtil = new SFTPUtil();
+                    //create new folder
+                    sftpUtil.createFolder(SSHClientGui.sftpChannel, folderNameIn, remoteDir, sshClientG);
+                    
+                    //reload the jtree everytime a node is created
+                     remoteTreeSetup();
+                }   
                 
             }
-        } else { //validation for when folder is not created and delete button is pressed again
+        } else { //validation for when folder is not created and create button is pressed again
             JOptionPane.showMessageDialog(this, 
                     "Please select where will the folder be created from the remote file structure",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -248,11 +216,11 @@ public class SFTPGui extends javax.swing.JFrame {
         //DefaultTreeModel model = (DefaultTreeModel) localJTree.getModel(); //
         
         
-        MyTreeModel myTreeModel = new MyTreeModel(); //*
-        myTreeModel.setRoot(rootNode); //
-        myTreeModel.setAsksAllowsChildren(true);//
+        MyTreeModel myTreeModel = new MyTreeModel();
+        myTreeModel.setRoot(rootNode); 
+        myTreeModel.setAsksAllowsChildren(true);
         
-        localJTree.setModel(myTreeModel); //*
+        localJTree.setModel(myTreeModel); 
         localJTree.addTreeWillExpandListener(loader);
         localJTree.setCellRenderer(new FileTreeCellRenderer());
       
@@ -354,26 +322,8 @@ public class SFTPGui extends javax.swing.JFrame {
     }
     
     public void displayRemoteFileStruct() {
-        String hostName = SSHClientGui.session.getUserName();
-        
-        //assuming that the remote host runs on unix or linux 
-        String mainPath = String.format("/home/%s/Desktop",hostName);
-        
-        DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
-        if(SSHClientGui.sftpChannel != null){
-            try {
-                JTreeLoader remoteTreeLoader = new JTreeLoader();
-                remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
-
-            } catch (SftpException ex) {
-                Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
-        model.setRoot(nroot);
-        model.setAsksAllowsChildren(true);
-        model.reload();
+        //setup remote jtree model
+        remoteTreeSetup();
         
         //set drag and drop 
         remoteJTree.setDragEnabled(true);
@@ -388,7 +338,6 @@ public class SFTPGui extends javax.swing.JFrame {
         remoteJTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath tp = remoteJTree.getSelectionPath();
-                System.out.println("from displayremote tp: " + tp);
                 if (tp != null) {
                     Object [] filePathToAdd = tp.getPath();
                     String fullPath = "";
@@ -464,14 +413,14 @@ public class SFTPGui extends javax.swing.JFrame {
                     SFTPUtil sftpUtil = new SFTPUtil();
                     sftpUtil.transferFile(SSHClientGui.sftpChannel, localFileName, localDir, destDir, sshClientG);
                 }
-                
+                       
             }
             @Override
             public void treeNodesRemoved(TreeModelEvent e) {}
             @Override
             public void treeStructureChanged(TreeModelEvent e) {}
             
-        });
+        });    
     }
     
     
@@ -535,6 +484,30 @@ public class SFTPGui extends javax.swing.JFrame {
                 });
             }
         });
+    }
+    
+    //setup remote tree to display the file structure at remote side
+    public void remoteTreeSetup() {
+        String hostName = SSHClientGui.session.getUserName();
+        
+        //assuming that the remote host runs on unix or linux 
+        String mainPath = String.format("/home/%s/Desktop",hostName);
+        
+        DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
+        if(SSHClientGui.sftpChannel != null){
+            try {
+                JTreeLoader remoteTreeLoader = new JTreeLoader();
+                remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, SSHClientGui.sftpChannel);
+
+            } catch (SftpException ex) {
+                Logger.getLogger(SFTPGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        DefaultTreeModel model = (DefaultTreeModel) remoteJTree.getModel();
+        model.setRoot(nroot);
+        model.setAsksAllowsChildren(true);
+        model.reload();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 
 // this class is still not in use yet. 
@@ -161,7 +162,7 @@ public class SFTPUtil {
         String successRemoval = String.format("[SFTP_INFO] %s is removed from %s", fileName,remoteDir );
         gui.writeToGuiConsole(successRemoval, SSHClientGui.LEVEL_INFO);
     }
-    
+        
     //create new folder from remote
     public void createFolder(ChannelSftp sftp, String newFolderName,String remoteDir,SSHClientGui gui) {
         String successCreate = "";
@@ -179,75 +180,73 @@ public class SFTPUtil {
                 String parentRemoteDir = remoteDir.substring(0, remoteDir.lastIndexOf('/'));
                 //list selected remoteDir parent
                 Vector<ChannelSftp.LsEntry> parentEntryVect = sftp.ls(parentRemoteDir);
-                int duplicateCount = 0;
+                boolean folderExist = false;
+                
+                //validate
                 for (ChannelSftp.LsEntry entry : parentEntryVect) {
                     String fileName = entry.getFilename();
                     //check if folder already exist
                     if (newFolderName.equalsIgnoreCase(fileName)) {
-                        duplicateCount += 1;
+                        folderExist = true;
+                        
+                        JOptionPane.showMessageDialog(null, 
+                            "Folder name already exist, please input another name",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                        String failCreate = String.format("[SFTP_ERROR] %s already exist at %s, duplicate folder name"
+                                , newFolderName, parentRemoteDir);
+                        gui.writeToGuiConsole(failCreate, SSHClientGui.LEVEL_ERROR);
+                        
                     }                
                 }
                 
-                //no same file name found
-                if (duplicateCount == 0) {
+                //new folder does not exist in the directory
+                if (folderExist == false) {
                     //cd to selected destination directories parent (remote directories)
                     sftp.cd(parentRemoteDir);
                     //create new directory at parent folder
                     sftp.mkdir(newFolderName);
-                }
                 
-                //create new folder with increment value of no. of duplicates file name
-                else {
-                    newFolderName += String.format(" (%d)", duplicateCount);
-                    //cd to selected destination directories parent (remote directories)
-                    sftp.cd(parentRemoteDir);
-                    //create new directory at parent folder
-                    sftp.mkdir(newFolderName);
-                }
-               
-                successCreate = String.format("[SFTP_INFO] New folder %s is created from %s", newFolderName,parentRemoteDir );
+                    successCreate = String.format("[SFTP_INFO] New folder %s is created on %s", newFolderName,parentRemoteDir );
+                    gui.writeToGuiConsole(successCreate, SSHClientGui.LEVEL_INFO);
+                }               
             }
             
             //selected file is a folder, new folder will be created inside
             else {
+                boolean folderExist = false;
                 
-                Vector<ChannelSftp.LsEntry> parentEntryVect = sftp.ls(remoteDir);
-                int duplicateCount = 0;
-                for (ChannelSftp.LsEntry entry : parentEntryVect) {
+                //validate
+                for (ChannelSftp.LsEntry entry : entryVector) {
                     String fileName = entry.getFilename();
                     //check if folder already exist
                     if (newFolderName.equalsIgnoreCase(fileName)) {
-                        duplicateCount += 1;
+                        folderExist = true;
+                        
+                        JOptionPane.showMessageDialog(null, 
+                            "Folder name already exist, please input another name",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                        String failCreate = String.format("[SFTP_ERROR] %s already exist at %s, duplicate folder name"
+                                , newFolderName, remoteDir);
+                        gui.writeToGuiConsole(failCreate, SSHClientGui.LEVEL_ERROR);
                     }                
                 }
                 
-                //no same file name found
-                if (duplicateCount == 0) {
+                //new folder does not exist in the directory
+                if (folderExist == false) {
                     //cd to selected destination directories (remote directories)
                     sftp.cd(remoteDir);
                     //create directory
                     sftp.mkdir(newFolderName);
-                }
-                
-                //create new folder with increment value of no. of duplicates file name
-                else {
-                    newFolderName += String.format(" (%d)", duplicateCount);
-                    //cd to selected destination directories (remote directories)
-                    sftp.cd(remoteDir);
-                    //create new directory at parent folder
-                    sftp.mkdir(newFolderName);
-                }
-                
-                successCreate = String.format("[SFTP_INFO] New folder %s is created from %s", newFolderName,remoteDir);
+                    successCreate = String.format("[SFTP_INFO] New folder %s is created on %s", newFolderName,remoteDir);
+                    gui.writeToGuiConsole(successCreate, SSHClientGui.LEVEL_INFO);
+                } 
             }
             
         } catch (SftpException ex) {
             gui.writeToGuiConsole("[SFTP_ERROR] " + ex.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
         }
         
-        gui.writeToGuiConsole(successCreate, SSHClientGui.LEVEL_INFO);
     }
-    
   
     public boolean isDirSFTP(ChannelSftp sftp, String path, String fileName) throws SftpException {
         Vector<ChannelSftp.LsEntry> vector = sftp.ls(path);
