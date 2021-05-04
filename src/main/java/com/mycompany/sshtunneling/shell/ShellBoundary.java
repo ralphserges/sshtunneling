@@ -5,30 +5,17 @@
  */
 package com.mycompany.sshtunneling.shell;
 
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.ChannelShell;
-import com.jcraft.jsch.JSch;
+
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.jcraft.jsch.UIKeyboardInteractive;
-import com.jcraft.jsch.UserInfo;
 import com.mycompany.sshtunneling.SSHClientGui;
+import com.mycompany.sshtunneling.scp.SCPCommandLine;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
-import java.io.Reader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.text.DefaultCaret;
+
 
 /**
  *
@@ -36,6 +23,7 @@ import javax.swing.text.DefaultCaret;
  */
 public class ShellBoundary extends javax.swing.JFrame {
     private Session session;
+    private SSHClientGui gui;
     /**
      * Creates new form ShellBoundary
      */
@@ -43,6 +31,10 @@ public class ShellBoundary extends javax.swing.JFrame {
         initComponents();
         this.session = session;
         
+    }
+    
+    public void setSSHClientGui(SSHClientGui gui) {
+        this.gui = gui;
     }
     
     /**
@@ -134,45 +126,18 @@ public class ShellBoundary extends javax.swing.JFrame {
             terminal.append("Command entered:" + commandEntered + "\n");
             String result;
             try {
-                result = runCommand(commandEntered);
+                result = ShellController.executeCommand(this.session,commandEntered);
                 terminal.append("\n" + result);
-                //terminal.append(commandEntered + "\n");
-                //InputStream inputStream = channel.getInputStream();
-                //InputStream in = new ByteArrayInputStream(enterCommandTextArea.getText().getBytes());
-                //InputStream in = new ByteArrayInputStream(commandEntered.getBytes());
-                //PipedInputStream pip = new PipedInputStream(40);
-                //channel.setInputStream(pip);
-                //            try
-                //            {
-                    //                PipedOutputStream pop = new PipedOutputStream(pip);
-                    //                //print = new PrintStream(pop);
-                    //                System.out.println("typed command is : " + commandEntered);
-                    //
-                    //                print.println(commandEntered);
-                    //                print.flush();
-                    //                pop.flush();
-                    //
-                    //                System.out.println("chunk 2");
-                    //            }
-                //            catch (IOException ex)
-                //            {
-                    //                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
-                    //            }
-            } catch (JSchException ex) {
-                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
+          
+            } catch (JSchException | IOException ex) {
+                terminal.append("\n" + ex.getMessage());
+                gui.writeToGuiConsole("[SHELL_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
             }
 
-            //channel.setInputStream(in);
             System.out.println("command string entered: " + commandEntered);
             System.out.println();
-            //channel.setInputStream(in);
-            //BAIS.reset();
-
+  
             enterCommandTextArea.setText("");
-
-            //terminal.append("\n" + BAOS.toString());
         }
     }//GEN-LAST:event_enterCommandTextAreaKeyPressed
 
@@ -211,7 +176,23 @@ public class ShellBoundary extends javax.swing.JFrame {
                 ShellBoundary shellObj = new ShellBoundary(SSHClientGui.session);
                 shellObj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 shellObj.setVisible(true);
+                shellObj.setSSHClientGui(gui);
                 
+                gui.setSCPTerminal(shellObj);
+                gui.setIsShellGuiOn(true);
+                
+                shellObj.addWindowListener(new WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e){
+                        gui.writeToGuiConsole("SHELL is closed", SSHClientGui.LEVEL_INFO);
+                        gui.setIsShellGuiOn(false);
+                    }
+                    
+                    @Override
+                    public void windowClosed(WindowEvent e){
+                        gui.setIsShellGuiOn(false);
+                    }
+                });
             }
         });
     }

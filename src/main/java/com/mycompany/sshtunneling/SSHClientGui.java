@@ -7,6 +7,7 @@ import com.mycompany.sshtunneling.scp.SCPCommandLine;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import com.mycompany.sshtunneling.sftp.SFTPUtil;
+import com.mycompany.sshtunneling.shell.ShellBoundary;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
@@ -17,8 +18,11 @@ import javax.swing.JFrame;
 public class SSHClientGui extends javax.swing.JFrame {
     private SFTPGui sftpGui;
     private SCPCommandLine scpTerminal;
+    private ShellBoundary shellGui;
+    
     private boolean isSFTPGuiOn;
     private boolean isSCPTerminalOn;
+    private boolean isShellGuiOn;
     
     public static Session session;
     public static ChannelSftp sftpChannel;
@@ -43,12 +47,20 @@ public class SSHClientGui extends javax.swing.JFrame {
         this.scpTerminal = scpTerminal;
     }
     
+    public void setSCPTerminal(ShellBoundary shellGui){
+        this.shellGui = shellGui;
+    }
+    
     public void setIsSFTPOn(boolean isSFTPGuiOn){
         this.isSFTPGuiOn = isSFTPGuiOn;
     }
     
     public void setIsSCPTerminalOn(boolean isSCPTerminalOn){
         this.isSCPTerminalOn = isSCPTerminalOn;
+    }
+    
+    public void setIsShellGuiOn(boolean isShellGuiOn){
+        this.isShellGuiOn = isShellGuiOn;
     }
     
 
@@ -165,7 +177,7 @@ public class SSHClientGui extends javax.swing.JFrame {
         jLabel3.setText("SSH Protocol:");
 
         protocolComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        protocolComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SCP", "SFTP" }));
+        protocolComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SCP", "SFTP", "SHELL" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -353,10 +365,14 @@ public class SSHClientGui extends javax.swing.JFrame {
             }else {
                  writeToGuiConsole("SFTP Fail to create and connect", LEVEL_ERROR);
             }
+        }
+        else if(selectedProtocol.equals("SHELL")) {
+            ShellBoundary.displayShellInterface(this);
+            writeToGuiConsole("SHELL is open.", LEVEL_INFO);
+            
         }else{
             SCPCommandLine.displaySCPCommandLine(this);
             writeToGuiConsole("SCP channel is created.", LEVEL_INFO);
-            
         }
     }
     
@@ -393,6 +409,10 @@ public class SSHClientGui extends javax.swing.JFrame {
         if(isSCPTerminalOn){
             scpTerminal.dispose();
             writeToGuiConsole("SCP channel is closed", SSHClientGui.LEVEL_INFO);
+        }
+        if(isShellGuiOn) {
+            shellGui.dispose();
+            writeToGuiConsole("SHELL is closed", SSHClientGui.LEVEL_INFO);
         }
     }
     

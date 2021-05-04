@@ -3,6 +3,7 @@ com\mycompany\sshtunneling\sftp\SFTPGui$2.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$2.class
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt$4$1.class
 com\mycompany\sshtunneling\SSHClientGui$7.class
+com\mycompany\sshtunneling\shell\ShellBoundary.class
 com\mycompany\sshtunneling\sftp\SFTPGui.class
 com\mycompany\sshtunneling\jtreedisplay\JTreeLoader$1.class
 com\mycompany\sshtunneling\sftp\SFTPGui$7$1.class
@@ -12,9 +13,11 @@ com\mycompany\sshtunneling\sftp\SFTPGui$5.class
 com\mycompany\sshtunneling\logging\Logger.class
 com\mycompany\sshtunneling\SSHClientGui$4.class
 com\mycompany\sshtunneling\SSHClientGui$7$1.class
+com\mycompany\sshtunneling\shell\Shell.class
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt.class
 com\mycompany\sshtunneling\SSHClient.class
 com\mycompany\sshtunneling\scp\SCPCommandLine.class
+com\mycompany\sshtunneling\shell\ShellBoundary$1.class
 com\mycompany\sshtunneling\sftp\JTreeTransfer.class
 com\mycompany\sshtunneling\scp\SCPModerator.class
 com\mycompany\sshtunneling\sftp\SFTPGui$3.class
@@ -32,10 +35,13 @@ com\mycompany\sshtunneling\sftp\SFTPGui$6.class
 com\mycompany\sshtunneling\SSHClientGui$6.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$3$1.class
 com\mycompany\sshtunneling\sftp\SFTPGui$1.class
+com\mycompany\sshtunneling\shell\ShellController.class
 com\mycompany\sshtunneling\SSHClientGui$3.class
 com\mycompany\sshtunneling\jtreedisplay\JTreeLoader.class
 com\mycompany\sshtunneling\sftp\SFTPGui$4.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$1.class
 com\mycompany\sshtunneling\sftp\SFTPGui$7.class
 com\mycompany\sshtunneling\SSHClientGui$5.class
+com\mycompany\sshtunneling\shell\ShellBoundary$2$1.class
+com\mycompany\sshtunneling\shell\ShellBoundary$2.class
 com\mycompany\sshtunneling\logging\LogController.class
