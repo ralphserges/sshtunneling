@@ -9,6 +9,11 @@ package com.mycompany.sshtunneling.shell;
  *
  * @author gpdat
  */
-public class Shell {
+public class Shell 
+{
+    public Shell() 
+    {
+        
+    }
     
 }

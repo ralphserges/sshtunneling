@@ -5,19 +5,46 @@
  */
 package com.mycompany.sshtunneling.shell;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelShell;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.UIKeyboardInteractive;
+import com.jcraft.jsch.UserInfo;
+import com.mycompany.sshtunneling.SSHClientGui;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.text.DefaultCaret;
+
 /**
  *
  * @author gpdat
  */
 public class ShellBoundary extends javax.swing.JFrame {
-
+    private Session session;
     /**
      * Creates new form ShellBoundary
      */
-    public ShellBoundary() {
+    public ShellBoundary(Session session) {
         initComponents();
+        this.session = session;
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,26 +54,132 @@ public class ShellBoundary extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        terminal = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        enterCommandTextArea = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Secure Shell Interface");
+
+        terminal.setEditable(false);
+        terminal.setColumns(20);
+        terminal.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        terminal.setRows(5);
+        terminal.setToolTipText("");
+        terminal.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(terminal);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Enter command here:");
+
+        enterCommandTextArea.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        enterCommandTextArea.setToolTipText("Enter Command here");
+        enterCommandTextArea.setActionCommand("<Not Set>");
+        enterCommandTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                enterCommandTextAreaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 976, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(13, 13, 13)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(613, 613, 613))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(22, 22, 22)
+                                    .addComponent(enterCommandTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(13, 13, 13)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 551, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enterCommandTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void enterCommandTextAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_enterCommandTextAreaKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+        {
+            String commandEntered = enterCommandTextArea.getText();
+            terminal.append("Command entered:" + commandEntered + "\n");
+            String result;
+            try {
+                result = runCommand(commandEntered);
+                terminal.append("\n" + result);
+                //terminal.append(commandEntered + "\n");
+                //InputStream inputStream = channel.getInputStream();
+                //InputStream in = new ByteArrayInputStream(enterCommandTextArea.getText().getBytes());
+                //InputStream in = new ByteArrayInputStream(commandEntered.getBytes());
+                //PipedInputStream pip = new PipedInputStream(40);
+                //channel.setInputStream(pip);
+                //            try
+                //            {
+                    //                PipedOutputStream pop = new PipedOutputStream(pip);
+                    //                //print = new PrintStream(pop);
+                    //                System.out.println("typed command is : " + commandEntered);
+                    //
+                    //                print.println(commandEntered);
+                    //                print.flush();
+                    //                pop.flush();
+                    //
+                    //                System.out.println("chunk 2");
+                    //            }
+                //            catch (IOException ex)
+                //            {
+                    //                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
+                    //            }
+            } catch (JSchException ex) {
+                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(telnetBoundary.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //channel.setInputStream(in);
+            System.out.println("command string entered: " + commandEntered);
+            System.out.println();
+            //channel.setInputStream(in);
+            //BAIS.reset();
+
+            enterCommandTextArea.setText("");
+
+            //terminal.append("\n" + BAOS.toString());
+        }
+    }//GEN-LAST:event_enterCommandTextAreaKeyPressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void displayShellInterface(SSHClientGui gui) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -71,13 +204,23 @@ public class ShellBoundary extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ShellBoundary().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                ShellBoundary shellObj = new ShellBoundary(SSHClientGui.session);
+                shellObj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                shellObj.setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField enterCommandTextArea;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea terminal;
     // End of variables declaration//GEN-END:variables
 }
