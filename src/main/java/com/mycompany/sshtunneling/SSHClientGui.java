@@ -47,7 +47,7 @@ public class SSHClientGui extends javax.swing.JFrame {
         this.scpTerminal = scpTerminal;
     }
     
-    public void setSCPTerminal(ShellBoundary shellGui){
+    public void setShellGui(ShellBoundary shellGui){
         this.shellGui = shellGui;
     }
     

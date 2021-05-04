@@ -9,7 +9,6 @@ package com.mycompany.sshtunneling.shell;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.mycompany.sshtunneling.SSHClientGui;
-import com.mycompany.sshtunneling.scp.SCPCommandLine;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -178,7 +177,7 @@ public class ShellBoundary extends javax.swing.JFrame {
                 shellObj.setVisible(true);
                 shellObj.setSSHClientGui(gui);
                 
-                gui.setSCPTerminal(shellObj);
+                gui.setShellGui(shellObj);
                 gui.setIsShellGuiOn(true);
                 
                 shellObj.addWindowListener(new WindowAdapter(){
