@@ -229,16 +229,17 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
                         scpUtil.downloadFile(selectedNodePath, new File(scpUtil.getLocalHomeDir()));
                     else
                         scpUtil.downloadDirectory(selectedNodePath, new File(scpUtil.getLocalHomeDir()));
+                    
+                    terminal.getTerminal().append(String.format("[SCP_INFO] " + "Retrieved %s from remote server to local desktop.\n",selectedNodeName));
+                    terminal.getTerminal().append(terminal.getPrompt());
+                    terminal.getSSHClientGui().writeToGuiConsole(String.format("[SCP_INFO] " + "Retrieved %s from remote server to local desktop.",selectedNodeName), 
+                            SSHClientGui.LEVEL_INFO);
+                    
                 } catch (IOException | JSchException ex) {
                     terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
                     terminal.getTerminal().append(terminal.getPrompt());
                     terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
                 }
-                
-                terminal.getTerminal().append(String.format("[SCP_INFO] " + "Retrieved %s from remote server to local desktop.\n",selectedNodeName));
-                terminal.getTerminal().append(terminal.getPrompt());
-                terminal.getSSHClientGui().writeToGuiConsole(String.format("[SCP_INFO] " + "Retrieved %s from remote server to local desktop.",selectedNodeName), 
-                        SSHClientGui.LEVEL_INFO);
             }
         }
     }//GEN-LAST:event_selectButtonActionPerformed

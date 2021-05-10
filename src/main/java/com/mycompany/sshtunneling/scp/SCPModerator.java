@@ -42,7 +42,8 @@ public class SCPModerator {
     }
     
     private void retrieveFile(SCPCommandLine terminal) {
-        SCPRemoteFilePrompt.displaySCPRemoteFilePrompt(this.session, terminal,this.scpUtil);
+        if(!terminal.getIsSCPRemoteFileOn())
+            SCPRemoteFilePrompt.displaySCPRemoteFilePrompt(this.session, terminal,this.scpUtil);
         
     }
     

@@ -45,6 +45,10 @@ public class SCPCommandLine extends javax.swing.JFrame {
         return sshClientGui;
     }
     
+    public boolean getIsSCPRemoteFileOn() {
+        return isSCPRemoteFileON;
+    }
+    
     public void setScpRemoteFileDisplay(SCPRemoteFilePrompt scpRemoteFileDisplay){
         this.scpRemoteFileDisplay = scpRemoteFileDisplay;
     }
