@@ -115,7 +115,7 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
             if(sftpChannel.isConnected()){
                 JTreeLoader remoteTreeLoader = new JTreeLoader();
-                remoteTreeLoader.addNodesRemoteV2(mainPath, nroot, sftpChannel);  
+                remoteTreeLoader.addNodesRemoteSCP(mainPath, nroot, sftpChannel);  
             }
             
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
