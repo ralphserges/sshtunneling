@@ -6,6 +6,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 import java.util.regex.Pattern;
@@ -19,6 +20,7 @@ import javax.swing.tree.TreePath;
 public class JTreeLoader implements TreeWillExpandListener {
     
     private static Comparator comparator;
+    private static Comparator remoteTreeComparator;
    
     
     
@@ -36,6 +38,22 @@ public class JTreeLoader implements TreeWillExpandListener {
                 else
                     return f1.compareTo(f2);
             }
+        };
+        
+        this.remoteTreeComparator = new Comparator(){
+            @Override
+            public int compare(Object arg0, Object arg1) {
+                ChannelSftp.LsEntry entry1 = (ChannelSftp.LsEntry)arg0;
+                ChannelSftp.LsEntry entry2 = (ChannelSftp.LsEntry)arg1;
+                
+                if(entry1.getAttrs().isDir() && !entry2.getAttrs().isDir())
+                    return -1;
+                else if(!entry1.getAttrs().isDir() && entry2.getAttrs().isDir())
+                    return 1;
+                else 
+                    return entry1.compareTo(entry2);
+            }
+            
         };
     }
     
@@ -104,14 +122,20 @@ public class JTreeLoader implements TreeWillExpandListener {
     }
     
     public void addNodesRemoteV2(String remotePath, DefaultMutableTreeNode parent, ChannelSftp sftpChannel) throws SftpException{
+        Pattern regex = Pattern.compile("[.]");
+        
         Vector<ChannelSftp.LsEntry> list = sftpChannel.ls(remotePath); // List source directory structure.
+        Collections.sort(list,remoteTreeComparator);
+        
         for (ChannelSftp.LsEntry oListItem : list) { // Iterate objects in the list to get file/folder names.       
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(oListItem.getFilename(), true);
             if (!oListItem.getAttrs().isDir()) { // If it is a file (not a directory).
                 node.setAllowsChildren(false);
                 parent.add(node); // add as a child node
             } else{
-                if (!".".equals(oListItem.getFilename()) && !"..".equals(oListItem.getFilename())) {
+                if (!".".equals(oListItem.getFilename()) && 
+                        !"..".equals(oListItem.getFilename()) &&
+                        !regex.matcher(oListItem.getFilename()).find()) {
                     parent.add(node); // add as a child node
                     addNodesRemoteV2(remotePath + "/" + oListItem.getFilename(), node,sftpChannel); // call again for the subdirectory
                 }
@@ -123,8 +147,9 @@ public class JTreeLoader implements TreeWillExpandListener {
         
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!~`\\s]");
         
-        
         Vector<ChannelSftp.LsEntry> list = sftpChannel.ls(remotePath); // List source directory structure.
+        Collections.sort(list,remoteTreeComparator);
+        
         for (ChannelSftp.LsEntry oListItem : list) { // Iterate objects in the list to get file/folder names.       
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(oListItem.getFilename(), true);
             if (!oListItem.getAttrs().isDir()) { // If it is a file (not a directory).

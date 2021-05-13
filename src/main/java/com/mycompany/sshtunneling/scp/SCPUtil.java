@@ -23,8 +23,6 @@ public class SCPUtil {
     public SCPUtil(Session session) {
         this.session = session;
         this.localHomeDir = System.getProperty("user.home") + "/Desktop";
-        //this.hostName = session.getUserName() + "@" + session.getHost() + ":"; //hostName format is as such remote_username@10.10.0.2:
-        
     }
     
     public String getLocalHomeDir(){

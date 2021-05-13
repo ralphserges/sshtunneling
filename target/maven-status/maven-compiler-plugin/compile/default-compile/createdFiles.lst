@@ -14,6 +14,7 @@ com\mycompany\sshtunneling\logging\Logger.class
 com\mycompany\sshtunneling\SSHClientGui$4.class
 com\mycompany\sshtunneling\SSHClientGui$7$1.class
 com\mycompany\sshtunneling\shell\Shell.class
+com\mycompany\sshtunneling\jtreedisplay\JTreeLoader$2.class
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt.class
 com\mycompany\sshtunneling\SSHClient.class
 com\mycompany\sshtunneling\scp\SCPCommandLine.class

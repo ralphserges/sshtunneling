@@ -40,6 +40,25 @@ public class SFTPUtil {
         return sftpChannel;
     }
     
+    public String getPWD(Session session,SSHClientGui gui) {
+        String currentDir = null; 
+        try {
+            ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
+            sftpChannel.connect(5000); // connect sftp to ssh server. time out 5 sec
+            currentDir = sftpChannel.pwd();
+        }catch(JSchException | SftpException e) {
+           gui.writeToGuiConsole(e.getCause().getMessage(), SSHClientGui.LEVEL_ERROR);
+           
+        }
+        
+        if(gui != null) {
+            String pwdMsg = "Current Directory: " + currentDir;
+            gui.writeToGuiConsole(pwdMsg, SSHClientGui.LEVEL_INFO);
+        }
+        
+        return currentDir;
+    }
+    
     
     //transfer files from local to remote 
     public void transferFile(ChannelSftp sftp, String fileName ,String localDir, String remoteDir,SSHClientGui gui) {

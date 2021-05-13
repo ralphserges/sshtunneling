@@ -490,8 +490,11 @@ public class SFTPGui extends javax.swing.JFrame {
     public void remoteTreeSetup() {
         String hostName = SSHClientGui.session.getUserName();
         
-        //assuming that the remote host runs on unix or linux 
-        String mainPath = String.format("/home/%s/Desktop",hostName);
+        //assuming that the remote host runs on unix or linux
+        //here
+        SFTPUtil sftpUtil = new SFTPUtil();
+        String mainPath = sftpUtil.getPWD(SSHClientGui.session, sshClientG);
+        //String mainPath = String.format("/home/%s/Desktop",hostName);
         
         DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
         if(SSHClientGui.sftpChannel != null){

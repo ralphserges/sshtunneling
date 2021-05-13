@@ -14,7 +14,7 @@ import javax.swing.text.DefaultCaret;
 
 public class SCPCommandLine extends javax.swing.JFrame {
     private static final String SCP_PROMPT = "scp>> ";
-    private static final String [] avaliableCommands = {"sendfile", "retrievefile", "remotelist"};
+    private static final String [] AVAILABLE_COMMANDS = {"sendfile", "retrievefile", "remotelist"};
     private static SSHClientGui sshClientGui;
     
     private SCPRemoteFilePrompt scpRemoteFileDisplay; 
@@ -206,7 +206,7 @@ public class SCPCommandLine extends javax.swing.JFrame {
     
    
     private boolean isCommandValid(String command) {
-        return Arrays.asList(avaliableCommands).contains(command);
+        return Arrays.asList(AVAILABLE_COMMANDS).contains(command);
     }
     
     private void safeExit(){

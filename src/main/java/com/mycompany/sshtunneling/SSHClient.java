@@ -11,7 +11,7 @@ import com.mycompany.sshtunneling.sftp.SFTPUtil;
 
 public class SSHClient {
     public static final int SSH_CLIENT_PORT = 1111; // ssh client listens on port 1111 as default
-    
+    public static String remoteDir;
     
     public SSHClient(){
     

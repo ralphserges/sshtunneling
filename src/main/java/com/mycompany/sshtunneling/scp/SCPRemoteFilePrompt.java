@@ -110,7 +110,10 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             String hostName = this.session.getUserName();
             
             //assuming that the remote host runs on unix or linux
-            String mainPath = String.format("/home/%s/Desktop",hostName);
+            //here
+            SFTPUtil sftpUtil = new SFTPUtil();
+            String mainPath = sftpUtil.getPWD(SSHClientGui.session, null);
+            //String mainPath = String.format("/home/%s/Desktop",hostName);
             
             DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
             if(sftpChannel.isConnected()){

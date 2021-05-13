@@ -1,0 +1,235 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class com.jcraft.jsch.Channel
+class com.jcraft.jsch.ChannelExec
+class com.jcraft.jsch.ChannelSftp
+class com.jcraft.jsch.JSch
+class com.jcraft.jsch.JSchException
+class com.jcraft.jsch.Session
+class com.jcraft.jsch.SftpException
+class com.mycompany.sshtunneling.SSHClient
+class com.mycompany.sshtunneling.SSHClientGui
+class com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer
+class com.mycompany.sshtunneling.jtreedisplay.JTreeLoader
+class com.mycompany.sshtunneling.jtreedisplay.MyTreeModel
+class com.mycompany.sshtunneling.logging.LogController
+class com.mycompany.sshtunneling.logging.Logger
+class com.mycompany.sshtunneling.scp.SCPCommandLine
+class com.mycompany.sshtunneling.scp.SCPModerator
+class com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt
+class com.mycompany.sshtunneling.scp.SCPUtil
+class com.mycompany.sshtunneling.sftp.JTreeTransfer
+class com.mycompany.sshtunneling.sftp.SFTPGui
+class com.mycompany.sshtunneling.sftp.SFTPUtil
+class com.mycompany.sshtunneling.shell.Shell
+class com.mycompany.sshtunneling.shell.ShellBoundary
+class com.mycompany.sshtunneling.shell.ShellController
+class java.awt.Component
+class java.awt.datatransfer.DataFlavor
+class java.awt.datatransfer.Transferable
+class java.awt.datatransfer.UnsupportedFlavorException
+class java.awt.event.KeyEvent
+class java.awt.event.WindowAdapter
+class java.awt.event.WindowEvent
+class java.io.File
+class java.io.IOException
+class java.io.InputStream
+class java.io.PrintStream
+class java.sql.Timestamp
+class java.text.SimpleDateFormat
+class java.util.ArrayList
+class java.util.Arrays
+class java.util.Comparator
+class java.util.List
+class java.util.Vector
+class java.util.logging.Level
+class java.util.logging.Logger
+class java.util.regex.Pattern
+class javax.swing.DropMode
+class javax.swing.JComponent
+class javax.swing.JFileChooser
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.JTextArea
+class javax.swing.JTree
+class javax.swing.TransferHandler
+class javax.swing.event.TreeExpansionEvent
+class javax.swing.event.TreeModelEvent
+class javax.swing.event.TreeModelListener
+class javax.swing.event.TreeSelectionEvent
+class javax.swing.event.TreeSelectionListener
+class javax.swing.text.DefaultCaret
+class javax.swing.tree.DefaultMutableTreeNode
+class javax.swing.tree.DefaultTreeCellRenderer
+class javax.swing.tree.DefaultTreeModel
+class javax.swing.tree.ExpandVetoException
+class javax.swing.tree.TreeNode
+class javax.swing.tree.TreePath
+class javax.swing.tree.TreeSelectionModel
+class org.apache.tools.ant.taskdefs.optional.ssh.ScpFromMessage
+class org.apache.tools.ant.taskdefs.optional.ssh.ScpToMessage
+interface javax.swing.event.TreeWillExpandListener
+com.mycompany.sshtunneling.SSHClient ..> com.jcraft.jsch.ChannelSftp
+com.mycompany.sshtunneling.SSHClient ..> com.jcraft.jsch.JSch
+com.mycompany.sshtunneling.SSHClient ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.SSHClient ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.SSHClient ..> com.mycompany.sshtunneling.sftp.SFTPUtil
+com.mycompany.sshtunneling.SSHClientGui ..> java.lang.Override
+com.mycompany.sshtunneling.SSHClientGui ..> java.lang.SuppressWarnings
+com.mycompany.sshtunneling.SSHClientGui ..> com.jcraft.jsch.ChannelSftp
+com.mycompany.sshtunneling.SSHClientGui ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.SSHClientGui ..> com.mycompany.sshtunneling.logging.LogController
+com.mycompany.sshtunneling.SSHClientGui ..> com.mycompany.sshtunneling.scp.SCPCommandLine
+com.mycompany.sshtunneling.SSHClientGui ..> com.mycompany.sshtunneling.sftp.SFTPGui
+com.mycompany.sshtunneling.SSHClientGui ..> com.mycompany.sshtunneling.sftp.SFTPUtil
+com.mycompany.sshtunneling.SSHClientGui ..> com.mycompany.sshtunneling.shell.ShellBoundary
+com.mycompany.sshtunneling.SSHClientGui ..> java.awt.event.WindowAdapter
+com.mycompany.sshtunneling.SSHClientGui ..> java.awt.event.WindowEvent
+com.mycompany.sshtunneling.SSHClientGui ..> java.sql.Timestamp
+com.mycompany.sshtunneling.SSHClientGui ..> java.text.SimpleDateFormat
+com.mycompany.sshtunneling.SSHClientGui ..> java.util.ArrayList
+com.mycompany.sshtunneling.SSHClientGui --|> javax.swing.JFrame
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer ..> java.lang.Override
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer ..> java.awt.Component
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer ..> java.io.File
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer ..> javax.swing.JTree
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer ..> javax.swing.tree.DefaultMutableTreeNode
+com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer --|> javax.swing.tree.DefaultTreeCellRenderer
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.lang.Override
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> com.jcraft.jsch.ChannelSftp
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> com.jcraft.jsch.SftpException
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.io.File
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.util.Arrays
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.util.Comparator
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.util.Vector
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> java.util.regex.Pattern
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> javax.swing.event.TreeExpansionEvent
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> javax.swing.tree.DefaultMutableTreeNode
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> javax.swing.tree.ExpandVetoException
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader ..> javax.swing.tree.TreePath
+com.mycompany.sshtunneling.jtreedisplay.JTreeLoader --|> javax.swing.event.TreeWillExpandListener
+com.mycompany.sshtunneling.jtreedisplay.MyTreeModel ..> java.lang.Override
+com.mycompany.sshtunneling.jtreedisplay.MyTreeModel ..> java.io.File
+com.mycompany.sshtunneling.jtreedisplay.MyTreeModel --|> javax.swing.tree.DefaultTreeModel
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.lang.Override
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.lang.SuppressWarnings
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.awt.event.KeyEvent
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.awt.event.WindowAdapter
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.awt.event.WindowEvent
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.io.IOException
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> java.util.Arrays
+com.mycompany.sshtunneling.scp.SCPCommandLine --|> javax.swing.JFrame
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> javax.swing.JTextArea
+com.mycompany.sshtunneling.scp.SCPCommandLine ..> javax.swing.text.DefaultCaret
+com.mycompany.sshtunneling.scp.SCPModerator ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.scp.SCPModerator ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.scp.SCPModerator ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.scp.SCPModerator ..> java.io.File
+com.mycompany.sshtunneling.scp.SCPModerator ..> java.io.IOException
+com.mycompany.sshtunneling.scp.SCPModerator ..> java.util.ArrayList
+com.mycompany.sshtunneling.scp.SCPModerator ..> java.util.List
+com.mycompany.sshtunneling.scp.SCPModerator ..> javax.swing.JFileChooser
+com.mycompany.sshtunneling.scp.SCPModerator ..> javax.swing.JOptionPane
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.lang.Override
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.lang.SuppressWarnings
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.jcraft.jsch.ChannelSftp
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.jcraft.jsch.SftpException
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.mycompany.sshtunneling.jtreedisplay.JTreeLoader
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> com.mycompany.sshtunneling.sftp.SFTPUtil
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.awt.event.WindowAdapter
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.awt.event.WindowEvent
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.io.File
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.io.IOException
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> java.util.Arrays
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt --|> javax.swing.JFrame
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.JOptionPane
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.event.TreeSelectionEvent
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.event.TreeSelectionListener
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.tree.DefaultMutableTreeNode
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.tree.DefaultTreeModel
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.tree.TreePath
+com.mycompany.sshtunneling.scp.SCPRemoteFilePrompt ..> javax.swing.tree.TreeSelectionModel
+com.mycompany.sshtunneling.scp.SCPUtil ..> com.jcraft.jsch.Channel
+com.mycompany.sshtunneling.scp.SCPUtil ..> com.jcraft.jsch.ChannelExec
+com.mycompany.sshtunneling.scp.SCPUtil ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.scp.SCPUtil ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.scp.SCPUtil ..> java.io.File
+com.mycompany.sshtunneling.scp.SCPUtil ..> java.io.IOException
+com.mycompany.sshtunneling.scp.SCPUtil ..> java.io.InputStream
+com.mycompany.sshtunneling.scp.SCPUtil ..> java.util.List
+com.mycompany.sshtunneling.scp.SCPUtil ..> org.apache.tools.ant.taskdefs.optional.ssh.ScpFromMessage
+com.mycompany.sshtunneling.scp.SCPUtil ..> org.apache.tools.ant.taskdefs.optional.ssh.ScpToMessage
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.lang.Override
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.awt.datatransfer.DataFlavor
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.awt.datatransfer.Transferable
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.awt.datatransfer.UnsupportedFlavorException
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.io.File
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.util.ArrayList
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> java.util.List
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.JComponent
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.JTree
+com.mycompany.sshtunneling.sftp.JTreeTransfer --|> javax.swing.TransferHandler
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.tree.DefaultMutableTreeNode
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.tree.DefaultTreeModel
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.tree.TreeNode
+com.mycompany.sshtunneling.sftp.JTreeTransfer ..> javax.swing.tree.TreePath
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.lang.Override
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.lang.SuppressWarnings
+com.mycompany.sshtunneling.sftp.SFTPGui ..> com.jcraft.jsch.SftpException
+com.mycompany.sshtunneling.sftp.SFTPGui ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.sftp.SFTPGui ..> com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer
+com.mycompany.sshtunneling.sftp.SFTPGui ..> com.mycompany.sshtunneling.jtreedisplay.JTreeLoader
+com.mycompany.sshtunneling.sftp.SFTPGui ..> com.mycompany.sshtunneling.jtreedisplay.MyTreeModel
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.awt.event.WindowAdapter
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.awt.event.WindowEvent
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.io.File
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.util.logging.Level
+com.mycompany.sshtunneling.sftp.SFTPGui ..> java.util.logging.Logger
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.DropMode
+com.mycompany.sshtunneling.sftp.SFTPGui --|> javax.swing.JFrame
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.JOptionPane
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.event.TreeModelEvent
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.event.TreeModelListener
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.event.TreeSelectionEvent
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.event.TreeSelectionListener
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.tree.DefaultMutableTreeNode
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.tree.DefaultTreeModel
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.tree.TreePath
+com.mycompany.sshtunneling.sftp.SFTPGui ..> javax.swing.tree.TreeSelectionModel
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> com.jcraft.jsch.ChannelSftp
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> com.jcraft.jsch.SftpException
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> java.io.File
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> java.util.ArrayList
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> java.util.List
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> java.util.Vector
+com.mycompany.sshtunneling.sftp.SFTPUtil ..> javax.swing.JOptionPane
+com.mycompany.sshtunneling.shell.Shell ..> com.jcraft.jsch.Channel
+com.mycompany.sshtunneling.shell.Shell ..> com.jcraft.jsch.ChannelExec
+com.mycompany.sshtunneling.shell.Shell ..> java.io.IOException
+com.mycompany.sshtunneling.shell.Shell ..> java.io.InputStream
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.lang.Override
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.lang.SuppressWarnings
+com.mycompany.sshtunneling.shell.ShellBoundary ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.shell.ShellBoundary ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.shell.ShellBoundary ..> com.mycompany.sshtunneling.SSHClientGui
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.awt.event.KeyEvent
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.awt.event.WindowAdapter
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.awt.event.WindowEvent
+com.mycompany.sshtunneling.shell.ShellBoundary ..> java.io.IOException
+com.mycompany.sshtunneling.shell.ShellBoundary --|> javax.swing.JFrame
+com.mycompany.sshtunneling.shell.ShellController ..> com.jcraft.jsch.ChannelExec
+com.mycompany.sshtunneling.shell.ShellController ..> com.jcraft.jsch.JSchException
+com.mycompany.sshtunneling.shell.ShellController ..> com.jcraft.jsch.Session
+com.mycompany.sshtunneling.shell.ShellController ..> java.io.IOException
+com.mycompany.sshtunneling.shell.ShellController ..> java.io.InputStream
+com.mycompany.sshtunneling.shell.ShellController ..> java.io.PrintStream
+@enduml
