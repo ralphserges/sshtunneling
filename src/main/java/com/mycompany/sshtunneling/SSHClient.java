@@ -63,7 +63,6 @@ public class SSHClient {
 
            // session creation fail print error to console write error cause to gui
            gui.writeToGuiConsole("Unable to connect to SSH server. Please Check input fields or remote server connectivity.", SSHClientGui.LEVEL_ERROR);
-           return null;
         }
         
         
