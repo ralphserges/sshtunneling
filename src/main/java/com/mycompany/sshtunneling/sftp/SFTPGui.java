@@ -261,11 +261,10 @@ public class SFTPGui extends javax.swing.JFrame {
             public void treeNodesChanged(TreeModelEvent e) {}
             @Override
             public void treeNodesInserted(TreeModelEvent e) {
-                System.out.println("A node is inserted");
+                //System.out.println("A node is inserted");
                 TreePath dest = e.getTreePath();
                 //get parent node of the treenode that inserted
                 DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dest.getLastPathComponent();
-                System.out.println("dest parent (L): " + parent);
                 DefaultMutableTreeNode insertedNode = null;
                 
                 //get children nodes from the parent node
@@ -291,7 +290,7 @@ public class SFTPGui extends javax.swing.JFrame {
                     }else{
                         //exclude repeated root to be appended again
                         String tempStr = tempNodes[i].substring(tempNodes[i].lastIndexOf('\\'));
-                        System.out.println("index after first test: " + tempStr);
+                        //System.out.println("index after first test: " + tempStr);
                         tempStr = tempStr.substring(1); //remove '\'
                         sb.append(File.separatorChar).append(tempStr);
                     }
@@ -354,8 +353,8 @@ public class SFTPGui extends javax.swing.JFrame {
                         String[] directories = fullPath.split("/");
                         remoteFileName = directories[directories.length-1];
 
-                        System.out.println("file dir (R): " + remoteDir);
-                        System.out.println("file name (R): " + remoteFileName);
+                        System.out.println("test-remoteDir(selected-node): " + remoteDir);
+                        System.out.println("test-remoteFileName(selected-node): " + remoteFileName);
                     }
                    
                 }
@@ -407,6 +406,7 @@ public class SFTPGui extends javax.swing.JFrame {
                 
                 //set destination path for file upload (local to remote)
                 destDir = sb.toString();
+                System.out.println("destDIR (R):" + destDir);
                 
                 //sftp transfer file 
                 if (SSHClientGui.sftpChannel != null){

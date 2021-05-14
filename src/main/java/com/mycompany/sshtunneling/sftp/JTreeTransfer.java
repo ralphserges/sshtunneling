@@ -44,21 +44,12 @@ public class JTreeTransfer extends TransferHandler{
             //System.out.println("Support isDataFlavorSupported: False"); //
             return false;
         }
-        // Do not allow a drop on the drag source selections.
-        JTree.DropLocation dl =
-                (JTree.DropLocation)support.getDropLocation();
-        JTree tree = (JTree)support.getComponent();
-        int dropRow = tree.getRowForPath(dl.getPath());
-        int[] selRows = tree.getSelectionRows();
-        for (int i = 0; i < selRows.length; i++) {
-            if (selRows[i] == dropRow) {
-                return false;
-            }
-        }
+        
         //System.out.println("Support canImport: true"); //
         return true;
     }
   
+    
     private boolean haveCompleteNode(JTree tree) {
         int[] selRows = tree.getSelectionRows();
         TreePath path = tree.getPathForRow(selRows[0]);
@@ -81,7 +72,7 @@ public class JTreeTransfer extends TransferHandler{
                 }
             }
         }
-        System.out.println("Support haveCompletedNode: true"); //
+        //System.out.println("Support haveCompletedNode: true"); //
         return true;
     }
   
@@ -91,31 +82,62 @@ public class JTreeTransfer extends TransferHandler{
         TreePath[] paths = tree.getSelectionPaths();
         System.out.println("createTransferable length: " + paths.length); //
         System.out.println("createTransferable: " + paths[0].getLastPathComponent()); //
+        DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+        String localRoot = System.getProperty("user.home");
+        
+        // Make up a node array of copies for transfer and
+        // another for/of the nodes incase they are needed to be removed
+        // later on after a successful drop
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)paths[0].getLastPathComponent();
+        List<DefaultMutableTreeNode> copies = new ArrayList<>();
+        DefaultMutableTreeNode copy = copy(node);
+        copies.add(copy);
+        
         if (paths != null) {
-            // Make up a node array of copies for transfer and
-            // another for/of the nodes incase they are needed to be removed
-            // later on after a successful drop
-            List<DefaultMutableTreeNode> copies = new ArrayList<>();
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode)paths[0].getLastPathComponent();
-            DefaultMutableTreeNode copy = copy(node);
-            copies.add(copy);
-            
-            for (int i = 1; i < paths.length; i++) {
-                DefaultMutableTreeNode next =
-                    (DefaultMutableTreeNode)paths[i].getLastPathComponent();
-                // Do not allow higher level nodes to be added to list.
-                if(next.getLevel() < node.getLevel()) {
-                    break;
-                } else if (next.getLevel() > node.getLevel()) {  // child node
-                    copy.add(copy(next));
-                    // node already contains child/sibling
-                } else {                                        
-                    copies.add(copy(next));
+            if (model.getRoot().toString().equals(localRoot)) { // local-windows env
+                //if source node have children nodes 
+                for (int i = 1; i <= node.getChildCount(); i++) {
+                    DefaultMutableTreeNode next = (DefaultMutableTreeNode)node.getChildAt(i-1);
+                    System.out.println("createTransferable L(next node): " + next.toString()); //
+                    System.out.println("createTransferable L(next node level): " + next.getLevel()); //
+                    System.out.println("createTransferable L(node level): " + node.getLevel()); //
+                    // Do not allow higher level nodes to be added to list.
+                    if(next.getLevel() < node.getLevel()) {
+                        break;
+                    } else if (next.getLevel() > node.getLevel()) {  // child node
+                        copy.add(copy(next));
+                        // node already contains child/sibling
+                    } else {                                        
+                        copies.add(copy(next));
+                    }
+                }
+               
+            } // end local-windows env
+
+            else {          //remote-linux env
+                for (int i = 1; i < paths.length; i++) {
+                    DefaultMutableTreeNode next = (DefaultMutableTreeNode)paths[i].getLastPathComponent();
+                    System.out.println("createTransferable R(next node): " + next.toString()); //
+                    System.out.println("createTransferable R(next node level): " + next.getLevel()); //
+                    System.out.println("createTransferable R(node level): " + node.getLevel()); //
+                    // Do not allow higher level nodes to be added to list.
+                    if(next.getLevel() < node.getLevel()) {
+                        break;
+                    } else if (next.getLevel() > node.getLevel()) {  // child node
+                        copy.add(copy(next));
+                        // node already contains child/sibling
+                    } else {                                        
+                        copies.add(copy(next));
+                    }
                 }
             }
+            
+            // DMTN array as transferable to store Dataflavor  
             DefaultMutableTreeNode[] nodes =
                 copies.toArray(new DefaultMutableTreeNode[copies.size()]);
-   
+            System.out.println("DTMN array size: " + nodes.length);
+            System.out.println("copies list size: " + copies.size());
+            copies.clear();
             return new NodesTransferable(nodes);
         }
         return null;
@@ -135,9 +157,11 @@ public class JTreeTransfer extends TransferHandler{
     @Override
     public boolean importData(TransferHandler.TransferSupport support) {
         if (!canImport(support)) {
-            //System.out.println("Support canImport data: False"); //
+            System.out.println("Support canImport data: False"); //
             return false;
         }
+        
+        System.out.println("Support canImport data: True"); //
         //Extract transfer data
         DefaultMutableTreeNode[] nodes = null;
         try {
@@ -175,7 +199,7 @@ public class JTreeTransfer extends TransferHandler{
         
         //check for import data is null
         if (nodes == null){
-            //System.out.println("Import data is null: true"); //
+            System.out.println("Import data is null: true"); //
             return false;
         }
         
@@ -221,7 +245,7 @@ public class JTreeTransfer extends TransferHandler{
                         ChildLPathName = ChildLPathName.substring(1);  //remove first \ char
                         temp.setUserObject(ChildLPathName); //change the name
                     }
-                }
+                } 
             
             }
         }
@@ -246,7 +270,7 @@ public class JTreeTransfer extends TransferHandler{
             for (DefaultMutableTreeNode node : nodes)
                 //add imported data to model
                 model.insertNodeInto(node, parent, index++);
-            
+           
         }
         
         //System.out.println("Support canImportData: true"); //

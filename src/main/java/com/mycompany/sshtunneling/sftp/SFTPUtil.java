@@ -67,7 +67,7 @@ public class SFTPUtil {
             
             //transfer a folder
             if (fileInput.isDirectory()) {
-                System.out.println("test folder:" + localDir);
+                System.out.println("transfer folder:" + localDir);
                
                 //folder does not exist, creating folder at destination (remote directories)
                 sftp.cd(remoteDir.substring(0, remoteDir.lastIndexOf('/')));
@@ -84,7 +84,7 @@ public class SFTPUtil {
             
             //transfer a file
             else {
-                System.out.println("test file: " + localDir);
+                System.out.println("transfer file: " + localDir);
                 sftp.put(localDir, remoteDir,ChannelSftp.OVERWRITE); 
             }
         } catch (SftpException ex) {
@@ -106,19 +106,19 @@ public class SFTPUtil {
             int size = entryVector.size();
             
             if (size == 1) { //retrieve a file
-                System.out.println("test file: " + remoteDir);
+                System.out.println("retrieve file: " + remoteDir);
                 sftp.get(remoteDir, localDir);
             } 
             
             else if(size == 2) { //retrieve empty folder
                 //create new directory
-                System.out.println("test empty folder: " + remoteDir);
+                System.out.println("retrieve empty folder: " + remoteDir);
                 fileInput.mkdir();
             }
            
             else {         
                
-                System.out.println("test folder: " + remoteDir);
+                System.out.println("retrieve folder: " + remoteDir);
                 //System.out.println("test dest folder: " + localDir.substring(0, localDir.lastIndexOf('\\')));
                 sftp.lcd(fileInput.getParent()); //cd to local host directory
                 //create new directory
