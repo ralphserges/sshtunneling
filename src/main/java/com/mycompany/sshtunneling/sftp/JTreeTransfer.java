@@ -211,7 +211,7 @@ public class JTreeTransfer extends TransferHandler{
             System.out.println("transfer mode is: Retrieval-Remote-to-Local");
             //convert into File type node
             for (int i=0; i<nodes.length; i++) {
-                File testLocalTransfer = new File(dest.getLastPathComponent().toString() + "\\" + nodes[i].toString());
+                File testLocalTransfer = new File(dest.getLastPathComponent().toString() + File.separatorChar + nodes[i].toString());
                 nodes[i].setUserObject(testLocalTransfer);
             }
             
@@ -226,7 +226,7 @@ public class JTreeTransfer extends TransferHandler{
                     nodes[i].setAllowsChildren(false);
                 
                 //change from fullpath to lastpath filename
-                String lastPathName = nodes[i].toString().substring(nodes[i].toString().lastIndexOf('\\'));
+                String lastPathName = nodes[i].toString().substring(nodes[i].toString().lastIndexOf(File.separatorChar));
                 lastPathName = lastPathName.substring(1);  //remove first \ char
                 nodes[i].setUserObject(lastPathName); //set lastpath name to node
                 
@@ -241,7 +241,7 @@ public class JTreeTransfer extends TransferHandler{
                         if (!childNodesFile.isDirectory()) 
                             temp.setAllowsChildren(false);
                         
-                        String ChildLPathName = temp.toString().substring(temp.toString().lastIndexOf('\\'));
+                        String ChildLPathName = temp.toString().substring(temp.toString().lastIndexOf(File.separatorChar));
                         ChildLPathName = ChildLPathName.substring(1);  //remove first \ char
                         temp.setUserObject(ChildLPathName); //change the name
                     }
