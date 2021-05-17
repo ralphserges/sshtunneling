@@ -137,7 +137,7 @@ public class JTreeLoader implements TreeWillExpandListener {
                         !"..".equals(oListItem.getFilename()) &&
                         !regex.matcher(oListItem.getFilename()).find()) {
                     parent.add(node); // add as a child node
-                    addNodesRemoteV2(remotePath + "/" + oListItem.getFilename(), node,sftpChannel); // call again for the subdirectory
+                    //addNodesRemoteV2(remotePath + "/" + oListItem.getFilename(), node,sftpChannel); // call again for the subdirectory
                 }
             }
         }
@@ -160,7 +160,7 @@ public class JTreeLoader implements TreeWillExpandListener {
                         !"..".equals(oListItem.getFilename()) && 
                         !regex.matcher(oListItem.getFilename()).find()) {
                     parent.add(node); // add as a child node
-                    addNodesRemoteV2(remotePath + "/" + oListItem.getFilename(), node,sftpChannel); // call again for the subdirectory
+                    //addNodesRemoteV2(remotePath + "/" + oListItem.getFilename(), node,sftpChannel); // call again for the subdirectory
                 }
             }
         }

@@ -1,4 +1,5 @@
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt$4$1.class
+com\mycompany\sshtunneling\jtreedisplay\SCPRemoteJTreeLoader.class
 com\mycompany\sshtunneling\sftp\SFTPGui.class
 com\mycompany\sshtunneling\sftp\SFTPGui$7$1.class
 com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt$1.class
@@ -38,6 +39,7 @@ com\mycompany\sshtunneling\jtreedisplay\MyTreeModel.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$3.class
 com\mycompany\sshtunneling\SSHClientGui$1.class
 com\mycompany\sshtunneling\sftp\JTreeTransfer$NodesTransferable.class
+com\mycompany\sshtunneling\jtreedisplay\RemoteJtreeLoader.class
 com\mycompany\sshtunneling\scp\SCPCommandLine$3$1.class
 com\mycompany\sshtunneling\sftp\SFTPGui$1.class
 com\mycompany\sshtunneling\sftp\SFTPGui$4.class

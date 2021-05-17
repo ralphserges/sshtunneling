@@ -5,6 +5,8 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.mycompany.sshtunneling.SSHClientGui;
+import com.mycompany.sshtunneling.sftp.SFTPUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,9 +55,13 @@ public class SCPUtil {
     // this will execute ls command, display to scp cmd and then return existing files in remote desktop
     public void lsCommand(List<String> fileList) throws JSchException, IOException {
         Channel channel = getExecChannel();
-        String command = "ls Desktop";
+        
+        SFTPUtil sftpUtil = new SFTPUtil();
+        String mainPath = sftpUtil.getPWD(SSHClientGui.session, null);
+        
+        String command = "ls " + mainPath;
         ((ChannelExec)channel).setCommand(command);
-        channel.setInputStream(null); 
+        channel.setInputStream(null);
         
         ((ChannelExec)channel).setErrStream(System.err); 
         
