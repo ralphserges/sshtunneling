@@ -22,8 +22,10 @@ import javax.swing.tree.TreeSelectionModel;
 
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.SSHClientGui;
+import com.mycompany.sshtunneling.jtreedisplay.SCPRemoteJTreeLoader;
 import com.mycompany.sshtunneling.sftp.SFTPUtil;
 import java.util.Arrays;
+
 
 
 
@@ -36,14 +38,20 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
     private SCPUtil scpUtil;
     private boolean isFile;
     
+    private static ChannelSftp channelSftp;
 
     public SCPRemoteFilePrompt(Session session, SCPCommandLine terminal,SCPUtil scpUtil) {
         initComponents();
         this.session = session;
         this.terminal = terminal;
         this.scpUtil = scpUtil;
+        this.channelSftp = setChannelSftp();
+        
         displayRemoteFileStruct();
         jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        
+        SCPRemoteJTreeLoader scpremoteloader = new SCPRemoteJTreeLoader();
+        jTree1.addTreeWillExpandListener(scpremoteloader);
         
         jTree1.addTreeSelectionListener(new TreeSelectionListener(){
             @Override
@@ -72,6 +80,10 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
         });
     }
     
+    public static ChannelSftp getChannelSftp() {
+        return channelSftp;
+    }
+    
     private boolean isDirectory(Object [] filePathToAdd, String fileName){
         Object [] fileItems = Arrays.copyOf(filePathToAdd, filePathToAdd.length-1);
         String fullPath = "";
@@ -79,65 +91,62 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
             fullPath = fullPath + "/" + String.valueOf(fileItems[i]);             
         }
         
-        ChannelSftp sftpChannel = null;
-        try {
-            sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
-            sftpChannel.connect(5000); // connect sftp to ssh server. time out 5 sec
-            
-            if(sftpChannel.isConnected()){
-                SFTPUtil sftpUtil = new SFTPUtil();
-                return sftpUtil.isDirSFTP(sftpChannel, fullPath, fileName);
-            }
-        } catch (JSchException | SftpException ex) {
-            terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
-            terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
-        }finally{
-            if(sftpChannel != null){
-                sftpChannel.disconnect();
-                System.out.println("sftp disconnected in scpremotefileprompt class");
+        if(this.channelSftp.isConnected()){
+            SFTPUtil sftpUtil = new SFTPUtil();
+            try {
+                return sftpUtil.isDirSFTP(this.channelSftp, fullPath, fileName);
+            } catch (SftpException ex) {
+                terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
+                terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
             }
         }
-       
         return false;
     }
     
-    private void displayRemoteFileStruct(){
-        ChannelSftp sftpChannel = null;
-        try {
-            sftpChannel = (ChannelSftp) this.session.openChannel("sftp");
-            sftpChannel.connect(5000); // connect sftp to ssh server. time out 5 sec
-            
-            String hostName = this.session.getUserName();
-            
-            //assuming that the remote host runs on unix or linux
-            //here
-            SFTPUtil sftpUtil = new SFTPUtil();
-            String mainPath = sftpUtil.getPWD(SSHClientGui.session, null);
-            //String mainPath = String.format("/home/%s/Desktop",hostName);
-            
-            DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
-            if(sftpChannel.isConnected()){
-                JTreeLoader remoteTreeLoader = new JTreeLoader();
-                remoteTreeLoader.addNodesRemoteSCP(mainPath, nroot, sftpChannel);  
-            }
-            
-            DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
-            model.setAsksAllowsChildren(true);
-            model.setRoot(nroot);
-            model.reload();
-            
-            
-            //set treecellrenderer here
-            
-        } catch (JSchException | SftpException ex) {
-            terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
-            terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
-        }finally{
-            if(sftpChannel != null){
-                sftpChannel.disconnect();
-                System.out.println("sftp disconnected in scpremotefileprompt class");
+    private void displayRemoteFileStruct(){  
+        String hostName = this.session.getUserName();
+
+        //assuming that the remote host runs on unix or linux
+        //here
+        SFTPUtil sftpUtil = new SFTPUtil();
+        String mainPath = sftpUtil.getPWD(SSHClientGui.session, null);
+        //String mainPath = String.format("/home/%s/Desktop",hostName);
+
+        DefaultMutableTreeNode nroot = new DefaultMutableTreeNode(mainPath);
+        if(this.channelSftp.isConnected()){
+            JTreeLoader remoteTreeLoader = new JTreeLoader();
+            try {  
+                remoteTreeLoader.addNodesRemoteSCP(mainPath, nroot, this.channelSftp);
+            } catch (SftpException ex) {
+                terminal.getTerminal().append("[SCP_ERROR] " + ex.getMessage() + "\n");
+                terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + ex.getMessage(), SSHClientGui.LEVEL_ERROR);
             }
         }
+
+        DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
+        model.setAsksAllowsChildren(true);
+        model.setRoot(nroot);
+        model.reload();
+
+    }
+    
+    private ChannelSftp setChannelSftp(){
+        ChannelSftp sftpChannel = null;
+        
+        try {
+            sftpChannel = (ChannelSftp) session.openChannel("sftp");
+            sftpChannel.connect(5000); // connect sftp to ssh server. time out 5 sec
+        }catch(JSchException e) {
+           terminal.getTerminal().append("[SCP_ERROR] " + e.getMessage() + "\n");
+           terminal.getSSHClientGui().writeToGuiConsole("[SCP_ERROR] " + e.getMessage(), SSHClientGui.LEVEL_ERROR);
+           return null;
+        }
+        return sftpChannel;
+    }
+    
+    private void endSFTPChannel(){
+        SFTPUtil sftpUtil = new SFTPUtil();
+        sftpUtil.endSFTPChannel(this.channelSftp, terminal.getSSHClientGui());
     }
 
     /**
@@ -291,12 +300,14 @@ public class SCPRemoteFilePrompt extends javax.swing.JFrame {
                         terminal.getTerminal().append(terminal.getPrompt());
                         terminal.getSSHClientGui().writeToGuiConsole("[SCP_INFO] " + "Remote Server Desktop display closed.", SSHClientGui.LEVEL_INFO);
                         terminal.setIsSCPRemoteFileON(false);
+                        filePrompt.endSFTPChannel();
                     }
                     
                     @Override
                     public void windowClosed(WindowEvent e){
                        
                         terminal.setIsSCPRemoteFileON(false);
+                        filePrompt.endSFTPChannel();
                     }
                 });
             }

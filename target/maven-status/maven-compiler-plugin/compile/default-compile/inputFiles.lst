@@ -1,4 +1,5 @@
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\scp\SCPRemoteFilePrompt.java
+C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\SCPRemoteJTreeLoader.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\sftp\SFTPGui.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\shell\ShellController.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\SSHClient.java
@@ -8,6 +9,7 @@ C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunn
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\scp\SCPModerator.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\scp\SCPCommandLine.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\MyTreeModel.java
+C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\jtreedisplay\RemoteJtreeLoader.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\logging\Logger.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\sftp\SFTPUtil.java
 C:\Users\gpdat\Documents\GitHub\sshtunneling\src\main\java\com\mycompany\sshtunneling\shell\ShellBoundary.java

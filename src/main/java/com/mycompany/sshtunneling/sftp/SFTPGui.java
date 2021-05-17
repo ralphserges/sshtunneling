@@ -7,6 +7,7 @@ import com.mycompany.sshtunneling.SSHClientGui;
 import com.mycompany.sshtunneling.jtreedisplay.FileTreeCellRenderer;
 import com.mycompany.sshtunneling.jtreedisplay.JTreeLoader;
 import com.mycompany.sshtunneling.jtreedisplay.MyTreeModel;
+import com.mycompany.sshtunneling.jtreedisplay.RemoteJtreeLoader;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -327,6 +328,10 @@ public class SFTPGui extends javax.swing.JFrame {
         //set drag and drop 
         remoteJTree.setDragEnabled(true);
         remoteJTree.setDropMode(DropMode.ON_OR_INSERT);
+        
+        RemoteJtreeLoader remoteloader = new RemoteJtreeLoader();
+        remoteJTree.addTreeWillExpandListener(remoteloader);
+        
 
         //transfer data from JTree
         JTreeTransfer transfer = new JTreeTransfer();

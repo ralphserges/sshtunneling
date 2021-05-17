@@ -29,8 +29,8 @@ public class ShellController {
         channelexec.connect();
 
         ret = Shell.getResponse(channelexec, in, command);
+        
         channelexec.disconnect();
-
         System.out.println("Finished sending commands!");
         return ret;
     }
