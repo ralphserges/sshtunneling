@@ -290,7 +290,7 @@ public class SFTPGui extends javax.swing.JFrame {
                         sb.append(tempNodes[i]);
                     }else{
                         //exclude repeated root to be appended again
-                        String tempStr = tempNodes[i].substring(tempNodes[i].lastIndexOf('\\'));
+                        String tempStr = tempNodes[i].substring(tempNodes[i].lastIndexOf(File.separatorChar));
                         //System.out.println("index after first test: " + tempStr);
                         tempStr = tempStr.substring(1); //remove '\'
                         sb.append(File.separatorChar).append(tempStr);
