@@ -94,6 +94,7 @@ public class SSHClientGui extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         protocolComboBox = new javax.swing.JComboBox<>();
+        helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,6 +180,14 @@ public class SSHClientGui extends javax.swing.JFrame {
         protocolComboBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         protocolComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SCP", "SFTP", "SHELL" }));
 
+        helpButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,13 +199,14 @@ public class SSHClientGui extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(helpButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(connectButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(programTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,20 +232,22 @@ public class SSHClientGui extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(18, 18, 18)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(pwLabel)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(hostPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(usernameLabel)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(hostUserNameTF)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(protocolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pwLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(hostPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(usernameLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(hostUserNameTF)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,11 +284,13 @@ public class SSHClientGui extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(connectButton)
-                    .addComponent(exitButton))
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addComponent(helpButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(connectButton)
+                        .addComponent(exitButton)))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         pack();
@@ -402,6 +416,18 @@ public class SSHClientGui extends javax.swing.JFrame {
         //exit program
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+		// Button that opens browser and links to our FAQ page
+        try {
+            String url = "https://uowfyp21s1team24.wordpress.com/faq/";
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+            writeToGuiConsole("redirected to FAQ Page.", LEVEL_INFO);
+        } catch (java.io.IOException e) {
+            writeToGuiConsole("no internet connection found", LEVEL_ERROR);
+        }
+    }//GEN-LAST:event_helpButtonActionPerformed
     
     private void safeExit() {
         if(isSFTPGuiOn)
@@ -499,6 +525,7 @@ public class SSHClientGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connectButton;
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton helpButton;
     private javax.swing.JLabel hosIPLabel;
     private javax.swing.JTextField hostIpAddressTF;
     private javax.swing.JPasswordField hostPasswordTF;
