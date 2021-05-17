@@ -26,6 +26,7 @@ public class SCPModerator {
         this.scpUtil = new SCPUtil(session);
         
         SFTPUtil sftpUtil = new SFTPUtil();
+        
         this.remoteHomeDir = sftpUtil.getPWD(SSHClientGui.session, null);
         //this.remoteHomeDir = String.format("/home/%s/Desktop", session.getUserName());
         
