@@ -3,6 +3,7 @@ package com.mycompany.sshtunneling.scp;
 import com.mycompany.sshtunneling.SSHClientGui;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.mycompany.sshtunneling.sftp.SFTPUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +24,10 @@ public class SCPModerator {
     public SCPModerator(Session session) {
         this.session = session;
         this.scpUtil = new SCPUtil(session);
-        this.remoteHomeDir = String.format("/home/%s/Desktop", session.getUserName());
+        
+        SFTPUtil sftpUtil = new SFTPUtil();
+        this.remoteHomeDir = sftpUtil.getPWD(SSHClientGui.session, null);
+        //this.remoteHomeDir = String.format("/home/%s/Desktop", session.getUserName());
         
     }
     
