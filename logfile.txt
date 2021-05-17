@@ -998,3 +998,167 @@
 2021-05-15 13:28:48 [INFO] SSH client is disconnected from SSH server
 
 ------END OF LOG------
+------START OF LOG------
+2021-05-18 00:31:10 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:31:14 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:31:14 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:31:14 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:31:14 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:31:14 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:31:14 [INFO] SCP channel is created.
+
+2021-05-18 00:32:13 [INFO] [SCP_INFO] Retrieved salt.txt from remote server to local desktop.
+
+2021-05-18 00:33:03 [INFO] [SCP_INFO] pr15p2.JPG has been successfully copied to remote server.
+
+2021-05-18 00:33:37 [INFO] [SCP_INFO] Remote Server Desktop display closed.
+
+2021-05-18 00:33:37 [INFO] SFTP channel is closed.
+
+2021-05-18 00:34:19 [INFO] [SCP_INFO] Remote Server Desktop display closed.
+
+2021-05-18 00:34:19 [INFO] SFTP channel is closed.
+
+2021-05-18 00:34:21 [INFO] SCP channel is closed
+
+2021-05-18 00:34:23 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:34:23 [INFO] SSH client is disconnected from SSH server
+
+2021-05-18 00:34:26 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:34:28 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:34:28 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:34:28 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:34:28 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:34:28 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:34:29 [INFO] SFTP channel is created.
+
+2021-05-18 00:34:30 [INFO] Current Directory: /home/jlsm659
+
+2021-05-18 00:34:59 [INFO] [SFTP_INFO] message.txt is transferred from C:\Users\gpdat\Desktop\message.txt to /home/jlsm659/message.txt 
+
+2021-05-18 00:35:04 [INFO] [SFTP_INFO] pr15p1.JPG is transferred from C:\Users\gpdat\Desktop\pr15p1.JPG to /home/jlsm659/pr15p1.JPG 
+
+2021-05-18 00:35:24 [INFO] [SFTP_INFO] New folder 1235am is created on /home/jlsm659
+
+2021-05-18 00:35:25 [INFO] Current Directory: /home/jlsm659
+
+2021-05-18 00:35:41 [INFO] SFTP channel is closed.
+
+2021-05-18 00:35:45 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:35:45 [INFO] SSH client is disconnected from SSH server
+
+2021-05-18 00:35:50 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:35:53 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:35:53 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:35:53 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:35:53 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:35:53 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:35:54 [INFO] SFTP channel is created.
+
+2021-05-18 00:35:54 [INFO] Current Directory: /home/jlsm659
+
+2021-05-18 00:36:07 [INFO] SFTP channel is closed.
+
+2021-05-18 00:36:10 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:36:10 [INFO] SSH client is disconnected from SSH server
+
+2021-05-18 00:36:10 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:36:12 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:36:12 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:36:12 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:36:12 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:36:12 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:36:12 [INFO] SCP channel is created.
+
+2021-05-18 00:36:38 [INFO] [SCP_INFO] Remote Server Desktop display closed.
+
+2021-05-18 00:36:38 [INFO] SFTP channel is closed.
+
+2021-05-18 00:37:20 [INFO] [SCP_INFO] pr15p3.JPG has been successfully copied to remote server.
+
+2021-05-18 00:38:03 [INFO] [SCP_INFO] message.txt has been successfully copied to remote server.
+
+2021-05-18 00:39:27 [INFO] SCP channel is closed
+
+2021-05-18 00:39:27 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:39:27 [INFO] SSH client is disconnected from SSH server
+
+2021-05-18 00:40:39 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:40:41 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:40:41 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:40:41 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:40:41 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:40:41 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:40:42 [INFO] SFTP channel is created.
+
+2021-05-18 00:40:43 [INFO] Current Directory: /home/jlsm659
+
+2021-05-18 00:41:14 [INFO] [SFTP_INFO] message.txt is retrieved from /home/jlsm659/message.txt to C:\Users\gpdat\Desktop\Screenshots shortcut\message.txt 
+
+2021-05-18 00:41:19 [INFO] [SFTP_INFO] pr15p1.JPG is retrieved from /home/jlsm659/pr15p1.JPG to C:\Users\gpdat\Desktop\Screenshots shortcut\pr15p1.JPG 
+
+2021-05-18 00:41:40 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:41:40 [INFO] SFTP channel is closed.
+
+2021-05-18 00:41:40 [INFO] SSH client is disconnected from SSH server
+
+2021-05-18 00:41:41 [INFO] Connecting to SSH Server on port 22
+
+2021-05-18 00:41:43 [INFO] SSH session is successfully created and connected to SSH server of remote host name capa.its.uow.edu.au
+
+2021-05-18 00:41:43 [INFO] Key exchange algorithm used: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1
+
+2021-05-18 00:41:43 [INFO] encryption algorithms used for server-to-client transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:41:43 [INFO] encryption algorithms used for client-to-server transport: aes128-ctr,aes128-cbc,3des-ctr,3des-cbc,blowfish-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc
+
+2021-05-18 00:41:43 [INFO] No local port forwarding tunneling initiated
+
+2021-05-18 00:41:43 [INFO] SCP channel is created.
+
+2021-05-18 00:42:00 [INFO] [SCP_INFO] Retrieved message.txt from remote server to local desktop.
+
+2021-05-18 00:42:10 [INFO] [SCP_INFO] Retrieved pr15p1.JPG from remote server to local desktop.
+
+2021-05-18 00:43:11 [INFO] SCP channel is closed
+
+2021-05-18 00:43:11 [INFO] Local port forwarding tunnel is closed. SSH client no longer listens on 1111
+
+2021-05-18 00:43:11 [INFO] SSH client is disconnected from SSH server
+
+------END OF LOG------
