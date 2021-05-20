@@ -355,8 +355,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="productIcon">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\xuchi_000\Desktop\sshtunneling\small_securias.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(&quot;small_securias.png&quot;)" type="code"/>
         </Property>
       </Properties>
     </Component>

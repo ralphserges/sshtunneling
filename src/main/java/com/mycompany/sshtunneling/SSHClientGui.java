@@ -190,7 +190,7 @@ public class SSHClientGui extends javax.swing.JFrame {
             }
         });
 
-        productIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\xuchi_000\\Desktop\\sshtunneling\\small_securias.png")); // NOI18N
+        productIcon.setIcon(new javax.swing.ImageIcon("small_securias.png"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -490,7 +490,7 @@ public class SSHClientGui extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
