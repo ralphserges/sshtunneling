@@ -19,7 +19,7 @@ public class SCPModerator {
     private String remoteHomeDir;
     
     private Session session;
-    private List<String> mainFileList = new ArrayList<String>();;
+    private List<String> mainFileList = new ArrayList<String>();
 
     public SCPModerator(Session session) {
         this.session = session;
