@@ -82,8 +82,6 @@ public class JTreeTransfer extends TransferHandler{
         TreePath[] paths = tree.getSelectionPaths();
         System.out.println("createTransferable length: " + paths.length); //
         System.out.println("createTransferable: " + paths[0].getLastPathComponent()); //
-        DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
-        String localRoot = System.getProperty("user.home");
         
         // Make up a node array of copies for transfer and
         // another for/of the nodes incase they are needed to be removed
@@ -93,42 +91,20 @@ public class JTreeTransfer extends TransferHandler{
         DefaultMutableTreeNode copy = copy(node);
         copies.add(copy);
         
-        if (paths != null) {
-            if (model.getRoot().toString().equals(localRoot)) { // local-windows env
-                //if source node have children nodes 
-                for (int i = 1; i <= node.getChildCount(); i++) {
-                    DefaultMutableTreeNode next = (DefaultMutableTreeNode)node.getChildAt(i-1);
-                    System.out.println("createTransferable L(next node): " + next.toString()); //
-                    System.out.println("createTransferable L(next node level): " + next.getLevel()); //
-                    System.out.println("createTransferable L(node level): " + node.getLevel()); //
-                    // Do not allow higher level nodes to be added to list.
-                    if(next.getLevel() < node.getLevel()) {
-                        break;
-                    } else if (next.getLevel() > node.getLevel()) {  // child node
-                        copy.add(copy(next));
-                        // node already contains child/sibling
-                    } else {                                        
-                        copies.add(copy(next));
-                    }
-                }
-               
-            } // end local-windows env
-
-            else {          //remote-linux env
-                for (int i = 1; i < paths.length; i++) {
-                    DefaultMutableTreeNode next = (DefaultMutableTreeNode)paths[i].getLastPathComponent();
-                    System.out.println("createTransferable R(next node): " + next.toString()); //
-                    System.out.println("createTransferable R(next node level): " + next.getLevel()); //
-                    System.out.println("createTransferable R(node level): " + node.getLevel()); //
-                    // Do not allow higher level nodes to be added to list.
-                    if(next.getLevel() < node.getLevel()) {
-                        break;
-                    } else if (next.getLevel() > node.getLevel()) {  // child node
-                        copy.add(copy(next));
-                        // node already contains child/sibling
-                    } else {                                        
-                        copies.add(copy(next));
-                    }
+        if (paths != null) { 
+            for (int i = 1; i < paths.length; i++) {
+                DefaultMutableTreeNode next = (DefaultMutableTreeNode)paths[i].getLastPathComponent();
+                System.out.println("createTransferable (next node): " + next.toString()); //
+                System.out.println("createTransferable (next node level): " + next.getLevel()); //
+                System.out.println("createTransferable (node level): " + node.getLevel()); //
+                // Do not allow higher level nodes to be added to list.
+                if(next.getLevel() < node.getLevel()) {
+                    break;
+                } else if (next.getLevel() > node.getLevel()) {  // child node
+                    copy.add(copy(next));
+                    // node already contains child/sibling
+                } else {                                        
+                    copies.add(copy(next));
                 }
             }
             
